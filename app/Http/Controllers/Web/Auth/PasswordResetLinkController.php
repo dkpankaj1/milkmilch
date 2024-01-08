@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\Web\PasswordForgotRequest;
-use App\Http\Requests\Auth\Web\PasswordResetRequest;
+use App\Http\Requests\Web\Auth\PasswordForgotRequest;
 use App\Models\User;
 use App\Notifications\SendPasswordResetLink;
 use App\Services\OtpService;
@@ -22,16 +21,13 @@ class PasswordResetLinkController extends Controller
  
    function store(PasswordForgotRequest $request): RedirectResponse
     {
-
         $user = User::where('email', $request->input('email'))
             ->where('status', 1)
             ->first();
 
-
         if (!$user) {
             return back()->with(['error' => 'No user with that email address.']);
         }
-
        
         $otp = new OtpService();
 

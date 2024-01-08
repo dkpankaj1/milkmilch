@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth\Api;
+namespace App\Http\Requests\Api\Auth;
 
 use App\Events\LoginEvent;
 use App\Traits\HttpRateLimiter;

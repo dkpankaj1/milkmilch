@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\Api\PasswordForgotRequest;
+use App\Http\Requests\Api\Auth\PasswordForgotRequest;
 use App\Models\User;
 use App\Notifications\SendPasswordResetOtp;
 use App\Services\OtpService;
@@ -21,11 +21,9 @@ class PasswordResetOtpController extends Controller
             ->where('status', 1)
             ->first();
 
-
         if (!$user) {
             return $this->sendError("No user with that email address.", [],404);
         }
-
        
         $otp = new OtpService();
 

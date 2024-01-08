@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\Api\PasswordResetRequest;
+use App\Http\Requests\Api\Auth\PasswordResetRequest;
 use App\Models\User;
 use App\Notifications\SendChangePasswordNotification;
 use App\Services\OtpService;
@@ -16,7 +16,6 @@ class NewPasswordController extends Controller
     use HttpResponses;
     public function store(PasswordResetRequest $request)
     {
-
         $user = User::where('email', $request->email)
         ->where('status',1)
         ->first();
@@ -27,7 +26,6 @@ class NewPasswordController extends Controller
 
         $otpService = new OtpService();
         $otpValidationResult = $otpService->validate($user->email, $request->otp);
-
 
         if ($otpValidationResult->status) {
 
