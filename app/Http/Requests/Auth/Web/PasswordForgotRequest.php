@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Auth\Web;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules;
 
-class PasswordResetRequest extends FormRequest
+class PasswordForgotRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +22,7 @@ class PasswordResetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'otp' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'email','exists:users'],
         ];
     }
 }

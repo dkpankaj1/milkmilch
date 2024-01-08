@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Auth\Web;
+namespace App\Http\Requests\Auth\Api;
 
+use App\Traits\HttpRateLimiter;
+use App\Traits\HttpResponses;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules;
 
-class PasswordResetRequest extends FormRequest
+class PasswordForgotRequest extends FormRequest
 {
+    use HttpResponses,HttpRateLimiter;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,9 +25,11 @@ class PasswordResetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'otp' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'email','exists:users'],
         ];
+    }
+
+    public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator){
+        return $this->sendHttpResponseException('validation error.', $validator->errors());
     }
 }

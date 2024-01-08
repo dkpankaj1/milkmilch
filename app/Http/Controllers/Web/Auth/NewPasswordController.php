@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\Web\PasswordResetRequest;
 use App\Models\User;
 use App\Services\OtpService;
 use Illuminate\Http\RedirectResponse;
@@ -25,27 +26,21 @@ class NewPasswordController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(PasswordResetRequest $request): RedirectResponse
     {
-        $request->validate([
-            'otp' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return Redirect::back()->with(['error' => 'User not found']);
+        }
 
         $otpService = new OtpService();
-        $otpValidationResult = $otpService->validate($request->email, $request->otp);
+        $otpValidationResult = $otpService->validate($user->email, $request->otp);
 
         if ($otpValidationResult->status) {
-            $user = User::where('email', $request->email)->first();
-
-            if ($user) {
-                $this->resetUserPassword($user, $request->password);
-                $user->notify(new SendChangePasswordNotification($user));
-                return Redirect::route('login')->with(['success' => "Your password has been changed successfully"]);
-            }
-
-            return Redirect::back()->with(['error' => 'User not found']);
+            $this->resetUserPassword($user, $request->password);
+            $user->notify(new SendChangePasswordNotification($user));
+            return Redirect::route('login')->with(['success' => "Your password has been changed successfully"]);
         }
 
         return Redirect::back()->with(['error' => $otpValidationResult->message]);

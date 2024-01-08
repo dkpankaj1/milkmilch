@@ -3,43 +3,42 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\LogoutRequest;
-use Illuminate\Http\Request;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Auth\Api\LoginRequest;
+use App\Http\Requests\Auth\Api\LogoutRequest;
+use App\Http\Resources\UserResource;
+use App\Traits\HttpResponses;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
-    public function create(): View
-    {
-        return view('auth.login');
-    }
-
+    use HttpResponses;
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): JsonResponse
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        if (Auth::user()->currentAccessToken()) {
+            Auth::user()->currentAccessToken()->delete();
+        }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $data = [
+            'user' => new UserResource(Auth::user()),
+            'token' => Auth::user()->createToken($request->throttleKey())->plainTextToken,
+        ];
+
+        return $this->sendSuccess("login success", $data, 200);
+
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(LogoutRequest $request): RedirectResponse
+    public function destroy(LogoutRequest $request): JsonResponse
     {
-        $request->destroyAuthenticatedSession();
-
-        return redirect('/');
+        $request->destroyAuthenticatedToken();
+        return $this->sendSuccess("logout success");
     }
 }

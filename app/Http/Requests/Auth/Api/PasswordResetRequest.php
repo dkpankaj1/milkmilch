@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Auth\Web;
+namespace App\Http\Requests\Auth\Api;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\HttpRateLimiter;
+use App\Traits\HttpResponses;
 use Illuminate\Validation\Rules;
+use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordResetRequest extends FormRequest
 {
+    use HttpResponses, HttpRateLimiter;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -27,5 +30,9 @@ class PasswordResetRequest extends FormRequest
             'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
+    }
+
+    public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator){
+        $this->sendHttpResponseException('validation error.', $validator->errors());
     }
 }

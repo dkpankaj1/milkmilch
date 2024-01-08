@@ -7,17 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SendChangePasswordNotification extends Notification
+class SendPasswordResetOtp extends Notification
 {
     use Queueable;
-    protected $user;
+    private $data;
+
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($user)
+    public function __construct($data)
     {
-        $this->user = $user;
+        $this->data = $data;
     }
 
     /**
@@ -36,12 +37,12 @@ class SendChangePasswordNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting('Password Change')
-            ->subject("Password Change")
-            ->line('Dear ,' . $this->user->name)
-            ->line('This is to inform you that your password has been changed for security reasons.')
-            ->line('If you did not initiate this change, please contact us immediately')
-            ->line('Thank you for using our application!');
+        ->subject('Password Reset OTP')
+        ->greeting('Password Reset')
+        ->line('You are receiving this email because we received a password reset request for your account.')
+        ->line('Please use the OTP code below to reset your password.')
+        ->line("{$this->data->token} is your OTP valid for {$this->data->validity} minutes")
+        ->line('Thank you!');
     }
 
     /**
