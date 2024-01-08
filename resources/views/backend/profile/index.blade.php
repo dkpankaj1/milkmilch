@@ -87,7 +87,7 @@
     <!-- Row end -->
 
     <!-- Row start -->
-    <div class="row gutters">
+    {{-- <div class="row gutters">
         <div class="col-lg-8 col-sm-12 col-12">
             <!-- Row start -->
             <div class="row gutters">
@@ -253,7 +253,7 @@
             </div>
             <!-- Row end -->
         </div>
-    </div>
+    </div> --}}
     <!-- Row end -->
 
 </x-app-layout>
