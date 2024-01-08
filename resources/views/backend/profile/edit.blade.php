@@ -1,5 +1,7 @@
 <x-app-layout>
-
+    @push('breadcrumb')
+    {{ Breadcrumbs::render('admin.profile.edit') }}
+    @endpush
     <!-- Row start -->
     <div class="row">
         <div class="col-xl-12">

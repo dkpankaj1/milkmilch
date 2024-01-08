@@ -169,6 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
+
         
     ])->toArray(),
 

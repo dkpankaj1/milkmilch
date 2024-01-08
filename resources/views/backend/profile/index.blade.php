@@ -1,9 +1,11 @@
 <x-app-layout>
+    @push('breadcrumb')
+    {{ Breadcrumbs::render('admin.profile') }}
+    @endpush
 
     <!-- Row start -->
     <div class="row gutters">
         <div class="col-sm-12 col-12">
-
             <div class="profile-header">
                 <h1>Welcome, {{ $user->name }}</h1>
                 <div class="profile-header-content">
