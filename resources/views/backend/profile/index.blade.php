@@ -77,7 +77,7 @@
 
                     </div>
                     <div class="profile-avatar-tile">
-                        <img src="{{auth()->user()->getFirstMediaUrl('avatar')}}" class="img-fluid" alt="Bootstrap Gallery" />
+                        <img src="{{auth()->user()->getFirstMediaUrl('avatar') ?: asset('assets/images/user.svg')}}" class="img-fluid" alt="Bootstrap Gallery" />
                     </div>
                 </div>
             </div>

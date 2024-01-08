@@ -17,7 +17,7 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-12">
                                         <div class="d-flex flex-row">
-                                            <img src="{{auth()->user()->getFirstMediaUrl('avatar')}}"
+                                            <img src="{{auth()->user()->getFirstMediaUrl('avatar') ?: asset('assets/images/user.svg')}}"
                                                 class="img-fluid change-img-avatar border p-1" alt="Image" id="avatar-preview"
                                                 onclick="$('#avatar').click()" style="cursor: pointer">
                                             <input type="file" name="avatar" id="avatar" class="d-none">
