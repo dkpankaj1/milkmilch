@@ -34,9 +34,9 @@
         <ul class="header-actions">
             <li class="dropdown">
                 <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
-                    <span class="user-name d-none d-md-block">Abigale Heaney</span>
+                    <span class="user-name d-none d-md-block">{{auth()->user()->name}}</span>
                     <span class="avatar">
-                        <img src="{{asset('assets/images/user.png')}}" alt="Admin Templates">
+                        <img src="{{asset(auth()->user()->avatar)}}" alt="Admin Templates">
                         <span class="status online"></span>
                     </span>
                 </a>
