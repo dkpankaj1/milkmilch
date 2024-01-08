@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('login_histories', function (Blueprint $table) {
-            $table->id();
+        Schema::create('otps', function (Blueprint $table) {
+            $table->increments('id')->index();
+            $table->string('identifier');
+            $table->string('token');
+            $table->integer('validity');
+            $table->boolean('valid')->default(true);
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('login_histories');
+        Schema::dropIfExists('otps');
     }
 };

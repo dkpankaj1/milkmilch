@@ -7,23 +7,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SendLoginNotification extends Notification
+class SendOtpNotification extends Notification
 {
     use Queueable;
+    private $data;
 
-    protected $user;
-    protected $ip;
-    protected $dateTime;
-    protected $deviceDetails;
     /**
      * Create a new notification instance.
      */
-    public function __construct($user,$ip, $deviceDetails)
+    public function __construct($data)
     {
-        $this->user = $user;
-        $this->ip = $ip;
-        $this->dateTime = now();
-        $this->deviceDetails = $deviceDetails;
+        $this->data = $data;
     }
 
     /**
@@ -42,13 +36,11 @@ class SendLoginNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting('Account Login')
-            ->subject("Login Notification")
-            ->line('You have successfully logged in.')
-            ->line('IP Address: ' . $this->ip)
-            ->line('Date and Time: ' . $this->dateTime)
-            ->line('Device Details: ' . $this->deviceDetails)
-            ->line('Thank you for using our application!');
+            ->greeting('Password Reset')
+            ->subject('Password Reset OTP')
+            ->line('Please use the OTP code below to reset your password.')
+            ->line("{$this->data->token} is your OTP valid for {$this->data->validity} minutes")
+            ->line('Thank you!');
     }
 
     /**

@@ -7,23 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SendLoginNotification extends Notification
+class SendPasswordResetLink extends Notification
 {
     use Queueable;
+    private $data;
+    private $url;
 
-    protected $user;
-    protected $ip;
-    protected $dateTime;
-    protected $deviceDetails;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct($user,$ip, $deviceDetails)
+    public function __construct($data,$url)
     {
-        $this->user = $user;
-        $this->ip = $ip;
-        $this->dateTime = now();
-        $this->deviceDetails = $deviceDetails;
+        $this->data = $data;
+        $this->url = $url;
     }
 
     /**
@@ -42,13 +39,14 @@ class SendLoginNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting('Account Login')
-            ->subject("Login Notification")
-            ->line('You have successfully logged in.')
-            ->line('IP Address: ' . $this->ip)
-            ->line('Date and Time: ' . $this->dateTime)
-            ->line('Device Details: ' . $this->deviceDetails)
-            ->line('Thank you for using our application!');
+        ->subject('Password Reset Link')
+        ->greeting('Password Reset')
+        ->line('You are receiving this email because we received a password reset request for your account.')
+        ->line('Please use the OTP code below to reset your password.')
+        ->line("{$this->data->token} is your OTP valid for {$this->data->validity} minutes")
+        ->action('Click here to Reset Password', $this->url)
+        ->line('If you did not request a password reset, no further action is required.')
+        ->line('Thank you!');
     }
 
     /**

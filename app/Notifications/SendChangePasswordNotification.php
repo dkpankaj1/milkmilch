@@ -10,13 +10,14 @@ use Illuminate\Notifications\Notification;
 class SendChangePasswordNotification extends Notification
 {
     use Queueable;
+    protected $user;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -35,9 +36,12 @@ class SendChangePasswordNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting(' Password Change')
+            ->subject(" Password Change Notification")
+            ->line('Dear ,' . $this->user->name)
+            ->line('This is to inform you that your password has been changed for security reasons.')
+            ->line('If you did not initiate this change, please contact us immediately')
+            ->line('Thank you for using our application!');
     }
 
     /**
