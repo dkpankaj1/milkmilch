@@ -41,6 +41,7 @@
 
     <!-- Scrollbar CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/overlay-scroll/OverlayScrollbars.min.css') }}">
+    @stack('styles')
 
 </head>
 

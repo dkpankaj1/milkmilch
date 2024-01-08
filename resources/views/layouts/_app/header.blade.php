@@ -36,14 +36,14 @@
                 <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
                     <span class="user-name d-none d-md-block">{{auth()->user()->name}}</span>
                     <span class="avatar">
-                        <img src="{{asset(auth()->user()->avatar)}}" alt="Admin Templates">
+                        <img src="{{auth()->user()->getFirstMediaUrl('avatar','avatar')}}" alt="Admin Templates">
                         <span class="status online"></span>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userSettings">
                     <div class="header-profile-actions">
-                        <a href="profile.html">Profile</a>
-                        <a href="account-settings.html">Settings</a>
+                        <a href="{{route('admin.profile')}}">Profile</a>
+                        <a href="{{route('admin.profile.edit')}}">Settings</a>
                         <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                     </div>
                 </div>

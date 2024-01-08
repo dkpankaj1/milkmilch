@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             'state'     => $this->state,
             'postalCode' => $this->postal_code,
             'country'   => $this->country,
-            'avatar'    => $this->avatar,
+            'avatar'    => $this->getFirstMediaUrl('avatar', 'avatar'),
             "status"    => $this->status ? "active" : "in-active",
             'role'      => $this->role->name,
         ];
