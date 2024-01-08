@@ -62,7 +62,8 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('admin.profile')->with('success', 'profile-updated');
+        toastr()->success('Profile updated successfully!');
+        return Redirect::route('admin.profile');
     }
 
 }

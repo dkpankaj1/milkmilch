@@ -41,6 +41,10 @@
 
     <!-- Scrollbar CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/overlay-scroll/OverlayScrollbars.min.css') }}">
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
+
     @stack('styles')
 
 </head>
@@ -140,6 +144,9 @@
     <!-- Overlay Scroll JS -->
     <script src="{{ asset('assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/overlay-scroll/custom-scrollbar.j') }}s"></script>
+
+    <!-- Toastr JS -->
+    <script src="{{ asset('assets/vendor/toastr/toastr.min.js') }}s"></script>
 
     {{-- custome script::begin --}}
     @stack('scripts')
