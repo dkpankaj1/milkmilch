@@ -29,6 +29,6 @@ class LoginEventListener
             'user_agent' => $event->userAgent
         ]);
 
-        $event->user->notify(new \App\Notifications\SendLoginNotification($event->user,$event->ip,$event->userAgent));
+        // $event->user->notify(new \App\Notifications\SendLoginNotification($event->user,$event->ip,$event->userAgent));
     }
 }

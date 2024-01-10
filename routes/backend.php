@@ -1,5 +1,8 @@
 <?php
 use App\Http\Controllers\Web\Backend\DashboardController;
+use App\Http\Controllers\Web\Backend\RiderController;
+use App\Http\Controllers\Web\Backend\SupplierController;
+use App\Http\Controllers\Web\Backend\UserController;
 use App\Http\Controllers\Web\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +16,16 @@ Route::group(
     function () {
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::resource('riders',RiderController::class);
+        Route::get('riders/delete/{rider}',[RiderController::class,'delete'])->name('riders.delete');
+
+
+        Route::resource('suppliers',SupplierController::class);
+        Route::get('suppliers/delete/{supplier}',[SupplierController::class,'delete'])->name('suppliers.delete');
+
+        Route::resource('users',UserController::class);
+        Route::get('users/delete/{user}',[UserController::class,'delete'])->name('users.delete');
 
         Route::get('profile',[ProfileController::class,'show'])->name('profile');
         Route::get('profile-edit',[ProfileController::class,'edit'])->name('profile.edit');

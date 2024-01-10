@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}">
 
     <!-- Title -->
-    <title>Bootstrap Admin Dashboards</title>
+    <title>MilkMilch - Admin</title>
 
 
     <!-- *************
@@ -146,7 +146,7 @@
     <script src="{{ asset('assets/vendor/overlay-scroll/custom-scrollbar.j') }}s"></script>
 
     <!-- Toastr JS -->
-    <script src="{{ asset('assets/vendor/toastr/toastr.min.js') }}s"></script>
+    <script src="{{ asset('assets/vendor/toastr/toastr.min.js') }}"></script>
 
     {{-- custome script::begin --}}
     @stack('scripts')

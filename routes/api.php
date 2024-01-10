@@ -3,6 +3,9 @@
 use App\Http\Controllers\Api\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
 use App\Http\Controllers\Api\Auth\PasswordResetOtpController;
+use App\Http\Controllers\Api\Backend\RiderController;
+use App\Http\Controllers\Api\Backend\SupplierController;
+use App\Http\Controllers\Api\Backend\UserController;
 use App\Http\Controllers\Api\Profile\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +33,10 @@ Route::put('reset-password', [NewPasswordController::class, 'store']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
+
+    Route::apiResource('riders',RiderController::class);
+    Route::apiResource('suppliers',SupplierController::class);
+    Route::apiResource('users', UserController::class);
 
     Route::get('profile',[ProfileController::class,'show']);
     Route::put('profile-edit',[ProfileController::class,'update']);

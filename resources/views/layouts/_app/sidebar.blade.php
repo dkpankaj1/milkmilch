@@ -1,7 +1,7 @@
 <div class="sidebar-menu">
     <div class="sidebarMenuScroll">
         <ul>
-            <li class="sidebar-dropdown active">
+            <li class="sidebar-dropdown">
                 <a href="#">
                     <i class="bi bi-house"></i>
                     <span class="menu-text">Dashboards</span>
@@ -241,28 +241,59 @@
                     </ul>
                 </div>
             </li>
+            {{-- @role('admin') --}}
+
             <li class="sidebar-dropdown">
                 <a href="#">
-                    <i class="bi bi-x-diamond"></i>
-                    <span class="menu-text">Authentication</span>
+                    <i class="bi bi-people"></i>
+                    <span class="menu-text">Supplier Setting</span>
                 </a>
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="login.html">Login</a>
+                            <a href="{{route('admin.suppliers.create')}}">Add New</a>
                         </li>
                         <li>
-                            <a href="signup.html">Signup</a>
-                        </li>
-                        <li>
-                            <a href="error.html">Error</a>
-                        </li>
-                        <li>
-                            <a href="maintenance.html">Maintenance</a>
+                            <a href="{{route('admin.suppliers.index')}}">List</a>
                         </li>
                     </ul>
                 </div>
             </li>
+
+            <li class="sidebar-dropdown">
+                <a href="#">
+                    <i class="bi bi-person"></i>
+                    <span class="menu-text">Rider Setting</span>
+                </a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.riders.create')}}">Add New</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.riders.index')}}">List</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="sidebar-dropdown">
+                <a href="#">
+                    <i class="bi bi-person-workspace"></i>
+                    <span class="menu-text">User Setting</span>
+                </a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.users.create')}}">Add New</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.users.index')}}">List</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {{-- @endrole --}}
             <li>
                 <a href="starter-page.html">
                     <i class="bi bi-hand-index-thumb"></i>

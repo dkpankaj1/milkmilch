@@ -31,8 +31,7 @@ class User extends Authenticatable implements HasMedia
         'state',
         'postal_code',
         'country',
-        'avatar',
-        'role',
+        'role_id',
         'status'
     ];
 
