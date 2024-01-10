@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Web\Backend\CategorieController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SupplierController;
@@ -14,6 +15,11 @@ Route::group(
         'middleware' => ['auth']
     ],
     function () {
+
+
+        Route::resource('categories',CategorieController::class);
+        Route::get('categories/delete/{category}',[CategorieController::class,'delete'])->name('categories.delete');
+
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

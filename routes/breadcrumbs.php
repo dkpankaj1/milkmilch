@@ -8,6 +8,26 @@ Breadcrumbs::for('dashboard', function ($trail) {
 });
 
 
+// >>Dashboard > categorie
+Breadcrumbs::for('admin.categories.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Categorie', route('admin.categories.index'));
+});
+
+// >>Dashboard > categorie > create
+Breadcrumbs::for('admin.categories.create', function ($trail) {
+    $trail->parent('admin.categories.index');
+    $trail->push('Add', route('admin.categories.create'));
+});
+
+// >>Dashboard > categorie > edit
+Breadcrumbs::for('admin.categories.edit', function ($trail,$category) {
+    $trail->parent('admin.categories.index');
+    $trail->push('Edit', route('admin.categories.edit',$category));
+});
+
+
+
 // >>Dashboard > riders
 Breadcrumbs::for('admin.riders.index', function ($trail) {
     $trail->parent('dashboard');
