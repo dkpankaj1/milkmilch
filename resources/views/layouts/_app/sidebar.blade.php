@@ -8,6 +8,30 @@
                 </a>
             </li>
             
+            <li class="sidebar-dropdown">
+                <a href="#">
+                    <i class="bi bi-handbag"></i>
+                    <span class="menu-text">Product</span>
+                </a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="layout.html">Product List</a>
+                        </li>
+                        <li>
+                            <a href="layout.html">Product Add</a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('admin.categories.index')}}">Categories List</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.categories.create')}}">Categories Add</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            
             {{-- @role('admin') --}}
 
             <li class="sidebar-dropdown">
@@ -78,6 +102,7 @@
                 </div>
             </li>
             {{-- @endrole --}}
+            
             <li>
                 <a href="#">
                     <i class="bi bi-hand-index-thumb"></i>
