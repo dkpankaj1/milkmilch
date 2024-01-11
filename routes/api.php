@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -34,7 +35,7 @@ Route::post('forgot-password', [PasswordResetOtpController::class, "store"]);
 Route::put('reset-password', [NewPasswordController::class, 'store']);
 
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
+Route::group(['middleware' => ['auth:sanctum','api_roles:customer,rider,supplier']], function () {
 
 
     Route::apiResource('riders',RiderController::class);
