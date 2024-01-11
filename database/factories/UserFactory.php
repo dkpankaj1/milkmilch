@@ -30,8 +30,13 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role_id' => Role::inRandomOrder()->first()->id,
+            'role_id' => fake()->randomElement([1,2,3,4,5]),
             'status' => $this->faker->randomElement([1, 0]),
+            'phone' => $this->faker->phoneNumber(),
+            'address' => $this->faker->streetAddress(),
+            'city' => $this->faker->city(),
+            'state' => $this->faker->address(),
+            'postal_code' => $this->faker->postcode(),
         ];
     }
 
@@ -40,7 +45,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
