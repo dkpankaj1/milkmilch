@@ -9,12 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable,InteractsWithMedia;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -55,15 +54,30 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
-    public function role(){
-        return $this->belongsTo(Role::class);
-    }
     public function registerMediaConversions(Media $media = null): void
     {
-        $this
-            ->addMediaConversion('avatar')
+        $this->addMediaConversion('avatar')
             ->width(100)
             ->height(100)
             ->nonQueued();
     }
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    public function riders()
+    {
+        return $this->hasMany(Rider::class);
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function suppliers()
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
 }

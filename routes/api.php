@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Api\Auth\CustomerRegisterController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
 use App\Http\Controllers\Api\Auth\PasswordResetOtpController;
+use App\Http\Controllers\Api\Auth\PasswordUpdateController;
 use App\Http\Controllers\Api\Backend\RiderController;
 use App\Http\Controllers\Api\Backend\SupplierController;
 use App\Http\Controllers\Api\Backend\UserController;
@@ -25,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('register', [CustomerRegisterController::class, "store"]);
 
 Route::post('login', [AuthenticatedSessionController::class, "store"]);
 Route::post('forgot-password', [PasswordResetOtpController::class, "store"]);
@@ -40,5 +43,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::get('profile',[ProfileController::class,'show']);
     Route::put('profile-edit',[ProfileController::class,'update']);
+    Route::put('update-password',[PasswordUpdateController::class,'update']);
     Route::post("logout", [AuthenticatedSessionController::class, "destroy"]);
 });

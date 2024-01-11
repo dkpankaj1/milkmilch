@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Web\Auth\PasswordUpdateConreoller;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SupplierController;
@@ -30,6 +31,7 @@ Route::group(
         Route::get('profile',[ProfileController::class,'show'])->name('profile');
         Route::get('profile-edit',[ProfileController::class,'edit'])->name('profile.edit');
         Route::put('profile-edit',[ProfileController::class,'update'])->name('profile.update');
+        Route::put('update-password',[PasswordUpdateConreoller::class,'update'])->name('password.update');
 
     }
 )

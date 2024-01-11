@@ -18,7 +18,7 @@
 		<link rel="shortcut icon" href="assets/images/favicon.svg">
 
 		<!-- Title -->
-		<title>Bootstrap Admin Dashboards</title>
+		<title>Login / Register - Milkmilch</title>
 
 		<!-- *************
 			************ Common Css Files *************

@@ -1,6 +1,6 @@
 <x-app-layout>
     @push('breadcrumb')
-    {{ Breadcrumbs::render('admin.profile') }}
+        {{ Breadcrumbs::render('admin.profile') }}
     @endpush
 
     <!-- Row start -->
@@ -77,11 +77,74 @@
 
                     </div>
                     <div class="profile-avatar-tile">
-                        <img src="{{auth()->user()->getFirstMediaUrl('avatar') ?: asset('assets/images/user.svg')}}" class="img-fluid" alt="Bootstrap Gallery" />
+                        <img src="{{ auth()->user()->getFirstMediaUrl('avatar') ?:asset('assets/images/user.svg') }}"
+                            class="img-fluid" alt="Bootstrap Gallery" />
                     </div>
                 </div>
             </div>
 
+        </div>
+
+
+        <div class="col-sm-12 col-12">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="card-border">
+                        <div class="card-border-title">
+                            Update Password
+                        </div>
+                        <div class="card-border-body">
+                            <form action="{{route('admin.password.update')}}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Current Password <span
+                                                    class="text-red">*</span></label>
+                                            <input type="password" name="current_password" class="form-control"
+                                                placeholder="Enter Current Password">
+                                            @error('current_password')
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">New Password <span
+                                                    class="text-red">*</span></label>
+                                            <input type="password" name="password" class="form-control"
+                                                placeholder="Enter New Password">
+                                            @error('password')
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Confirm Password <span
+                                                    class="text-red">*</span></label>
+                                            <input type="password" name="password_confirmation" class="form-control"
+                                                placeholder="Confirm Password">
+                                            @error('password_confirmation')
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-12">
+                                        <hr>
+                                        <button class="btn btn-info">Update Password</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Row end -->

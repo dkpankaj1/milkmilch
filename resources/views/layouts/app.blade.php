@@ -107,7 +107,7 @@
 
                 <!-- App Footer start -->
                 <div class="app-footer">
-                    <span>© Arise admin 2024</span>
+                    <span>© Cortex It Solution admin 2024</span>
                 </div>
                 <!-- App footer end -->
 
