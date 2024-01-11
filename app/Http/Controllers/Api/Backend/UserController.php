@@ -28,7 +28,7 @@ class UserController extends Controller
         $users = User::whereHas('role', function ($query) {
                 $query->where('name', 'staff');
             })
-            ->paginate(2);
+            ->paginate();
 
         return new UserCollection($users);
     }

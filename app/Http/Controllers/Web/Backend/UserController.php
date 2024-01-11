@@ -25,7 +25,7 @@ class UserController extends Controller
         // Retrieve staff users and paginate the results
         $users = User::whereHas('role', function ($query) {
             $query->where('name', 'staff');
-        })->latest()->paginate(2);
+        })->latest()->paginate();
 
         // Return the view with a UserCollection instance
         return view('backend.users.index', ['users' => new UserCollection($users)]);
