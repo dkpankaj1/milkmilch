@@ -103,7 +103,7 @@ class UserController extends Controller
                 'city' => $request->city ?? $user->city,
                 'state' => $request->state ?? $user->state,
                 'postal_code' => $request->postal_code ?? $user->postal_code,
-                'role_id' => Role::where('name','staff')->first()->id,,
+                'role_id' => Role::where('name','staff')->first()->id,
                 'status' => $request->has('status') ? $request->status : $user->status
             ]);
 

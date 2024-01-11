@@ -7,6 +7,25 @@ Breadcrumbs::for('dashboard', function ($trail) {
     $trail->push('Dashboard', route('admin.dashboard'));
 });
 
+// >>Dashboard > customers
+Breadcrumbs::for('admin.customers.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Customer', route('admin.customers.index'));
+});
+
+// >>Dashboard > customers > create
+Breadcrumbs::for('admin.customers.create', function ($trail) {
+    $trail->parent('admin.customers.index');
+    $trail->push('Add', route('admin.customers.create'));
+});
+
+
+// >>Dashboard > customers > edit
+Breadcrumbs::for('admin.customers.edit', function ($trail,$customer) {
+    $trail->parent('admin.customers.index');
+    $trail->push('Edit', route('admin.customers.edit',$customer));
+});
+
 
 // >>Dashboard > riders
 Breadcrumbs::for('admin.riders.index', function ($trail) {

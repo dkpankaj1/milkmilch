@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Web\Auth\PasswordUpdateConreoller;
+use App\Http\Controllers\Web\Backend\CustomerController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SupplierController;
@@ -17,6 +18,9 @@ Route::group(
     function () {
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::resource('customers',CustomerController::class);
+        Route::get('customers/delete/{customer}',[CustomerController::class,'delete'])->name('customers.delete');
 
         Route::resource('riders',RiderController::class);
         Route::get('riders/delete/{rider}',[RiderController::class,'delete'])->name('riders.delete');
