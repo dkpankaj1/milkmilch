@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Backend\CategorieController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SupplierController;
+use App\Http\Controllers\Web\Backend\UnitSettingController;
 use App\Http\Controllers\Web\Backend\UserController;
 use App\Http\Controllers\Web\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,9 @@ Route::group(
 
         Route::resource('suppliers',SupplierController::class);
         Route::get('suppliers/delete/{supplier}',[SupplierController::class,'delete'])->name('suppliers.delete');
+
+        Route::resource('units',UnitSettingController::class);
+        Route::get('units/delete/{unit}',[UnitSettingController::class,'delete'])->name('units.delete');
 
         Route::resource('users',UserController::class);
         Route::get('users/delete/{user}',[UserController::class,'delete'])->name('users.delete');

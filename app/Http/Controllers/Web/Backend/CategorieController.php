@@ -68,7 +68,7 @@ class CategorieController extends Controller
      */
     public function edit(Categorie $category): View
     {
-        return view('backend.categorie.edit', ['category' => $category]);
+        return view('backend.categorie.edit', ['categorie' => $category]);
     }
 
     /**
@@ -107,7 +107,7 @@ class CategorieController extends Controller
      */
     public function delete(Categorie $category): View
     {
-        return view('backend.categorie.delete', ['category' => $category]);
+        return view('backend.categorie.delete', ['categorie' => $category]);
     }
 
     /**

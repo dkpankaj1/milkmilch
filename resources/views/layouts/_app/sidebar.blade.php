@@ -25,9 +25,6 @@
                         <li>
                             <a href="{{route('admin.categories.index')}}">Categories List</a>
                         </li>
-                        <li>
-                            <a href="{{route('admin.categories.create')}}">Categories Add</a>
-                        </li>
                     </ul>
                 </div>
             </li>
@@ -102,6 +99,20 @@
                 </div>
             </li>
             {{-- @endrole --}}
+
+            <li class="sidebar-dropdown">
+                <a href="#">
+                    <i class="bi bi-sliders"></i>
+                    <span class="menu-text">Setting</span>
+                </a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.units.index')}}">Unit Setting</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             
             <li>
                 <a href="#">

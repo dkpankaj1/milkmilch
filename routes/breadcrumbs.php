@@ -107,6 +107,25 @@ Breadcrumbs::for('admin.users.edit', function ($trail,$user) {
 });
 
 
+// >>Dashboard > units
+Breadcrumbs::for('admin.units.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Units', route('admin.units.index'));
+});
+
+// >>Dashboard > units > create
+Breadcrumbs::for('admin.units.create', function ($trail) {
+    $trail->parent('admin.units.index');
+    $trail->push('Add', route('admin.units.create'));
+});
+
+// >>Dashboard > units > edit
+Breadcrumbs::for('admin.units.edit', function ($trail,$unit) {
+    $trail->parent('admin.units.index');
+    $trail->push('Edit', route('admin.units.edit',$unit));
+});
+
+
 
 
 

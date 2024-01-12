@@ -1,6 +1,6 @@
 <x-app-layout>
     @push('breadcrumb')
-        {{ Breadcrumbs::render('admin.categories.index') }}
+        {{ Breadcrumbs::render('admin.units.index') }}
     @endpush
 
     <!-- Row start -->
@@ -8,10 +8,11 @@
         <div class="col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Categories</div>
-                    <a href="{{route('admin.categories.create')}}" class="btn btn-outline-info"><i class="bi bi-plus-square"></i> Add</a>
+                    <div class="card-title">Units</div>
+                    <a href="{{route('admin.units.create')}}" class="btn btn-outline-info"><i class="bi bi-plus-square"></i> Add</a>
                 </div>
                 <div class="card-body">
+
                     <div class="table-responsive mb-3">
                         <table class="table v-middle m-0">
                             <thead>
@@ -25,13 +26,13 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($categories as $categorie)
+                                @foreach ($units as $unit)
                                     <tr>
-                                        <td>CT-{{ $categorie->id }}</td>
-                                        <td>{{ $categorie->name }}</td>
-                                        <td>{{ $categorie->description }}</td>
+                                        <td>UT-{{ $unit->id }}</td>
+                                        <td>{{ $unit->name }}</td>
+                                        <td>{{ $unit->description }}</td>
                                         <td>
-                                            {!! $categorie->status != 1
+                                            {!! $unit->status != 1
                                                 ? '<span class="badge shade-red min-70">Blocked</span>'
                                                 : '<span class="badge shade-green min-70">Active</span>' !!}
                                         </td>
@@ -40,10 +41,10 @@
                                                 {{-- <a href="#" class="viewRow">
                                                     <i class="bi bi-list text-green"></i>
                                                 </a> --}}
-                                                <a href="{{ route('admin.categories.edit', $categorie)}}" >
+                                                <a href="{{ route('admin.units.edit', $unit)}}" >
                                                     <i class="bi bi-pencil-square text-info"></i>
                                                 </a>
-                                                <a href="#" class="delete-btn" data-attr="{{ route('admin.categories.delete', $categorie) }}">
+                                                <a href="#" class="delete-btn" data-attr="{{ route('admin.units.delete', $unit) }}">
                                                     <i class="bi bi-trash text-red"></i>
                                                 </a>
                                             </div>
@@ -56,7 +57,7 @@
                         </table>
                     </div>
                     <div class="col-12">
-                        {{ $categories->links() }}
+                        {{ $units->links() }}
                     </div>
                 </div>
             </div>
