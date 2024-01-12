@@ -6,19 +6,30 @@ use App\Http\Controllers\Controller;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
+/**
+ * Class UnitSettingController
+ *
+ * @package App\Http\Controllers\Web\Backend
+ */
 class UnitSettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a paginated list of units.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
+        // Retrieve and paginate the latest units
         $units = Unit::latest()->paginate(10);
         return view('backend.unit.index', compact('units'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new unit.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -26,16 +37,19 @@ class UnitSettingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created unit in storage.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
+        // Validate the incoming request
         $request->validate([
             'name' => ['required', 'unique:units,name'],
             'description' => ['required'],
             'status' => ['required']
         ]);
-
 
         $data = [
             'name' => $request->name,
@@ -44,25 +58,35 @@ class UnitSettingController extends Controller
         ];
 
         try {
+            // Create a new unit record
             Unit::create($data);
+
+            // Display success message and redirect back
             toastr()->success(trans('crud.create', ['model' => 'unit']));
             return redirect()->back();
         } catch (\Exception $e) {
+            // Display error message and redirect back
             toastr()->error($e->getMessage());
             return redirect()->back();
         }
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified unit.
+     *
+     * @param  Unit  $unit
+     * @return void
      */
     public function show(Unit $unit)
     {
-        //
+        // No specific action for showing a unit
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified unit.
+     *
+     * @param  Unit  $unit
+     * @return \Illuminate\View\View
      */
     public function edit(Unit $unit)
     {
@@ -70,10 +94,15 @@ class UnitSettingController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified unit in storage.
+     *
+     * @param  Request  $request
+     * @param  Unit  $unit
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Unit $unit)
     {
+        // Validate the incoming request
         $request->validate([
             'name' => ['required', 'unique:units,name,'.$unit->id],
             'description' => ['required'],
@@ -87,39 +116,49 @@ class UnitSettingController extends Controller
         ];
 
         try {
+            // Update the unit record
             $unit->update($data);
+
+            // Display success message and redirect back
             toastr()->success(trans('crud.update', ['model' => 'unit']));
             return redirect()->back();
         } catch (\Exception $e) {
+            // Display error message and redirect back
             toastr()->error($e->getMessage());
             return redirect()->back();
         }
     }
 
+    /**
+     * Show the form for confirming the deletion of the specified unit.
+     *
+     * @param  Unit  $unit
+     * @return \Illuminate\View\View
+     */
     public function delete(Unit $unit)
     {
         return view('backend.unit.delete', ['unit' => $unit]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified unit from storage.
+     *
+     * @param  Unit  $unit
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Unit $unit)
     {
         try {
-
+            // Delete the unit record
             $unit->delete();
 
-            toastr()->success(trans('crud.delete', ['model' => 'supplier']));
-
+            // Display success message and redirect back
+            toastr()->success(trans('crud.delete', ['model' => 'unit']));
             return redirect()->back();
-
         } catch (\Exception $e) {
-
+            // Display error message and redirect back
             toastr()->error($e->getMessage());
-
             return redirect()->back();
-
         }
     }
 }
