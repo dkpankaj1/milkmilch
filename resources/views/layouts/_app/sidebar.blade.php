@@ -110,6 +110,9 @@
                         <li>
                             <a href="{{route('admin.units.index')}}">Unit Setting</a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.currencies.index')}}">Currency Setting</a>
+                        </li>
                     </ul>
                 </div>
             </li>
