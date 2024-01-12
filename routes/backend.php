@@ -18,7 +18,7 @@ Route::group(
         'namespace' => 'App\Http\Controllers\Web\Backend',
         'prefix' => 'admin',
         'as' => 'admin.',
-        // 'middleware' => ['auth','roles:admin,staff']
+        'middleware' => ['auth','roles:admin,staff']
     ],
     function () {
 
