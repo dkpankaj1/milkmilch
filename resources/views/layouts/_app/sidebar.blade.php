@@ -103,15 +103,15 @@
             <li class="sidebar-dropdown">
                 <a href="#">
                     <i class="bi bi-sliders"></i>
-                    <span class="menu-text">Setting</span>
+                    <span class="menu-text">Master</span>
                 </a>
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="{{route('admin.units.index')}}">Unit Setting</a>
+                            <a href="{{route('admin.units.index')}}">Unit Master</a>
                         </li>
                         <li>
-                            <a href="{{route('admin.currencies.index')}}">Currency Setting</a>
+                            <a href="{{route('admin.currencies.index')}}">Currency Master</a>
                         </li>
                     </ul>
                 </div>
