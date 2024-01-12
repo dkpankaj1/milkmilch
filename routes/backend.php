@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\Auth\PasswordUpdateConreoller;
-use App\Http\Controllers\Web\Backend\CurrenctSettingController;
+use App\Http\Controllers\Web\Backend\CurrencySettingController;
 use App\Http\Controllers\Web\Backend\CustomerController;
 use App\Http\Controllers\Web\Backend\CategorieController;
 use App\Http\Controllers\Web\Backend\DashboardController;
@@ -29,8 +29,8 @@ Route::group(
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::resource('currencies',CurrenctSettingController::class);
-        Route::get('currencies/delete/{currency}',[CurrenctSettingController::class,'delete'])->name('currencies.delete');
+        Route::resource('currencies',CurrencySettingController::class);
+        Route::get('currencies/delete/{currency}',[CurrencySettingController::class,'delete'])->name('currencies.delete');
 
         Route::resource('customers',CustomerController::class);
         Route::get('customers/delete/{customer}',[CustomerController::class,'delete'])->name('customers.delete');
