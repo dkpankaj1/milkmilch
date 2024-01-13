@@ -20,7 +20,7 @@ class PasswordUpdateController extends Controller
 
         } catch (\Exception $e) {
 
-            return $this->sendError(trans('api.401'), ["error" => $e->getMessage()], 401);
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
 
         }
 

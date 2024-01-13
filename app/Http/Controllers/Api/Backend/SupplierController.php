@@ -78,7 +78,7 @@ class SupplierController extends Controller
             return $this->sendSuccess(trans('crud.create', ['model' => 'supplier']), new SupplierResource($supplier), 200);
         } catch (\Exception $e) {
             // Return an error response if an exception occurs
-            return $this->sendError(trans('api.401'), ["error" => $e->getMessage()], 401);
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
         }
     }
 
@@ -120,7 +120,7 @@ class SupplierController extends Controller
             return $this->sendSuccess(trans('crud.update', ['model' => 'supplier']), new SupplierResource($supplier), 200);
         } catch (\Exception $e) {
             // Return an error response if an exception occurs
-            return $this->sendError(trans('api.401'), ["error" => $e->getMessage()], 401);
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
         }
     }
 
@@ -140,7 +140,7 @@ class SupplierController extends Controller
             return $this->sendSuccess(trans('crud.delete', ['model' => 'supplier']), []);
         } catch (\Exception $e) {
             // Return an error response if an exception occurs
-            return $this->sendError(trans('crud.401'), ["error" => $e->getMessage()],401);
+            return $this->sendError(trans('crud.422'), ["error" => $e->getMessage()],422);
         }
     }
 }

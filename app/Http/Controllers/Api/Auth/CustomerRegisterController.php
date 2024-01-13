@@ -37,7 +37,7 @@ class CustomerRegisterController extends Controller
             return $this->sendSuccess("register success", $user, 200);
 
         } catch (\Exception $e) {
-            return $this->sendError(trans('api.500'),$e->getMessage(), 401);
+            return $this->sendError(trans('api.500'),$e->getMessage(), 500);
         }
 
     }

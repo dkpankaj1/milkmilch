@@ -73,7 +73,7 @@ class RiderController extends Controller
             return $this->sendSuccess(trans('crud.create', ['model' => 'rider']), new RiderResource($rider), 200);
         } catch (\Exception $e) {
             // Return an error response if an exception occurs
-            return $this->sendError(trans('api.401'), ["error" => $e->getMessage()], 401);
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
         }
     }
 
@@ -115,7 +115,7 @@ class RiderController extends Controller
             return $this->sendSuccess(trans('crud.update', ['model' => 'rider']), new RiderResource($rider), 200);
         } catch (\Exception $e) {
             // Return an error response if an exception occurs
-            return $this->sendError(trans('api.401'), ["error" => $e->getMessage()], 401);
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
         }
     }
 
@@ -135,7 +135,7 @@ class RiderController extends Controller
             return $this->sendSuccess(trans('crud.delete', ['model' => 'rider']), []);
         } catch (\Exception $e) {
             // Return an error response if an exception occurs
-            return $this->sendError(trans('crud.401'), ["error" => $e->getMessage()], 401);
+            return $this->sendError(trans('crud.422'), ["error" => $e->getMessage()], 422);
         }
     }
 }

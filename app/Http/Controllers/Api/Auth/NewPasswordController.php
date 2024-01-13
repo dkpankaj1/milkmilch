@@ -34,7 +34,7 @@ class NewPasswordController extends Controller
             return $this->sendSuccess(trans('profile.password.success'),[],200);
         }
 
-        return $this->sendError($otpValidationResult->message,[], 401);
+        return $this->sendError($otpValidationResult->message,[], 422);
 
     }
 

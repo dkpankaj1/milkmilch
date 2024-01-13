@@ -68,7 +68,7 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             // Return error response in case of an exception
-            return $this->sendError(trans('api.401'), ["error" => $e->getMessage()], 401);
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
         }
     }
 
@@ -112,7 +112,7 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             // Return error response in case of an exception
-            return $this->sendError(trans('crud.401'), ["error" => $e->getMessage()]);
+            return $this->sendError(trans('crud.422'), ["error" => $e->getMessage()],422);
         }
     }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             // Return error response in case of an exception
-            return $this->sendError(trans('crud.401'), ["error" => $e->getMessage()]);
+            return $this->sendError(trans('crud.401'), ["error" => $e->getMessage()],422);
         }
     }
 }

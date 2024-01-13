@@ -25,6 +25,8 @@ return [
         '405' => 'method not allowed',
         '406' => 'not acceptable',
         '408' => 'request timeout',
+        '409' => 'conflict',
+        '422' => 'unprocessable entity',
         '429' => 'too many requests',
 
         '500' => 'internal server error',
