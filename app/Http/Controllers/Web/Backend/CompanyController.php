@@ -7,7 +7,6 @@ use App\Http\Requests\Web\Backend\CompanyUpdateRequest;
 use App\Models\Company;
 use App\Models\Currency;
 use Illuminate\Http\Request;
-
 use Spatie\Image\Image;
 
 class CompanyController extends Controller

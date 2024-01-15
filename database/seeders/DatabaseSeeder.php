@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => "admin",
             'email' => "admin@email.com",
+            'phone' => "+91-9794xxx940",
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -34,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'status' => 1
         ]);
 
-        User::factory(50)->create();
+        User::factory(25)->create();
 
         $users = User::all();
 
@@ -44,9 +45,5 @@ class DatabaseSeeder extends Seeder
             $user->role->name == "rider" && Rider::create(['user_id' => $user->id]);
             $user->role->name == "supplier" && Supplier::create(['user_id' => $user->id]);
         }
-
-
-
-
     }
 }

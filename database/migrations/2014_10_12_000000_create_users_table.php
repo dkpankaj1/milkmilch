@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('country')->default('india');
+            $table->binary('avatar')->nullable();
             $table->unsignedBigInteger('role_id')->default(5);
             $table->tinyInteger("status")->default(0);
             $table->timestamps();

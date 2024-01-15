@@ -9,10 +9,18 @@ use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Spatie\Image\Image;
 
 class ProfileController extends Controller
 {
     use HttpResponses;
+
+    protected $imageManager;
+
+    function __construct()
+    {
+        $this->imageManager = Image::useImageDriver('gd');
+    }
 
     public function show(Request $request): UserResource
     {
@@ -34,21 +42,17 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        $user->fill($profileData);
-
-        if ($request->hasFile('avatar')) {
-            $userModel = User::find($request->user()->id);
-            // Delete the existing media
-            $existingMedia = $userModel->getFirstMedia('avatar');
-            if ($existingMedia)
-                $existingMedia->delete();
-
-            $userModel->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+        if($request->hasFile('avatar')){
+            $barcode = $request->file('avatar');
+            $profileData["avatar"] = $this->imageManager->loadFile($barcode->getRealPath())->width(160)->height(160)->base64();
         }
+
+        $user->fill($profileData);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
+
 
         $user->save();
 
