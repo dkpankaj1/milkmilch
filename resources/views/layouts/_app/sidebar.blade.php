@@ -8,7 +8,7 @@
                 </a>
             </li>
             
-            <li class="sidebar-dropdown">
+            {{-- <li class="sidebar-dropdown">
                 <a href="#">
                     <i class="bi bi-handbag"></i>
                     <span class="menu-text">Product</span>
@@ -27,11 +27,11 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             
             {{-- @role('admin') --}}
 
-            <li class="sidebar-dropdown">
+            {{-- <li class="sidebar-dropdown">
                 <a href="#">
                     <i class="bi bi-people"></i>
                     <span class="menu-text">Customer</span>
@@ -97,7 +97,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             {{-- @endrole --}}
 
             <li class="sidebar-dropdown">
@@ -123,7 +123,7 @@
             <li>
                 <a href="#">
                     <i class="bi bi-hand-index-thumb"></i>
-                    <span class="menu-text">Help</span>
+                    <span class="menu-text">Upgrade</span>
                 </a>
             </li>
         </ul>
