@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(RoleSeeder::class);
+        $this->call(UnitSeeder::class);
+        $this->call(CurrencySeeder::class);
+        $this->call(CompanySeeder::class);
 
         User::factory()->create([
             'name' => "admin",
@@ -31,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'status' => 1
         ]);
 
-        User::factory(200)->create();
+        User::factory(50)->create();
 
         $users = User::all();
 

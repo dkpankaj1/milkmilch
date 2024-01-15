@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -26,8 +27,11 @@ class AppServiceProvider extends ServiceProvider
     }
 
     public function bootComponent(){
+
         Blade::component('alert', \App\View\Components\Backend\Alert::class);
         Blade::component('delete-confirm', \App\View\Components\Backend\DeleteModelContent::class);
+
+        $this->loadAppState();
     }
 
     public function registerBladeDirective(){
@@ -38,5 +42,11 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('endrole', function () {
             return '<?php endif; ?>';
         });
+    }
+
+    public function loadAppState()
+    {
+      
+        View::share('companyState',\App\Models\Company::first());
     }
 }

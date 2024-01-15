@@ -7,6 +7,13 @@ Breadcrumbs::for('dashboard', function ($trail) {
     $trail->push('Dashboard', route('admin.dashboard'));
 });
 
+
+// >>Dashboard > companys
+Breadcrumbs::for('admin.companys.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Companys', route('admin.companys.index'));
+});
+
 // >>Dashboard > currency
 Breadcrumbs::for('admin.currencies.index', function ($trail) {
     $trail->parent('dashboard');

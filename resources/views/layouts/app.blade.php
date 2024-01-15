@@ -15,7 +15,7 @@
     <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
     <meta property="og:type" content="Website">
     <meta property="og:site_name" content="Bootstrap Gallery">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}">
+    <link rel="shortcut icon" href="{{$companyState->fevicon}}">
 
     <!-- Title -->
     <title>MilkMilch - Admin</title>
@@ -73,7 +73,8 @@
             <!-- Sidebar brand starts -->
             <div class="sidebar-brand">
                 <a href="{{ route('admin.dashboard') }}" class="logo">
-                    <img src="{{ asset('assets/images/logo.svg') }}" alt="Admin Dashboards" />
+                    {{-- <img src="{{ asset('assets/images/logo.svg') }}" alt="Admin Dashboards" /> --}}
+                    <img src="{{$companyState->logo}}" alt="Admin Dashboards" />
                 </a>
             </div>
             <!-- Sidebar brand starts -->

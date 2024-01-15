@@ -113,6 +113,9 @@
                         <li>
                             <a href="{{route('admin.currencies.index')}}">Currency Master</a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.companys.index')}}">Company Master</a>
+                        </li>
                     </ul>
                 </div>
             </li>
