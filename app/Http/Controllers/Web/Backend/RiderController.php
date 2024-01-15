@@ -8,6 +8,7 @@ use App\Http\Requests\Web\Backend\RiderUpdateRequest;
 use App\Models\Rider;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\SendWelcomeNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -79,6 +80,9 @@ class RiderController extends Controller
                 'user_id' => $user->id
             ]);
 
+            // Notify the user with a welcome notification
+            $user->notify(new SendWelcomeNotification($user, $password));
+
             // Display success message and redirect back
             toastr()->success(trans('crud.create', ['model' => 'rider']));
             return redirect()->back();
@@ -98,7 +102,7 @@ class RiderController extends Controller
      */
     public function edit(Rider $rider): View
     {
-        return view('backend.rider.edit',  ['rider' => $rider]);
+        return view('backend.rider.edit', ['rider' => $rider]);
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Requests\Web\Backend\SupplierUpdateRequest;
 use App\Models\Role;
 use App\Models\Supplier;
 use App\Models\User;
+use App\Notifications\SendWelcomeNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -56,7 +57,7 @@ class SupplierController extends Controller
             ]);
 
             // Notify the user with a welcome notification
-            // $user->notify(new SendWelcomeNotification($user, $password));
+            $user->notify(new SendWelcomeNotification($user, $password));
 
             // Display success message and redirect back
             toastr()->success(trans('crud.create', ['model' => 'suppplier']));

@@ -8,6 +8,7 @@ use App\Http\Requests\Web\Backend\UserUpdateRequest;
 use App\Http\Resources\UserCollection;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\SendPasswordResetLink;
 use App\Notifications\SendWelcomeNotification;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -69,7 +70,7 @@ class UserController extends Controller
             ]);
 
             // Notify the user with a welcome notification
-            // $user->notify(new SendWelcomeNotification($user, $password));
+            $user->notify(new SendPasswordResetLink($user, $password));
 
             // Display success message and redirect back
             toastr()->success(trans('crud.create', ['model' => 'user']));
