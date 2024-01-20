@@ -33,7 +33,7 @@
 
                                         <td>
                                             <div class="media-box">
-                                                <img src="{{ $rider->user->getFirstMediaUrl('avatar', 'avatar') ?: asset('assets/images/user.svg') }}"
+                                                <img src="{{ $rider->user->avatar ?: asset('assets/images/user.svg') }}"
                                                     class="media-avatar img-fluid" style="height: 50px;width:50px"
                                                     alt="{{ $rider->user->name }} img" />
                                                 <div class="media-box-body">
