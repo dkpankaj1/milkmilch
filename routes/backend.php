@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Backend\CurrencySettingController;
 use App\Http\Controllers\Web\Backend\CustomerController;
 use App\Http\Controllers\Web\Backend\CategorieController;
 use App\Http\Controllers\Web\Backend\DashboardController;
+use App\Http\Controllers\Web\Backend\MilkController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SupplierController;
 use App\Http\Controllers\Web\Backend\UnitSettingController;
@@ -35,6 +36,9 @@ Route::group(
 
         Route::resource('customers', CustomerController::class);
         Route::get('customers/delete/{customer}', [CustomerController::class, 'delete'])->name('customers.delete');
+
+        Route::resource('milks', MilkController::class);
+        Route::get('milks/delete/{milk}', [MilkController::class, 'delete'])->name('milks.delete');
 
         Route::resource('riders', RiderController::class);
         Route::get('riders/delete/{rider}', [RiderController::class, 'delete'])->name('riders.delete');

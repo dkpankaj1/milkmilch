@@ -23,6 +23,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UnitSeeder::class);
         $this->call(CurrencySeeder::class);
         $this->call(CompanySeeder::class);
+        $this->call(OrderStatusSeeder::class);
+        $this->call(PaymentStatusSeeder::class);
+        $this->call(PaymentModeSeeder::class);
+        $this->call(MilkSeeder::class);
 
         User::factory()->create([
             'name' => "admin",

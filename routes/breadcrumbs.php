@@ -31,7 +31,6 @@ Breadcrumbs::for('admin.currencies.edit', function ($trail,$currency) {
 });
 
 
-
 // >>Dashboard > customers
 Breadcrumbs::for('admin.customers.index', function ($trail) {
     $trail->parent('dashboard');
@@ -63,6 +62,23 @@ Breadcrumbs::for('admin.categories.create', function ($trail) {
 Breadcrumbs::for('admin.categories.edit', function ($trail,$category) {
     $trail->parent('admin.categories.index');
     $trail->push('Edit', route('admin.categories.edit',$category));
+});
+
+
+// >>Dashboard > milk
+Breadcrumbs::for('admin.milks.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Milk', route('admin.milks.index'));
+});
+// >>Dashboard > milk > add
+Breadcrumbs::for('admin.milks.create', function ($trail) {
+    $trail->parent('admin.milks.index');
+    $trail->push('Add', route('admin.milks.create'));
+});
+// >>Dashboard > milk > edit
+Breadcrumbs::for('admin.milks.edit', function ($trail,$milk) {
+    $trail->parent('admin.milks.index');
+    $trail->push('Edit', route('admin.milks.edit',$milk));
 });
 
 
