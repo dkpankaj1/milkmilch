@@ -27,7 +27,7 @@ class MilkPurchaseController extends Controller
      */
     public function index()
     {
-        $milk_purchases = MilkPurchase::with(['supplier', 'items', 'payments'])->paginate();
+        $milk_purchases = MilkPurchase::latest()->with(['supplier', 'items', 'payments'])->paginate();
         return view('backend.milk-purchase.index', ['milk_purchases' => $milk_purchases]);
     }
 
