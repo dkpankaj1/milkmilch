@@ -25,25 +25,25 @@ class MilkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'          => ['required'], 
-            'fat_content'   => ['required', 'numeric', 'min:0', 'max:100'], 
-            'shelf_life'    => ['required', 'numeric', 'min:0'], 
-            'volume'        => ['required', 'numeric'], 
-            'mrp'           => ['required', 'numeric', 'min:0'], 
-            'mop'           => ['required', 'numeric', 'min:0'],  
-            'status'        => ['required', 'min:0', 'max:1'], 
-            'description'   => ['required', 'string']
+            'name' => ['required'],
+            'fat_content' => ['required', 'numeric', 'min:0', 'max:100'],
+            'shelf_life' => ['required', 'numeric', 'min:0'],
+            'volume' => ['required', 'numeric'],
+            'mrp' => ['required', 'numeric', 'min:0'],
+            'mop' => ['required', 'numeric', 'min:0'],
+            'status' => ['required', 'min:0', 'max:1'],
+            'description' => ['required', 'string']
         ]);
 
         $data = [
-            'name'          => $request->name, 
-            'fat_content'   => $request->fat_content, 
-            'shelf_life'    => $request->shelf_life, 
-            'volume'        => $request->volume, 
-            'mrp'           => $request->mrp, 
-            'mop'           => $request->mop,  
-            'status'        => $request->status, 
-            'description'   => $request->description
+            'name' => $request->name,
+            'fat_content' => $request->fat_content,
+            'shelf_life' => $request->shelf_life,
+            'volume' => $request->volume,
+            'mrp' => $request->mrp,
+            'mop' => $request->mop,
+            'status' => $request->status,
+            'description' => $request->description
         ];
 
         try {
@@ -66,25 +66,25 @@ class MilkController extends Controller
     public function update(Request $request, Milk $milk)
     {
         $request->validate([
-            'name'          => ['sometimes'], 
-            'fat_content'   => ['sometimes', 'numeric', 'min:0', 'max:100'], 
-            'shelf_life'    => ['sometimes', 'numeric', 'min:0'], 
-            'volume'        => ['sometimes', 'numeric'], 
-            'mrp'           => ['sometimes', 'numeric', 'min:0'], 
-            'mop'           => ['sometimes', 'numeric', 'min:0'], 
-            'status'        => ['required'], 
-            'description'   => ['sometimes', 'string']
+            'name' => ['sometimes'],
+            'fat_content' => ['sometimes', 'numeric', 'min:0', 'max:100'],
+            'shelf_life' => ['sometimes', 'numeric', 'min:0'],
+            'volume' => ['sometimes', 'numeric'],
+            'mrp' => ['sometimes', 'numeric', 'min:0'],
+            'mop' => ['sometimes', 'numeric', 'min:0'],
+            'status' => ['required'],
+            'description' => ['sometimes', 'string']
         ]);
 
         $data = [
-            'name'          => $request->name ?: $milk->name, 
-            'fat_content'   => $request->fat_content ?: $milk->fat_content, 
-            'shelf_life'    => $request->shelf_life ?: $milk->shelf_life, 
-            'volume'        => $request->volume ?: $milk->volume, 
-            'mrp'           => $request->mrp ?: $milk->mrp, 
-            'mop'           => $request->mop ?: $milk->mop, 
-            'status'        => $request->status, 
-            'description'   => $request->description ?: $milk->description
+            'name' => $request->name ?: $milk->name,
+            'fat_content' => $request->fat_content ?: $milk->fat_content,
+            'shelf_life' => $request->shelf_life ?: $milk->shelf_life,
+            'volume' => $request->volume ?: $milk->volume,
+            'mrp' => $request->mrp ?: $milk->mrp,
+            'mop' => $request->mop ?: $milk->mop,
+            'status' => $request->status,
+            'description' => $request->description ?: $milk->description
         ];
 
         try {
@@ -111,4 +111,4 @@ class MilkController extends Controller
             return redirect()->back();
         }
     }
-} ?>
+}

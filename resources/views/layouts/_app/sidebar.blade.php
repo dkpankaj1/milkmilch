@@ -46,6 +46,10 @@
                     <ul>
 
                         <li>
+                            <a href="{{ route('admin.milk-purchases.index') }}">Milk Purchase</a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('admin.milks.index') }}">Milk Categories</a>
                         </li>
                     </ul>

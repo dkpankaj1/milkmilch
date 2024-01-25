@@ -168,14 +168,14 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        Jackiedo\Cart\CartServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
 
         
     ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
-       
+        'Cart' => Jackiedo\Cart\Facades\Cart::class,
     ])->toArray(),
 
 ];

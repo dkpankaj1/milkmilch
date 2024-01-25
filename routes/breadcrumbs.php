@@ -82,6 +82,24 @@ Breadcrumbs::for('admin.milks.edit', function ($trail,$milk) {
 });
 
 
+// >>Dashboard > milk-purchases
+Breadcrumbs::for('admin.milk-purchases.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Milk Purchase', route('admin.milk-purchases.index'));
+});
+// >>Dashboard > milk-purchases > add
+Breadcrumbs::for('admin.milk-purchases.create', function ($trail) {
+    $trail->parent('admin.milk-purchases.index');
+    $trail->push('Add', route('admin.milk-purchases.create'));
+});
+// >>Dashboard > milk-purchases > edit
+Breadcrumbs::for('admin.milk-purchases.edit', function ($trail,$milk_purchases) {
+    $trail->parent('admin.milk-purchases.index');
+    $trail->push('Edit', route('admin.milk-purchases.edit',$milk_purchases));
+});
+
+
+
 
 // >>Dashboard > riders
 Breadcrumbs::for('admin.riders.index', function ($trail) {

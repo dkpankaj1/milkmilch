@@ -45,7 +45,7 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
 
-    @stack('styles')
+    @stack('head')
 
 </head>
 
