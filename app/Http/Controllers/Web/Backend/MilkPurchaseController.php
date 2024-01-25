@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Web\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Milk;
 use App\Models\MilkPurchase;
 use App\Models\MilkPurchaseItem;
 use App\Models\Supplier;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Jackiedo\Cart\Cart;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MilkPurchaseController extends Controller
 {
@@ -99,11 +100,11 @@ class MilkPurchaseController extends Controller
 
                 $productList[] = $productData;
             }
-            
+
             MilkPurchaseItem::insert($productList);
 
             toastr()->success(trans('crud.create', ['model' => 'milk purchase']));
-            
+
             return redirect()->back();
 
         } catch (\Exception $e) {
@@ -151,7 +152,7 @@ class MilkPurchaseController extends Controller
             'status' => ['required'],
             'note' => ['nullable']
         ]);
-    
+
         $data = [
             'purchase_date' => $request->purchase_date,
             'supplier_id' => $request->supplier,
@@ -163,14 +164,14 @@ class MilkPurchaseController extends Controller
             'payment_status' => 'pending',
             'note' => $request->note ?: "purchase note"
         ];
-    
+
         $productList = [];
-    
+
         try {
-    
+
             $milk_purchase = $milkPurchase;
             $milk_purchase->update($data);
-    
+
             $product = $request->product;
             $productID = $product['id'];
             $fatContent = $product['fat_content'];
@@ -179,7 +180,7 @@ class MilkPurchaseController extends Controller
             $mrp = $product['mrp'];
             $mop = $product['mop'];
             $total_amt = $product['total_amt'];
-    
+
             foreach ($productID as $index => $name) {
                 $productData['milk_purchase_id'] = $milk_purchase->id;
                 $productData['milk_id'] = $productID[$index];
@@ -189,23 +190,23 @@ class MilkPurchaseController extends Controller
                 $productData['mrp'] = $mrp[$index];
                 $productData['mop'] = $mop[$index];
                 $productData['total_amt'] = $total_amt[$index];
-    
+
                 $productList[] = $productData;
             }
-    
+
             $milk_purchase->items()->delete(); // Delete existing items
             MilkPurchaseItem::insert($productList);
-    
+
             toastr()->success(trans('crud.update', ['model' => 'milk purchase']));
-    
+
             return redirect()->back();
-    
+
         } catch (\Exception $e) {
-    
+
             toastr()->error($e->getMessage());
-    
+
             return redirect()->back();
-    
+
         }
     }
 
@@ -223,7 +224,7 @@ class MilkPurchaseController extends Controller
         try {
             $milkPurchase->items()->delete();
             $milkPurchase->delete();
-            toastr()->success(trans('crud.delete', ['model' => 'MP-'.$milkPurchase->id]));
+            toastr()->success(trans('crud.delete', ['model' => 'MP-' . $milkPurchase->id]));
             return redirect()->back();
         } catch (\Exception $e) {
             toastr()->error($e->getMessage());
@@ -241,5 +242,10 @@ class MilkPurchaseController extends Controller
     {
         $milk = Milk::find($request->id);
         return view('backend.milk-purchase.milk-item', ['milk' => $milk]);
+    }
+    public function downloadMilkPurchaseInvoice(MilkPurchase $milkPurchase)
+    {
+        // return view('backend.milk-purchase.invoice', ['invoice' => $milkPurchase]);                        
+        return pdf::loadView('backend.milk-purchase.invoice', ['invoice' => $milkPurchase])->download('invoice.pdf');
     }
 }

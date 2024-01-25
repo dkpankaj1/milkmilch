@@ -196,7 +196,7 @@
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Discount type</span>
                                             <select name="discount_type" class="form-select">
-                                                <option value="percentage" selected>
+                                                <option value="percentage">
                                                     Percentage (%)
                                                 </option>
                                                 <option value="fixed">Fixed

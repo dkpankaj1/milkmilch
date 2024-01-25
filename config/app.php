@@ -166,16 +166,20 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
+
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Jackiedo\Cart\CartServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
+        \Barryvdh\DomPDF\ServiceProvider::class,
 
         
     ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
+
         'Cart' => Jackiedo\Cart\Facades\Cart::class,
+        
     ])->toArray(),
 
 ];

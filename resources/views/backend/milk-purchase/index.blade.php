@@ -32,8 +32,7 @@
                                 @foreach ($milk_purchases as $milk_purchase)
                                     <tr>
                                         <td>MP-{{ $milk_purchase->id }}</td>
-                                        <td>{{ Illuminate\Support\Carbon::parse($milk_purchase->purchase_date)->format('Y-m-d') }}
-                                        </td>
+                                        <td>{{ Illuminate\Support\Carbon::parse($milk_purchase->purchase_date)->format('Y-m-d') }} </td>
                                         <td>{{ $milk_purchase->supplier->user->name }}</td>
                                         <td>{{ $milk_purchase->grand_total }}</td>
                                         <td>
@@ -43,6 +42,9 @@
                                         <td>{{ $milk_purchase->payment_status }}</td>
                                         <td>
                                             <div class="actions">
+                                                <a href="{{ route('admin.milk-purchases.invoice', $milk_purchase) }}" target="_blank">
+                                                    <i class="bi bi-file-pdf text-success"></i>
+                                                </a>
                                                 <a href="{{ route('admin.milk-purchases.edit', $milk_purchase) }}">
                                                     <i class="bi bi-pencil-square text-info"></i>
                                                 </a>

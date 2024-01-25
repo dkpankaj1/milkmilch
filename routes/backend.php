@@ -43,6 +43,7 @@ Route::group(
 
         Route::resource('milk-purchases', MilkPurchaseController::class);
         Route::get('milk-purchase/delete/{milk_purchase}', [MilkPurchaseController::class, 'delete'])->name('milk-purchases.delete');
+        Route::get('milk-purchase/invoice/{milk_purchase}', [MilkPurchaseController::class, 'downloadMilkPurchaseInvoice'])->name('milk-purchases.invoice');
         Route::get('milk-purchase/get_milk_product', [MilkPurchaseController::class, 'get_milk_product'])->name('milk-purchase.get_milk_product');
         Route::get('milk-purchase/search_milk_product', [MilkPurchaseController::class, 'search_milk_product'])->name('milk-purchase.search_milk_product');
 
