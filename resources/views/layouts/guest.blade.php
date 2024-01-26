@@ -15,7 +15,7 @@
 		<meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
 		<meta property="og:type" content="Website">
 		<meta property="og:site_name" content="Bootstrap Gallery">
-		<link rel="shortcut icon" href="assets/images/favicon.svg">
+		<link rel="shortcut icon" href="{{$companyState->fevicon}}">
 
 		<!-- Title -->
 		<title>Login / Register - Milkmilch</title>
@@ -32,11 +32,13 @@
 
 		<!-- Main css -->
 		<link rel="stylesheet" href="{{asset('assets/css/main.min.css')}}">
+		
+		@stack('head')
 
 
 	</head>
 
-	<body class="login-container">
+	<body class="login-container" >
 
 		<!-- Loading wrapper start -->
 		<!-- <div id="loading-wrapper">

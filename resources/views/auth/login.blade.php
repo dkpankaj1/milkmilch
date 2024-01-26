@@ -3,16 +3,38 @@
     {{-- @php
         print_r(Session::all());
     @endphp --}}
+    @push('head')
+    <style>
+        .login-container{
+            background-image: url("{{asset('assets/images/bg.jpg')}}");
+            background-position:center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .loginImg{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center
+        }
+        .loginImg img{
+            height: 70px;
+            width: auto;
+        }
+
+    </style>
+    @endpush
 
     <form method="POST">
         @csrf
         <div class="login-box">
             <div class="login-form">
-                <a href="" class="login-logo">
-                    <img src="assets/images/logo.svg" alt="Vico Admin" />
+                <a href="" class="loginImg">
+                    <img src="{{$companyState->logo}}" alt="Vico Admin" />
                 </a>
-                <div class="login-welcome">
-                    Welcome back, <br />Please login to your account.
+                <div class="login-welcome text-center">
+                    <hr>
+                    Welcome back, Please login to your account.
                 </div>
 
                 
