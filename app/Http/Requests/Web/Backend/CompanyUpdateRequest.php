@@ -22,22 +22,22 @@ class CompanyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // "name" => ['required', 'string'],
-            // "email" => ['required', 'string', 'email'],
-            // "phone" => ['required', 'string'],
-            // "address" => ['required', 'string'],
-            // "city" => ['required', 'string'],
-            // "state" => ['required', 'string'],
-            // "postal_code" => ['required', 'string'],
-            // "country" => ['required', 'string'],
-            // "gst_number" => ['required', 'string'],
-            // "pan_number" => ['required', 'string'],
-            // "upi" => ['required', 'string'],
-            // "upi_barcode" => ['sometimes','mimes:jpg,png'],
-            // "website" => ['required', 'string',],
-            // "logo" => ['sometimes','mimes:jpg,png'],
-            // "fevicon" => ['sometimes','mimes:jpg,png'],
-            // 'currencies_id' => ['required', 'string', 'exists:currencies,id'],
+            "name" => ['required', 'string'],
+            "email" => ['required', 'string', 'email'],
+            "phone" => ['required', 'string'],
+            "address" => ['required', 'string'],
+            "city" => ['required', 'string'],
+            "state" => ['required', 'string'],
+            "postal_code" => ['required', 'string'],
+            "country" => ['required', 'string'],
+            "gst_number" => ['required', 'string'],
+            "pan_number" => ['required', 'string'],
+            "upi" => ['required', 'string'],
+            "upi_barcode" => ['sometimes','mimes:jpg,png'],
+            "website" => ['required', 'string',],
+            "logo" => ['sometimes','mimes:jpg,png'],
+            "fevicon" => ['sometimes','mimes:jpg,png'],
+            'currencies_id' => ['required', 'string', 'exists:currencies,id'],
         ];
     }
 }

@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth:sanctum','api_roles:customer,rider,supplier
     Route::apiResource('users', UserController::class);
 
     Route::get('profile',[ProfileController::class,'show']);
-    Route::put('profile-edit',[ProfileController::class,'update']);
+    Route::put('profile-update',[ProfileController::class,'update']);
     Route::put('update-password',[PasswordUpdateController::class,'update']);
     Route::post("logout", [AuthenticatedSessionController::class, "destroy"]);
 });
