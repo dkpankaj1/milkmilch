@@ -44,7 +44,7 @@ class CategorieController extends Controller
         try {
             Categorie::create([
                 'name' => $request->name,
-                'slug' => $request->slug,
+                'slug' => \Str::slug( $request->slug),
                 'description' => $request->description,
                 'status' => $request->status
             ]);

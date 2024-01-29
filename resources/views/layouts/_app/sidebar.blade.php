@@ -17,10 +17,10 @@
                     <ul>
                         {{-- <li>
                             <a href="layout.html">Product List</a>
-                        </li>
+                        </li>--}}
                         <li>
-                            <a href="layout.html">Product Add</a>
-                        </li> --}}
+                            <a href="{{ route('admin.products.index') }}">Product</a>
+                        </li> 
 
                         <li>
                             <a href="{{ route('admin.categories.index') }}">Categories List</a>

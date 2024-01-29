@@ -99,6 +99,23 @@ Breadcrumbs::for('admin.milk-purchases.edit', function ($trail,$milk_purchases) 
 });
 
 
+// >>Dashboard > products
+Breadcrumbs::for('admin.products.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Product', route('admin.products.index'));
+});
+// >>Dashboard > products > add
+Breadcrumbs::for('admin.products.create', function ($trail) {
+    $trail->parent('admin.products.index');
+    $trail->push('Add', route('admin.products.create'));
+});
+// >>Dashboard > products > edit
+Breadcrumbs::for('admin.products.edit', function ($trail,$product) {
+    $trail->parent('admin.products.index');
+    $trail->push('Edit', route('admin.products.edit',$product));
+});
+
+
 
 
 // >>Dashboard > riders

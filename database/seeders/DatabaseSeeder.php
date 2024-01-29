@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Categorie;
 use App\Models\Customer;
 use App\Models\Rider;
 use App\Models\Supplier;
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanySeeder::class);
         $this->call(PaymentModeSeeder::class);
         $this->call(MilkSeeder::class);
+
+        Categorie::create(['name' => 'Full Cream','slug' => 'full-cream','description' => 'description','status' => 1]);
 
         User::factory()->create([
             'name' => "admin",
