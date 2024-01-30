@@ -169,6 +169,7 @@ return [
 
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         Jackiedo\Cart\CartServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         \Barryvdh\DomPDF\ServiceProvider::class,
