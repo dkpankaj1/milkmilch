@@ -17,10 +17,15 @@ class Product extends Model
         'shelf_life',
         'product_image',
         'categorie_id',
+        'unit_id',
         'status'
     ];
     public function categorie()
     {
         return $this->belongsTo(Categorie::class);
+    }
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
     }
 }

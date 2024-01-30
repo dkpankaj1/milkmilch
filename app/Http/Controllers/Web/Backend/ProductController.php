@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Spatie\Image\Image;
 
@@ -14,13 +15,14 @@ class ProductController extends Controller
 
     function __construct()
     {
-        $this->imageManager = Image::useImageDriver('gd');;
+        $this->imageManager = Image::useImageDriver('gd');
+        ;
     }
-   
+
     public function index()
     {
         $products = Product::latest()->paginate(10);
-        return view('backend.product.index',['products' => $products]);
+        return view('backend.product.index', ['products' => $products]);
     }
 
     /**
@@ -29,7 +31,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Categorie::where('status', 1)->get();
-        return view('backend.product.create',['categories'=>$categories]);
+        $units = Unit::where('status', 1)->get();
+        return view('backend.product.create', ['categories' => $categories,'units' => $units]);
     }
 
     /**
@@ -44,7 +47,8 @@ class ProductController extends Controller
             'volume' => ['required', 'numeric'],
             'mrp' => ['required', 'numeric', 'min:0'],
             'product_image' => ['sometimes', 'mimes:jpg,png'],
-            'categorie_id' => ['required','exists:categories,id'],
+            'categorie_id' => ['required', 'exists:categories,id'],
+            'unit_id' => ['required', 'exists:units,id'],
             'status' => ['required', 'min:0', 'max:1'],
             'description' => ['required', 'string']
         ]);
@@ -52,6 +56,7 @@ class ProductController extends Controller
         $data = [
             'code' => strtoupper(str_replace(' ', '', $request->code)),
             'categorie_id' => $request->categorie_id,
+            'unit_id' => $request->unit_id,
             'name' => $request->name,
             'shelf_life' => $request->shelf_life,
             'volume' => $request->volume,
@@ -60,7 +65,7 @@ class ProductController extends Controller
             'description' => $request->description
         ];
 
-        if($request->hasFile('product_image')){
+        if ($request->hasFile('product_image')) {
             $image = $request->file('product_image');
             $data["product_image"] = $this->imageManager->loadFile($image->getRealPath())->width(200)->height(200)->base64();
         }
@@ -89,7 +94,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Categorie::where('status', 1)->get();
-        return view('backend.product.edit',['categories'=>$categories,'product' =>$product]);
+        $units = Unit::where('status', 1)->get();
+        return view('backend.product.edit', ['categories' => $categories, 'product' => $product,'units' => $units]);
     }
 
     /**
@@ -104,8 +110,9 @@ class ProductController extends Controller
             'volume' => ['required', 'numeric'],
             'mrp' => ['required', 'numeric', 'min:0'],
             'product_image' => ['sometimes', 'mimes:jpg,png'],
-            'categorie_id' => ['required','exists:categories,id'],
+            'categorie_id' => ['required', 'exists:categories,id'],
             'status' => ['required', 'min:0', 'max:1'],
+            'unit_id' => ['required', 'exists:units,id'],
             'description' => ['required', 'string']
         ]);
 
@@ -117,10 +124,11 @@ class ProductController extends Controller
             'volume' => $request->volume,
             'mrp' => $request->mrp,
             'status' => $request->status,
+            'unit_id' => $request->unit_id,
             'description' => $request->description
         ];
 
-        if($request->hasFile('product_image')){
+        if ($request->hasFile('product_image')) {
             $image = $request->file('product_image');
             $data["product_image"] = $this->imageManager->loadFile($image->getRealPath())->width(200)->height(200)->base64();
         }

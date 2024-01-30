@@ -98,6 +98,12 @@ Breadcrumbs::for('admin.milk-purchases.edit', function ($trail,$milk_purchases) 
     $trail->push('Edit', route('admin.milk-purchases.edit',$milk_purchases));
 });
 
+// >>Dashboard > milk-storage
+Breadcrumbs::for('admin.milk-storage.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Milk Storage', route('admin.milk-storage.index'));
+});
+
 
 // >>Dashboard > products
 Breadcrumbs::for('admin.products.index', function ($trail) {

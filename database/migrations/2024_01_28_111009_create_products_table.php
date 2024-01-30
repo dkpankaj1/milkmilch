@@ -21,8 +21,10 @@ return new class extends Migration
             $table->unsignedInteger('shelf_life'); // days
             $table->binary('product_image')->nullable();
             $table->unsignedBigInteger('categorie_id');
+            $table->unsignedBigInteger('unit_id');
             $table->tinyInteger('status');
             $table->timestamps();
+            $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('categorie_id')->references('id')->on('categories');
         });
     }

@@ -34,6 +34,19 @@
                                                         </div>
                                                     @enderror
                                                 </div>
+                                            </div>                                            
+
+                                            <div class="col-sm-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Name <span
+                                                            class="text-red">*</span></label>
+                                                    <input type="text" name="name" value="{{ old('name',$product->name) }}"
+                                                        class="form-control"placeholder="Enter Name">
+                                                    @error('name')
+                                                        <div class="invalid-feedback d-block">{{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
                                             </div>
 
                                             <div class="col-sm-6 col-12">
@@ -55,18 +68,24 @@
 
                                             <div class="col-sm-6 col-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Name <span
+                                                    <label class="form-label">Units <span
                                                             class="text-red">*</span></label>
-                                                    <input type="text" name="name" value="{{ old('name',$product->name) }}"
-                                                        class="form-control"placeholder="Enter Name">
-                                                    @error('name')
+                                                    <select class="form-select" name="unit_id">
+                                                        <option value="">-- select --</option>
+                                                        @foreach ($units as $unit)
+                                                            <option value="{{ $unit->id }}" @if($product->unit_id == $unit->id) selected  @endif>{{ $unit->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('unit_id')
                                                         <div class="invalid-feedback d-block">{{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
                                             </div>
+                                            
 
-                                            <div class="col-sm-6 col-12">
+                                            <div class="col-sm-4 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Shelf Lift (Day) <span
                                                             class="text-red">*</span></label>
@@ -80,7 +99,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-12">
+                                            <div class="col-sm-4 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Volume (mililiter) <span
                                                             class="text-red">*</span></label>
@@ -94,7 +113,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-12">
+                                            <div class="col-sm-4 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">MRP
                                                         ({{ $companyState->currency->symbol }}) <span

@@ -14,20 +14,14 @@ class UnitSeeder extends Seeder
     public function run(): void
     {
         Unit::create([
-            'name' => 'Kg',
-            'description' => 'Kilogram',
-            'status' => 1
-        ]);
-
-        Unit::create([
             'name' => 'PC',
             'description' => 'Piece',
             'status' => 1
         ]);
 
         Unit::create([
-            'name' => 'L',
-            'description' => 'Liter',
+            'name' => 'PKT',
+            'description' => 'Packet',
             'status' => 1
         ]);
     }

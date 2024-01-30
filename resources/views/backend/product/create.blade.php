@@ -21,32 +21,16 @@
 
                                             <div class="col-sm-6 col-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Code <span class="text-red">*</span></label>
+                                                    <label class="form-label">Code <span
+                                                            class="text-red">*</span></label>
                                                     <div class="input-group">
                                                         <span class="input-group-text">
                                                             <i class="bi bi-upc-scan"></i>
                                                         </span>
-                                                        <input type="text" name="code" value="{{ old('code') }}" class="form-control"placeholder="Enter Product Code">
+                                                        <input type="text" name="code" value="{{ old('code') }}"
+                                                            class="form-control"placeholder="Enter Product Code">
                                                     </div>
                                                     @error('code')
-                                                        <div class="invalid-feedback d-block">{{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6 col-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Categorie <span
-                                                            class="text-red">*</span></label>
-                                                    <select class="form-select" name="categorie_id">
-                                                        <option value="">-- select --</option>
-                                                        @foreach ($categories as $categorie)
-                                                            <option value="{{ $categorie->id }}">{{ $categorie->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('categorie_id')
                                                         <div class="invalid-feedback d-block">{{ $message }}
                                                         </div>
                                                     @enderror
@@ -68,6 +52,47 @@
 
                                             <div class="col-sm-6 col-12">
                                                 <div class="mb-3">
+                                                    <label class="form-label">Categorie <span
+                                                            class="text-red">*</span></label>
+                                                    <select class="form-select" name="categorie_id">
+                                                        <option value="">-- select --</option>
+                                                        @foreach ($categories as $categorie)
+                                                            <option value="{{ $categorie->id }}"
+                                                                @if (old('categorie_id') == $categorie->id) selected @endif>
+                                                                {{ $categorie->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('categorie_id')
+                                                        <div class="invalid-feedback d-block">{{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-sm-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Units <span
+                                                            class="text-red">*</span></label>
+                                                    <select class="form-select" name="unit_id">
+                                                        <option value="">-- select --</option>
+                                                        @foreach ($units as $unit)
+                                                            <option value="{{ $unit->id }}"
+                                                                @if (old('unit_id') == $unit->id) selected @endif>
+                                                                {{ $unit->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('unit_id')
+                                                        <div class="invalid-feedback d-block">{{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-12">
+                                                <div class="mb-3">
                                                     <label class="form-label">Shelf Lift (Day) <span
                                                             class="text-red">*</span></label>
                                                     <input type="number" name="shelf_life"
@@ -80,7 +105,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-12">
+                                            <div class="col-sm-4 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Volume (mililiter) <span
                                                             class="text-red">*</span></label>
@@ -94,7 +119,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-12">
+                                            <div class="col-sm-4 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">MRP
                                                         ({{ $companyState->currency->symbol }}) <span
@@ -127,8 +152,12 @@
                                                             class="text-red">*</span></label>
                                                     <select class="form-select" name="status">
                                                         <option value="">-- select --</option>
-                                                        <option value="1">Active</option>
-                                                        <option value="0">In-Active</option>
+                                                        <option value="1"
+                                                            @if (old('status') == 1) selected @endif>Active
+                                                        </option>
+                                                        <option value="0"
+                                                            @if (old('status') == 0) selected @endif>In-Active
+                                                        </option>
                                                     </select>
                                                     @error('status')
                                                         <div class="invalid-feedback d-block">{{ $message }}

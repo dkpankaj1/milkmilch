@@ -17,10 +17,10 @@
                     <ul>
                         {{-- <li>
                             <a href="layout.html">Product List</a>
-                        </li>--}}
+                        </li> --}}
                         <li>
                             <a href="{{ route('admin.products.index') }}">Product</a>
-                        </li> 
+                        </li>
 
                         <li>
                             <a href="{{ route('admin.categories.index') }}">Categories List</a>
@@ -44,7 +44,9 @@
                 </a>
                 <div class="sidebar-submenu">
                     <ul>
-
+                        <li>
+                            <a href="{{ route('admin.milk-storage.index') }}">Milk Storage</a>
+                        </li>
                         <li>
                             <a href="{{ route('admin.milk-purchases.index') }}">Milk Purchase</a>
                         </li>
@@ -52,6 +54,7 @@
                         <li>
                             <a href="{{ route('admin.milks.index') }}">Milk Categories</a>
                         </li>
+
                     </ul>
                 </div>
             </li>

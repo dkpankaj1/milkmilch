@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Backend\CategorieController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\MilkController;
 use App\Http\Controllers\Web\Backend\MilkPurchaseController;
+use App\Http\Controllers\Web\Backend\MilkStorageController;
 use App\Http\Controllers\Web\Backend\ProductController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SupplierController;
@@ -48,6 +49,8 @@ Route::group(
         Route::get('milk-purchase/invoice/{milk_purchase}', [MilkPurchaseController::class, 'downloadMilkPurchaseInvoice'])->name('milk-purchases.invoice');
         Route::get('milk-purchase/get_milk_product', [MilkPurchaseController::class, 'get_milk_product'])->name('milk-purchase.get_milk_product');
         Route::get('milk-purchase/search_milk_product', [MilkPurchaseController::class, 'search_milk_product'])->name('milk-purchase.search_milk_product');
+
+        Route::get('milk-storage', [MilkStorageController::class,'index'])->name('milk-storage.index');
 
         Route::resource('products', ProductController::class);
         Route::get('products/delete/{product}', [ProductController::class, 'delete'])->name('products.delete');

@@ -21,6 +21,7 @@
                                     <th>Code</th>
                                     <th>Name</th>
                                     <th>Categorie</th>
+                                    <th>Unit</th>
                                     <th>Shelf Life (Days)</th>
                                     <th>Volume(ml)</th>
                                     <th>MRP ({{$companyState->currency->symbol}})</th>
@@ -36,6 +37,7 @@
                                         <td>{{ $product->code }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->categorie->name }}</td>
+                                        <td>{{ $product->unit->name }}</td>
                                         <td>{{ $product->shelf_life }} Day</td>
                                         <td>{{ $product->volume }} ml</td>
                                         <td>{{ $companyState->currency->symbol }} {{ $product->mrp }}</td>
