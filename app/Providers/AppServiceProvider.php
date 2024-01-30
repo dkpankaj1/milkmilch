@@ -15,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->registerBladeDirective();
+
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**
@@ -26,7 +31,8 @@ class AppServiceProvider extends ServiceProvider
         $this->bootComponent();
     }
 
-    public function bootComponent(){
+    public function bootComponent()
+    {
 
         Blade::component('alert', \App\View\Components\Backend\Alert::class);
         Blade::component('delete-confirm', \App\View\Components\Backend\DeleteModelContent::class);
@@ -34,7 +40,8 @@ class AppServiceProvider extends ServiceProvider
         $this->loadAppState();
     }
 
-    public function registerBladeDirective(){
+    public function registerBladeDirective()
+    {
         Blade::directive('role', function ($role) {
             return "<?php if(auth()->check() && auth()->user()->role->name == {$role}): ?>";
         });
@@ -46,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function loadAppState()
     {
-      
-        View::share('companyState',\App\Models\Company::first());
+
+        View::share('companyState', \App\Models\Company::first());
     }
 }
