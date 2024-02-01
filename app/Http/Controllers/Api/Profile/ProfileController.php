@@ -36,7 +36,7 @@ class ProfileController extends Controller
             'address' => $request->address ?: $request->user()->address,
             'city' => $request->city ?: $request->user()->city,
             'state' => $request->state ?: $request->user()->state,
-            'postal_code' => $request->postal_code ?: $request->user()->postal_code,
+            'postalCode' => $request->postal_code ?: $request->user()->postal_code,
             'country' => $request->country ?: $request->user()->country,
         ];
 

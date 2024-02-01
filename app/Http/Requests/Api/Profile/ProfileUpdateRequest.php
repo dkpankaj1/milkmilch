@@ -32,7 +32,7 @@ class ProfileUpdateRequest extends FormRequest
             'address' => ['sometimes', 'string'],
             'city' => ['sometimes', 'string'],
             'state' => ['sometimes', 'string'],
-            'postal_code' => ['sometimes', 'string'],
+            'postalCode' => ['sometimes', 'string'],
             'avater' => ['sometimes', 'mimes:jpg,png']
         ];
     }
