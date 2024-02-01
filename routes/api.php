@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\NewPasswordController;
 use App\Http\Controllers\Api\Auth\PasswordResetOtpController;
 use App\Http\Controllers\Api\Auth\PasswordUpdateController;
 use App\Http\Controllers\Api\Backend\RiderController;
+use App\Http\Controllers\Api\Backend\SellController;
 use App\Http\Controllers\Api\Backend\SupplierController;
 use App\Http\Controllers\Api\Backend\UserController;
 use App\Http\Controllers\Api\Profile\ProfileController;
@@ -36,6 +37,13 @@ Route::put('reset-password', [NewPasswordController::class, 'store']);
 
 
 Route::group(['middleware' => ['auth:sanctum','api_roles:customer,rider,supplier,admin']], function () {
+
+    // sell api::begin
+    Route::get('customers',[SellController::class,'getCustomer']);
+    Route::get('search-stock',[SellController::class,'searchStock']);
+    Route::get('get-stock',[SellController::class,'getStock']);
+    Route::apiResource('sells',SellController::class);
+    // sell api::end
 
 
     Route::apiResource('riders',RiderController::class);
