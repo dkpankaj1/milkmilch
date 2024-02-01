@@ -16,6 +16,7 @@ class Stock extends Model
         'mrp',
         'quentity',
         'available',
+        'best_befour'
     ];
 
     public function product()

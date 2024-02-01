@@ -1,5 +1,4 @@
 <x-app-layout>
-
     @push('head')
         <link rel="stylesheet" href="{{ asset('assets/vendor/bs-select/bs-select.css') }}">
         <style>
@@ -26,42 +25,42 @@
     @endpush
 
     @push('breadcrumb')
-        {{ Breadcrumbs::render('admin.milk-purchases.create') }}
+        {{ Breadcrumbs::render('admin.sells.create') }}
     @endpush
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">Purchase Milk</div>
+            <div class="card-title">Add Sale</div>
         </div>
         <div class="card-body">
 
-            <form action="{{ route('admin.milk-purchases.store') }}" method="POST" onsubmit="return validateForm()"
-                id="myForm">
+            <form action="{{ route('admin.sells.store') }}" method="POST" id="myForm">
                 @csrf
 
                 <div class="card-border">
 
                     <div class="card-border-body">
                         <div class="row">
+
                             <div class=" col-sm-4 col-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Supplier <span class="text-red">*</span></label>
+                                    <label class="form-label">Customer <span class="text-red">*</span></label>
                                     <select class="select-single js-states form-control" data-live-search="true"
-                                        name="supplier" id="supplier">
+                                        name="customer">
                                         <option value="">-- select --</option>
-                                        @foreach ($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->user->name }}</option>
+                                        @foreach ($customers as $customer)
+                                            <option value="{{ $customer->id }}"
+                                                @if ($customer->id == old('customer')) selected @endif>
+                                                {{ $customer->user->name }} / {{ $customer->user->phone }}
+                                            </option>
                                         @endforeach
                                     </select>
-
-                                    <div class="invalid-feedback d-block" id="supplierError"></div>
-                                    @error('supplier')
+                                    @error('customer')
                                         <div class="invalid-feedback d-block">{{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                             </div>
-
 
                             <div class="col-sm-4 col-12">
                                 <div class="mb-3">
@@ -70,28 +69,9 @@
                                         <span class="input-group-text">
                                             <i class="bi bi-calendar4"></i>
                                         </span>
-                                        <input type="date" class="form-control" name="purchase_date"
-                                            id="datepicker">
+                                        <input type="date" class="form-control" name="sell_date" id="datepicker">
                                     </div>
-                                    <div class="invalid-feedback d-block" id="datepickerError"></div>
-                                    @error('purchase_date')
-                                        <div class="invalid-feedback d-block">{{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class=" col-sm-4 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label">Status <span class="text-red">*</span></label>
-                                    <select class="form-select" name="status" id="status">
-                                        <option value="">-- select --</option>
-                                        <option value="orderd">Orderd</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="received">Received</option>
-                                    </select>
-                                    <div class="invalid-feedback d-block" id="statusError"></div>
-                                    @error('status')
+                                    @error('sell_date')
                                         <div class="invalid-feedback d-block">{{ $message }}
                                         </div>
                                     @enderror
@@ -100,13 +80,18 @@
 
                             <div class="col-12">
                                 <div class="mb-4">
-                                    <label class="form-label">Milk Product<span class="text-red">*</span></label>
+                                    <label class="form-label">Add Product<span class="text-red">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">
-                                            <i class="bi bi-bag"></i>
+                                            <i class="bi bi-upc-scan"></i>
                                         </span>
                                         <input type="text" class="form-control" id="search_item">
+
                                     </div>
+                                    @error('product')
+                                        <div class="invalid-feedback d-block">{{ $message }}
+                                        </div>
+                                    @enderror
                                     <span id="search_item_list">
 
                                     </span>
@@ -117,68 +102,128 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-primary text-white">Product Name</th>
-                                                <th class="bg-primary text-white">Fat Content (%)</th>
-                                                <th class="bg-primary text-white">Shelf Life (Day)</th>
-                                                <th class="bg-primary text-white">Volume (ml)</th>
+                                                <th class="bg-primary text-white">Available</th>
+                                                <th class="bg-primary text-white">Quentity</th>
                                                 <th class="bg-primary text-white">MRP
                                                     ({{ $companyState->currency->symbol }})</th>
-                                                <th class="bg-primary text-white">MOP
-                                                    ({{ $companyState->currency->symbol }})</th>
+
                                                 <th class="bg-primary text-white">Total Amount
                                                     ({{ $companyState->currency->symbol }})</th>
+
                                                 <th class="bg-primary text-white">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="table_body"></tbody>
-                                    </table>
+                                        <tbody id="table_body">
+                                            @if (old('product'))
+                                                @foreach (old('product')['id'] as $key => $value)
+                                                    <tr>
+                                                        <td>
+                                                            <span
+                                                                class="form-control">{{ old('product')['name'][$key] }}</span>
+                                                            <input type="hidden" name="product[id][]"
+                                                                value="{{ old('product')['id'][$key] }}">
+                                                            <input type="hidden" name="product[name][]"
+                                                                value="{{ old('product')['name'][$key] }}">
+                                                        </td>
 
+                                                        <td> <input type="number" class="form-control available"
+                                                                name="product[available][]"
+                                                                value="{{ old('product')['available'][$key] }}"
+                                                                readonly /> </td>
+
+                                                        <td> <input type="number" class="form-control quentity"
+                                                                name="product[quentity][]"
+                                                                value="{{ old('product')['quentity'][$key] }}" /> </td>
+
+                                                        <td> <input type="number" class="form-control mrp"
+                                                                name="product[mrp][]"
+                                                                value="{{ number_format(old('product')['mrp'][$key]) }}" />
+                                                        </td>
+
+                                                        <td> <input type="number" class="form-control total-amt"
+                                                                name="product[total_amt][]"
+                                                                value="{{ number_format(old('product')['total_amt'][$key]) }}"
+                                                                readonly /> </td>
+
+                                                        <td> <button type="button" class="btn btn-outline btn-danger"
+                                                                onclick="removeItem(this)"><i
+                                                                    class="bi bi-trash"></i></button></td>
+
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
                                 </div>
 
-                                <div class="row mt-3" id="calculet_amt">
-                                    <div class=" col-sm-8 col-12">
+                                <div class="row mt-5" id="calculet_amt">
+                                    <div class=" col-md-8 col-12">
                                         <div class="row">
-                                            <div class="col-sm-6 mb-3">
-                                                <label class="form-label">Notes<span class="text-red">*</span></label>
-                                                <textarea name="note" class="form-control" rows="5"></textarea>
+                                            <div class="col-sm-8 mb-3">
+                                                <textarea name="note" class="form-control" rows="5" placeholder="Write sell notes"></textarea>
+                                                @error('note')
+                                                    <div class="invalid-feedback d-block">{{ $message }}
+                                                    </div>
+                                                @enderror
+
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-12">
+                                    <div class="col-md-4 col-12">
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Discount</span>
-                                            <input type="number" name="discount" class="form-control" placeholder="0">
+                                            <input type="number" name="discount" class="form-control" placeholder="0"
+                                                value="{{ old('discount') }}">
+                                            @error('discount')
+                                                <div class="invalid-feedback d-block">{{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Discount type</span>
                                             <select name="discount_type" class="form-select">
-                                                <option value="percentage" selected>
+                                                <option value="percentage"
+                                                    @if (old('discount_type') == 'percentage') selected @endif>
                                                     Percentage (%)
                                                 </option>
-                                                <option value="fixed">Fixed
+                                                <option value="fixed"
+                                                    @if (old('discount_type') == 'fixed') selected @endif>Fixed
                                                     ({{ $companyState->currency->symbol }})
                                                 </option>
                                             </select>
+                                            @error('discount_type')
+                                                <div class="invalid-feedback d-block">{{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Other Charges
                                                 ({{ $companyState->currency->symbol }})</span>
                                             <input type="number" name="other_charges" class="form-control"
-                                                placeholder="0">
+                                                placeholder="0" value="{{ old('other_charges') }}">
+                                            @error('other_charges')
+                                                <div class="invalid-feedback d-block">{{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Grand Total
                                                 ({{ $companyState->currency->symbol }})</span>
                                             <input type="text" class="form-control" readonly placeholder="0"
-                                                name="grandTotalResult" id="grandTotalResult" />
+                                                name="grandTotalResult" id="grandTotalResult"
+                                                value="{{ old('grandTotalResult') }}" />
+                                            @error('grandTotalResult')
+                                                <div class="invalid-feedback d-block">{{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="col-12">
@@ -199,13 +244,15 @@
         <script src="{{ asset('assets/vendor/bs-select/bs-select-custom.js') }}"></script>
 
         <script>
-            const myForm = document.getElementById('myForm');
-            const searchItem = $('#search_item');
             const tableBody = document.getElementById('table_body');
             const discountInput = document.querySelector('[name="discount"]');
             const discountTypeSelect = document.querySelector('[name="discount_type"]');
             const otherChargesInput = document.querySelector('[name="other_charges"]');
-            const grandTotalResult = document.getElementById('grandTotalResult');
+            const grandTotalAmt = document.getElementById('grandTotalResult');
+
+            const myForm = document.getElementById('myForm');
+            const searchItem = $('#search_item');
+
 
             myForm.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -215,63 +262,47 @@
 
             const removeItem = (e) => {
                 e.closest('tr').remove();
-                calculateGrandtotal();
+                calculateGrandtotal()
             };
 
+            const searchProduct = (search) => {
+                $.ajax({
+                    url: "{{ route('admin.sells.stocks_search') }}",
+                    data: {
+                        search: search
+                    },
+                    success: (data) => $('#search_item_list').html(data)
+                });
+            }
+
             searchItem.on('keyup', function() {
-                if ($(this).val() == '') {
-                    $('#search_item_list').html('')
-                } else {
-                    $.ajax({
-                        url: "{{ route('admin.milk-purchase.search_milk_product') }}",
-                        data: {
-                            search: $(this).val()
-                        },
-                        success: (data) => $('#search_item_list').html(data)
-                    });
-                }
+                $(this).val() == '' ? $('#search_item_list').html('') : searchProduct($(this).val());
             });
 
             const addItem = (id) => {
                 $.ajax({
-                    url: "{{ route('admin.milk-purchase.get_milk_product') }}",
+                    type: "GET",
+                    url: "{{ route('admin.sells.stocks_get') }}",
                     data: {
-                        id
+                        stock: id
                     },
                     success: (data) => {
                         $('#table_body').append(data);
-                        calculateGrandtotal();
                         $('#search_item_list').html('');
+                        calculateGrandtotal();
                         searchItem.val('');
                     }
                 });
             };
 
-            const validateForm = () => {
-                const fields = ['supplier', 'datepicker', 'status'];
-                for (const field of fields) {
-                    const value = document.getElementById(field).value;
-                    if (!value) {
-                        displayError(field, `Please select ${field}.`);
-                        return false;
-                    }
-                }
-                return true;
-            };
-
-            const displayError = (fieldId, errorMessage) => {
-                document.getElementById(`${fieldId}Error`).textContent = errorMessage;
-            };
-
-
             const calculateGrandtotal = () => {
                 let subtotal = 0;
                 tableBody.querySelectorAll('tr').forEach((row) => {
-                    const volume = parseFloat(row.querySelector('.volume').value) || 0;
-                    const mop = parseFloat(row.querySelector('.mop').value) || 0;
-                    const rowTotal = (volume / 1000) * mop;
-                    row.querySelector('.total-amt').value = rowTotal.toFixed(2);
-                    subtotal += rowTotal;
+                    const qnt = parseFloat(row.querySelector('.quentity').value) || 0;
+                    const mrp = parseFloat(row.querySelector('.mrp').value) || 0;
+                    const totalAmt = qnt * mrp;
+                    row.querySelector('.total-amt').value = totalAmt.toFixed(2);
+                    subtotal += totalAmt;
                 });
 
                 const discount = parseFloat(discountInput.value) || 0;
@@ -280,12 +311,13 @@
 
                 const otherCharges = parseFloat(otherChargesInput.value) || 0;
                 const grandTotal = subtotal - discountAmount + otherCharges;
-                grandTotalResult.value = grandTotal.toFixed(2);
+                console.log(grandTotal);
+                grandTotalAmt.value = grandTotal.toFixed(2);
             };
 
             const handleTableInput = (event) => {
                 const target = event.target;
-                if (target.matches('.volume') || target.matches('.mop')) {
+                if (target.matches('.quentity') || target.matches('.mrp')) {
                     calculateGrandtotal();
                 }
             };

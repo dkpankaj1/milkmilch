@@ -23,6 +23,7 @@
                                     <th>MRP</th>
                                     <th>Quentity</th>
                                     <th>Available</th>
+                                    <th>Best Befour</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,12 +32,13 @@
                                     <tr>
                                         <td>{{ $stock->product->name }}</td>
                                         <td>{{ $stock->batch->batch_code }}</td>
-                                        <td>{{ Illuminate\Support\Carbon::parse( $stock->batch->date)->format('Y-m-d')  }}</td>
+                                        <td>{{ Illuminate\Support\Carbon::parse( $stock->batch->date)->format('Y-m-d H:i:s')  }}</td>
                                         <td>{{ $stock->shelf_life }} Day</td>
                                         <td>{{ $stock->volume }} ml</td>
                                         <td>{{$companyState->currency->symbol}} {{ $stock->mrp }}</td>
                                         <td>{{ $stock->quentity }}</td>
                                         <td>{{ $stock->available }}</td>
+                                        <td>{{ $stock->best_befour }}</td>
                                        
                                     </tr>
                                 @endforeach()

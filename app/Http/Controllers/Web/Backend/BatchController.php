@@ -9,6 +9,7 @@ use App\Models\MilkStorage;
 use App\Models\Product;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class BatchController extends Controller
 {
@@ -68,6 +69,7 @@ class BatchController extends Controller
                 $stack['mrp'] = $mrp[$index];
                 $stack['quentity'] = $quentity[$index];
                 $stack['available'] = $quentity[$index];
+                $stack['best_befour'] = Carbon::parse($request->date)->addDays($shelfLife[$index]); ;
 
                 $stacks[] = $stack;
             }

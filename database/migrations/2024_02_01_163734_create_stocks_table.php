@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('mrp',8,2);
             $table->unsignedInteger('quentity');
             $table->unsignedInteger('available');
+            $table->timestamp('best_befour');
             $table->timestamps();
 
             $table->foreign('batch_id')->references('id')->on('batches');

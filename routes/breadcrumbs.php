@@ -158,6 +158,21 @@ Breadcrumbs::for('admin.riders.edit', function ($trail,$user) {
     $trail->push('Edit', route('admin.riders.edit',$user));
 });
 
+// >>Dashboard > sells
+Breadcrumbs::for('admin.sells.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Sells', route('admin.sells.index'));
+});
+// >>Dashboard > sells > create
+Breadcrumbs::for('admin.sells.create', function ($trail) {
+    $trail->parent('admin.sells.index');
+    $trail->push('Add', route('admin.sells.create'));
+});
+// >>Dashboard > sells > edit
+Breadcrumbs::for('admin.sells.edit', function ($trail,$sells) {
+    $trail->parent('admin.sells.index');
+    $trail->push('Edit', route('admin.sells.edit',$sells));
+});
 
 
 // >>Dashboard > suppliers

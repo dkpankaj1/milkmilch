@@ -100,7 +100,7 @@
                                     <label class="form-label">Add Product<span class="text-red">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">
-                                            <i class="bi bi-upc-scan"></i>
+                                            <i class="bi bi-bag"></i>
                                         </span>
                                         <input type="text" class="form-control" id="search_item">
                                     </div>
