@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('batches', function (Blueprint $table) {
             $table->id();
+            $table->string("batch_code")->unique();
+            $table->timestamp('date');
+            $table->unsignedBigInteger('milk_storage_id');
+            $table->decimal('volume',8,2);
             $table->timestamps();
+
+            $table->foreign('milk_storage_id')->references('id')->on('milk_storages');
         });
     }
 
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('batches');
     }
 };

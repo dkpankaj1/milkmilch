@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\Auth\PasswordUpdateConreoller;
+use App\Http\Controllers\Web\Backend\BatchController;
 use App\Http\Controllers\Web\Backend\CompanyController;
 use App\Http\Controllers\Web\Backend\CurrencySettingController;
 use App\Http\Controllers\Web\Backend\CustomerController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Web\Backend\MilkPurchaseController;
 use App\Http\Controllers\Web\Backend\MilkStorageController;
 use App\Http\Controllers\Web\Backend\ProductController;
 use App\Http\Controllers\Web\Backend\RiderController;
+use App\Http\Controllers\Web\Backend\StockController;
 use App\Http\Controllers\Web\Backend\SupplierController;
 use App\Http\Controllers\Web\Backend\UnitSettingController;
 use App\Http\Controllers\Web\Backend\UserController;
@@ -27,6 +29,10 @@ Route::group(
         // 'middleware' => ['auth', 'roles:admin,staff']
     ],
     function () {
+
+        Route::resource('batches', BatchController::class);
+        Route::get('batches-search-product',[BatchController::class,'search_product'])->name('batches.search_product');
+        Route::get('batches-add-product',[BatchController::class,'add_product'])->name('batches.add_product');
 
         Route::resource('companys', CompanyController::class)->except(['create','store','show','edit','delete','destroy']);
 
@@ -60,6 +66,8 @@ Route::group(
 
         Route::resource('suppliers', SupplierController::class);
         Route::get('suppliers/delete/{supplier}', [SupplierController::class, 'delete'])->name('suppliers.delete');
+
+        Route::get('stocks',[StockController::class,'index'])->name('stocks.index');
 
         Route::resource('units', UnitSettingController::class);
         Route::get('units/delete/{unit}', [UnitSettingController::class, 'delete'])->name('units.delete');

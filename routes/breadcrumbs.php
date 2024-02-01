@@ -2,6 +2,24 @@
 
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
+
+// >>Dashboard > batches
+Breadcrumbs::for('admin.batches.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Batches', route('admin.batches.index'));
+});
+// >>Dashboard > batches > add
+Breadcrumbs::for('admin.batches.create', function ($trail) {
+    $trail->parent('admin.batches.index');
+    $trail->push('Add', route('admin.batches.create'));
+});
+// >>Dashboard > batches > edit
+Breadcrumbs::for('admin.batches.edit', function ($trail,$batches) {
+    $trail->parent('admin.batches.index');
+    $trail->push('Edit', route('admin.batches.edit',$batches));
+});
+
+
 // >>Dashboard
 Breadcrumbs::for('dashboard', function ($trail) {
     $trail->push('Dashboard', route('admin.dashboard'));
@@ -156,6 +174,12 @@ Breadcrumbs::for('admin.suppliers.create', function ($trail) {
 Breadcrumbs::for('admin.suppliers.edit', function ($trail,$user) {
     $trail->parent('admin.suppliers.index');
     $trail->push('Edit', route('admin.suppliers.edit',$user));
+});
+
+// >>Dashboard > stocks
+Breadcrumbs::for('admin.stocks.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Stocks', route('admin.stocks.index'));
 });
 
 
