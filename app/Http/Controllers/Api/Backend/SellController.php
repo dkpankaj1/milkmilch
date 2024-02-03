@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomerCollection;
+use App\Http\Resources\SellCollection;
+use App\Http\Resources\SellResource;
 use App\Http\Resources\StockCollection;
 use App\Http\Resources\StockResource;
 use App\Models\Customer;
 use App\Models\Sell;
+use App\Models\SellItems;
 use App\Models\Stock;
 use App\Traits\HttpResponses;
 use Carbon\Carbon;
@@ -21,7 +24,22 @@ class SellController extends Controller
      */
     public function index()
     {
-        //
+
+        $sellQuery = Sell::query();
+        
+        if (auth()->user()->hasRole('admin')) {
+            $sells = $sellQuery->latest()->with('customer')->get();
+        } else {
+            $sells = $sellQuery->latest()->with('customer')->where('user_id', auth()->user()->id)->get();
+        }
+
+        try {
+            return $this->sendSuccess('sells collection', new SellCollection($sells), 200);
+
+        } catch (\Exception $e) {
+            // Return error response in case of an exception
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
+        }
     }
 
     /**
@@ -37,62 +55,60 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'customer' => ['required', 'exists:customers,id'],
+            'sell_date' => ['required', 'date'],
+            'products' => ['required', 'array'],
+            "discount" => ['nullable'],
+            "discount_type" => ['required'],
+            "other_charges" => ['nullable'],
+            "grand_total" => ['required'],
+        ]);
 
-        // $request->validate([
-        //     'customer' => ['required', 'exists:customers,id'],
-        //     'sell_date' => ['required', 'date'],
-        //     'product' => ['required', 'array'],
-        //     "discount" => ['nullable'],
-        //     "discount_type" => ['required'],
-        //     "other_charges" => ['nullable'],
-        //     "grandTotalResult" => ['required'],
-        // ]);
+        $sell = Sell::create([
+            'customer_id' => $request->customer,
+            'date' => $request->sell_date,
+            'other_amt' => $request->other_charges ?: 0,
+            'discount' => $request->discount ?: 0,
+            'discount_type' => $request->discount_type,
+            'order_status' => 'complete',
+            'payment_status' => 'pending',
+            'grand_total' => $request->grand_total,
+            'paid_amt' => 0,
+            'note' => $request->note ?: "sell notes",
+            'user_id' => $request->user()->id
+        ]);
 
-        // $sell = Sell::create([
-        //     'customer_id' => $request->customer,
-        //     'date' => $request->sell_date,
-        //     'other_amt' => $request->other_charges ?: 0,
-        //     'discount' => $request->discount ?: 0,
-        //     'discount_type' => $request->discount_type,
-        //     'order_status' => 'complete',
-        //     'payment_status' => 'pending',
-        //     'grand_total' => $request->grandTotalResult,
-        //     'paid_amt' => 0,
-        //     'note' => $request->note ?: "sell notes",
-        //     'user_id' => $request->user()->id
-        // ]);
+        try {
 
-        // try {
+            $products = $request->products;
+            $sellItms = [];
 
-        //     $product = $request->product;
-        //     $stockID = $product['id'];
-        //     $quentity = $product['quentity'];
-        //     $mrp = $product['mrp'];
-        //     $totalAmt = $product['total_amt'];
+            foreach ($products as $product) {
+                $selldata = [
+                    'sell_id' => $sell->id,
+                    'stock_id' => $product['stock_id'],
+                    'quentity' => $product['quentity'],
+                    'mrp' => $product['mrp'],
+                    'total_amt' => $product['total_amt'],
+                ];
 
-        //     $sellItms = [];
+                $sellItms[] = $selldata;
 
-        //     foreach ($stockID as $index => $value) {
-        //         $sellItm['sell_id'] = $sell->id;
-        //         $sellItm['stock_id'] = $stockID[$index];
-        //         $sellItm['quentity'] = $quentity[$index];
-        //         $sellItm['mrp'] = $mrp[$index];
-        //         $sellItm['total_amt'] = $totalAmt[$index];
+                $stock = Stock::findOrFail($product['stock_id']);
 
-        //         $sellItms[] = $sellItm;
+                $stock->update(['available' => $stock->available - $product['quentity']]);
 
-        //         $stock = Stock::findOrFail($stockID[$index]);
-        //         $stock->update(['available' => $stock->available -  $quentity[$index]]);
-        //     }
+            }
 
-        //     $sellItm::insert($sellItms);
+            SellItems::insert($sellItms);
 
-        //     // return $this->sendSuccess(trans('crud.create', ['model' => 'sell']), new UserResource($user), 200);
+            return $this->sendSuccess(trans('crud.create', ['model' => 'sell']), new SellResource($sell), 200);
 
-        // } catch (\Exception $e) {
-        //     // Return error response in case of an exception
-        //     // return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
-        // }
+        } catch (\Exception $e) {
+            // Return error response in case of an exception
+            return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
+        }
 
     }
 
