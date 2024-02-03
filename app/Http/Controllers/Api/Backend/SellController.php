@@ -88,7 +88,7 @@ class SellController extends Controller
                 $selldata = [
                     'sell_id' => $sell->id,
                     'stock_id' => $product['stock_id'],
-                    'quentity' => $product['quentity'],
+                    'quentity' => $product['quantity'],
                     'mrp' => $product['mrp'],
                     'total_amt' => $product['total_amt'],
                 ];
@@ -97,7 +97,7 @@ class SellController extends Controller
 
                 $stock = Stock::findOrFail($product['stock_id']);
 
-                $stock->update(['available' => $stock->available - $product['quentity']]);
+                $stock->update(['available' => $stock->available - $product['quantity']]);
 
             }
 
