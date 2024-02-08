@@ -14,7 +14,7 @@ class MilkSeeder extends Seeder
     public function run(): void
     {
         Milk::create([
-            'name' => 'cow milk',
+            'name' => 'Cow Milk',
             'fat_content' => 10.5   ,
             'shelf_life' => 2,
             'volume' => 1000.00,
@@ -25,7 +25,7 @@ class MilkSeeder extends Seeder
         ]);
 
         Milk::create([
-            'name' => 'buffalo milk',
+            'name' => 'Buffalo Milk',
             'fat_content' => 18.5   ,
             'shelf_life' => 2,
             'volume' => 1000.00,

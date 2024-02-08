@@ -27,16 +27,20 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentModeSeeder::class);
         $this->call(MilkSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(CategorieSeeder::class);
+        $this->call(ProductSeeder::class);
 
-        Categorie::create(['name' => 'Full Cream','slug' => 'full-cream','description' => 'description','status' => 1]);
+        $this->call(CustomerSeeder::class);
         
-        User::factory(25)->create();
-        $users = User::all();
-        foreach($users as $user)
-        {
-            $user->role_id == 3 && Supplier::create(['user_id' => $user->id]);
-            $user->role_id == 4 && Rider::create(['user_id' => $user->id]);
-            $user->role_id == 5 && Customer::create(['user_id' => $user->id]);
-        }
+        // User::factory(25)->create();
+        // $users = User::all();
+
+
+        // foreach($users as $user)
+        // {
+        //     $user->role_id == 3 && Supplier::create(['user_id' => $user->id]);
+        //     $user->role_id == 4 && Rider::create(['user_id' => $user->id]);
+        //     $user->role_id == 5 && Customer::create(['user_id' => $user->id]);
+        // }
     }
 }

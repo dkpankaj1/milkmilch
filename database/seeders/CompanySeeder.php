@@ -14,8 +14,8 @@ class CompanySeeder extends Seeder
     public function run(): void
     {
         Company::create([
-            'name' => 'Demo Company',
-            "email" => 'demo@email.com',
+            'name' => 'milk Milch',
+            "email" => 'milkmilch@email.com',
             "phone" => '1234567890',
             "address" => '123 Main Street',
             "city" => 'New York',
