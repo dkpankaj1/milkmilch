@@ -27,4 +27,7 @@ class Stock extends Model
     {
         return $this->belongsTo(Batch::class);
     }
+    public function sellItems(){
+        return $this->belongsTo(SellItems::class);
+    }
 }

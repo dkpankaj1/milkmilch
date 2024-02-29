@@ -21,10 +21,10 @@ class SellController extends Controller
     {
 
         $sellQuery = Sell::query();
-        if(auth()->user()->hasRole('admin')) {
-            $sells =  $sellQuery->latest()->with('customer')->get();
+        if (auth()->user()->hasRole('admin')) {
+            $sells = $sellQuery->latest()->with('customer')->get();
         } else {
-            $sells =  $sellQuery->latest()->with('customer')->where('user_id', auth()->user()->id)->get();
+            $sells = $sellQuery->latest()->with('customer')->where('user_id', auth()->user()->id)->get();
         }
 
         return view('backend.sell.index', ['sells' => $sells]);
@@ -35,7 +35,13 @@ class SellController extends Controller
      */
     public function create()
     {
-        $customers = Customer::with('user')->get();
+        // $customers = Customer::with('user')->get();
+
+        $customers = Customer::whereHas('user', function ($query) {
+            $query->where('status', 1);
+        })->get();
+
+
         return view('backend.sell.create', ['customers' => $customers]);
     }
 
@@ -88,12 +94,12 @@ class SellController extends Controller
                 $sellItms[] = $sellItm;
 
                 $stock = Stock::findOrFail($stockID[$index]);
-                $stock->update(['available' => $stock->available -  $quentity[$index]]);
+                $stock->update(['available' => $stock->available - $quentity[$index]]);
             }
 
             SellItems::insert($sellItms);
 
-            toastr()->success(trans('crud.create', ['model' => 'sels']));
+            toastr()->success(trans('crud.create', ['model' => 'sells']));
 
             return redirect()->back();
 
@@ -119,7 +125,12 @@ class SellController extends Controller
      */
     public function edit(Sell $sell)
     {
-        //
+        $customers = Customer::whereHas('user', function ($query) {
+            $query->where('status', 1);
+        })->get();
+
+
+        return view('backend.sell.edit', ['customers' => $customers, 'sell' => $sell]);
     }
 
     /**
@@ -127,7 +138,72 @@ class SellController extends Controller
      */
     public function update(Request $request, Sell $sell)
     {
-        //
+        $request->validate([
+            'customer' => ['required', 'exists:customers,id'],
+            'sell_date' => ['required', 'date'],
+            'product' => ['required', 'array'],
+            "discount" => ['nullable'],
+            "discount_type" => ['required'],
+            "other_charges" => ['nullable'],
+            "grandTotalResult" => ['required'],
+        ]);
+
+        $sell->update([
+            'customer_id' => $request->customer,
+            'date' => $request->sell_date,
+            'other_amt' => $request->other_charges ?: 0,
+            'discount' => $request->discount ?: 0,
+            'discount_type' => $request->discount_type,
+            'order_status' => 'complete',
+            'payment_status' => 'pending',
+            'grand_total' => $request->grandTotalResult,
+            'paid_amt' => 0,
+            'note' => $request->note ?: "sell notes",
+            'user_id' => $request->user()->id
+        ]);
+
+        try {
+
+            // restore old sell
+            foreach($sell->items as $item){
+                $stock = Stock::findOrFail($item->stock_id);
+                $stock->update(['available' => $stock->available + $item->quentity]);
+            }
+
+            $product = $request->product;
+            $stockID = $product['id'];
+            $quentity = $product['quentity'];
+            $mrp = $product['mrp'];
+            $totalAmt = $product['total_amt'];
+
+            $sellItms = [];
+
+            foreach ($stockID as $index => $value) {
+                $sellItm['sell_id'] = $sell->id;
+                $sellItm['stock_id'] = $stockID[$index];
+                $sellItm['quentity'] = $quentity[$index];
+                $sellItm['mrp'] = $mrp[$index];
+                $sellItm['total_amt'] = $totalAmt[$index];
+
+                $sellItms[] = $sellItm;
+
+                $stock = Stock::findOrFail($stockID[$index]);
+                $stock->update(['available' => $stock->available - $quentity[$index]]);
+            }
+            $sell->items()->delete();// Delete existing items
+            SellItems::insert($sellItms);
+
+            toastr()->success(trans('crud.update', ['model' => 'sells - '. $sell->id]));
+
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+
+            toastr()->error($e->getMessage());
+
+            return redirect()->back();
+
+        }
     }
 
     /**
@@ -135,13 +211,40 @@ class SellController extends Controller
      */
     public function destroy(Sell $sell)
     {
-        //
+        try {
+
+            // sell check if payment is complete or not
+
+            // restore old sell
+
+            foreach($sell->items as $item){
+                $stock = Stock::findOrFail($item->stock_id);
+                $stock->update(['available' => $stock->available + $item->quentity]);
+            }
+
+            // delete sell
+
+            $sell->items()->delete();
+            $sell->delete();
+           
+            toastr()->success(trans('crud.delete', ['model' => 'sells - ' . $sell->id]));
+            return redirect()->back();
+        } catch (\Exception $e) {
+            toastr()->error($e->getMessage());
+            return redirect()->back();
+        }
+        
+    }
+    
+    public function delete(Sell $sell)
+    {
+        return view('backend.sell.delete', ['sell' => $sell]);
     }
 
     public function search_stock(Request $request)
     {
         $stockQuery = Stock::query();
-        $stocks = $stockQuery->whereDate('best_befour', '>=', Carbon::today())->whereHas('product', function ($query) use ($request) {
+        $stocks = $stockQuery->where('available', '>', 0)->whereDate('best_befour', '>=', Carbon::today())->whereHas('product', function ($query) use ($request) {
             $query->where('name', 'like', '%' . $request->search . '%');
         })->get();
 

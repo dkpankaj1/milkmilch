@@ -66,6 +66,7 @@ Route::group(
         Route::get('riders/delete/{rider}', [RiderController::class, 'delete'])->name('riders.delete');
 
         Route::resource('sells',SellController::class);
+        Route::get('sells/delete/{sell}', [SellController::class, 'delete'])->name('sells.delete');
         Route::get('sells-stocks-search',[SellController::class,'search_stock'])->name('sells.stocks_search');
         Route::get('sells-stocks-get',[SellController::class,'get_stock'])->name('sells.stocks_get');
 

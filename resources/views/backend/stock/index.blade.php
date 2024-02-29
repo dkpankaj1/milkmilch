@@ -29,9 +29,9 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($stocks as $stock)
+                                @foreach ($stocks as $key =>$stock)
                                     <tr>
-                                        <td>{{ $stock->id }}</td>
+                                        <td>{{ $key+1 }}</td>
                                         <td>{{ $stock->product->name }}</td>
                                         <td>{{ $stock->batch->batch_code }}</td>
                                         <td>{{ Illuminate\Support\Carbon::parse( $stock->batch->date)->format('Y-m-d H:i:s')  }}</td>

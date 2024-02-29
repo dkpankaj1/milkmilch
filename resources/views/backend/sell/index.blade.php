@@ -41,12 +41,12 @@
                                         
                                         <td>
                                             <div class="actions">
-                                                {{-- <a href="{{ route('admin.sells.edit', $sell)}}" >
+                                                <a href="{{ route('admin.sells.edit', $sell)}}" >
                                                     <i class="bi bi-pencil-square text-info"></i>
-                                                </a> --}}
-                                                {{-- <a href="#" class="delete-btn" data-attr="{{ route('admin.sells.delete', $sell) }}">
+                                                </a>
+                                                <a href="#" class="delete-btn" data-attr="{{ route('admin.sells.delete', $sell) }}">
                                                     <i class="bi bi-trash text-red"></i>
-                                                </a> --}}
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

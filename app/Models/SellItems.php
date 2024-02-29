@@ -19,4 +19,9 @@ class SellItems extends Model
     {
         return $this->belongsTo(Sell::class);
     }
+
+    public function stock()
+    {
+        return $this->belongsTo(Stock::class);
+    }
 }
