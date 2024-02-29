@@ -15,6 +15,7 @@
                         <table class="table v-middle m-0">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Product</th>
                                     <th>Batch</th>
                                     <th>Batch Date</th>
@@ -30,6 +31,7 @@
 
                                 @foreach ($stocks as $stock)
                                     <tr>
+                                        <td>{{ $stock->id }}</td>
                                         <td>{{ $stock->product->name }}</td>
                                         <td>{{ $stock->batch->batch_code }}</td>
                                         <td>{{ Illuminate\Support\Carbon::parse( $stock->batch->date)->format('Y-m-d H:i:s')  }}</td>

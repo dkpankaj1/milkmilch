@@ -1,7 +1,7 @@
 <tr>
     <td>
         <span class="form-control">{{ $stock->product->name }}</span>
-        <input type="hidden" name="product[id][]" value="{{ $stock->product->id }}">
+        <input type="hidden" name="product[id][]" value="{{ $stock->id }}">
         <input type="hidden" name="product[name][]" value="{{ $stock->product->name }}">
     </td>
 
