@@ -1,4 +1,10 @@
 <x-app-layout>
+    @push('head')
+        {{-- <!-- Data Tables -->
+        <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs5.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs5-custom.css') }}" /> --}}
+    @endpush
+
     @push('breadcrumb')
         {{ Breadcrumbs::render('admin.sells.index') }}
     @endpush
@@ -9,12 +15,13 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">Milks</div>
-                    <a href="{{route('admin.sells.create')}}" class="btn btn-outline-info"><i class="bi bi-plus-square"></i> Add</a>
+                    <a href="{{ route('admin.sells.create') }}" class="btn btn-outline-info"><i
+                            class="bi bi-plus-square"></i> Add</a>
                 </div>
                 <div class="card-body">
 
                     <div class="table-responsive mb-3">
-                        <table class="table v-middle m-0">
+                        <table class="table custom-table" id="saleDataTable">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -36,24 +43,27 @@
                                         <td>{{ $sell->customer->user->name }}</td>
                                         <td>{{ $sell->order_status }}</td>
                                         <td>{{ $sell->payment_status }}</td>
-                                        <td>{{$companyState->currency->symbol}} {{ $sell->grand_total }}</td>
+                                        <td>{{ $companyState->currency->symbol }} {{ $sell->grand_total }}</td>
                                         {{-- <td>{{$companyState->currency->symbol}} {{ $sell->paid_amt }}</td> --}}
-                                        
+
                                         <td>
                                             <div class="actions">
-                                                <a href="{{ route('admin.sells.edit', $sell)}}" >
+                                                <a href="{{ route('admin.sells.edit', $sell) }}">
                                                     <i class="bi bi-pencil-square text-info"></i>
                                                 </a>
-                                                <a href="#" class="delete-btn" data-attr="{{ route('admin.sells.delete', $sell) }}">
+                                                <a href="#" class="delete-btn"
+                                                    data-attr="{{ route('admin.sells.delete', $sell) }}">
                                                     <i class="bi bi-trash text-red"></i>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach()
-
                             </tbody>
                         </table>
+                    </div>
+                    <div class="col-12">
+                        {{ $sells->links() }}
                     </div>
                 </div>
             </div>
@@ -63,7 +73,26 @@
 
 
     @push('scripts')
-        <script src="{{ asset('assets/js/confirm.js') }}" ></script>
+        <script src="{{ asset('assets/js/confirm.js') }}"></script>
+
+        <!-- Data Tables -->
+        {{-- <script src="{{ asset('assets/vendor/datatables/dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap.min.js') }}"></script> --}}
+
+        <script>
+            // Basic DataTable
+            // $(function() {
+            //         $('#saleDataTable').DataTable({
+            //             processing: true,
+            //             "lengthMenu": [[10, 25, 50], [10, 25, 50, "All"]],
+            //             "language": {
+            //                 "lengthMenu": "Display _MENU_ Records Per Page",
+            //                 "info": "Showing Page _PAGE_ of _PAGES_",
+            //             }
+            //         });
+            // });
+
+        </script>
     @endpush
 
 </x-app-layout>

@@ -37,38 +37,16 @@
         </div>
         <div class="col-xxl-3 col-sm-6 col-12">
             <div class="stats-tile">
-                <div class="sale-icon shade-blue">
+                <div class="sale-icon shade-green">
                     <i class="bi bi-cart"></i>
                 </div>
                 <div class="sale-details">
-                    <h3 class="text-blue">{{ $companyState->currency->symbol }} {{ $today_purchase }}</h3>
+                    <h3 class="text-green">{{ $companyState->currency->symbol }} {{ $today_purchase }}</h3>
                     <p>Today Purchase</p>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-3 col-sm-6 col-12">
-            <div class="stats-tile">
-                <div class="sale-icon shade-yellow">
-                    <i class="bi bi-box-seam"></i>
-                </div>
-                <div class="sale-details">
-                    <h3 class="text-yellow">{{ $available_stock }}</h3>
-                    <p>Avalabel Stack</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xxl-3 col-sm-6 col-12">
-            <div class="stats-tile">
-                <div class="sale-icon shade-green">
-                    <i class="bi bi-bar-chart-steps"></i>
-                </div>
-                <div class="sale-details">
-                    <h3 class="text-green">NaN</h3>
-                    <p>In Storage</p>
-                </div>
-            </div>
-        </div>
+        
         <div class="col-xxl-3 col-sm-6 col-12">
             <div class="stats-tile">
                 <div class="sale-icon shade-blue">
@@ -82,11 +60,11 @@
         </div>
         <div class="col-xxl-3 col-sm-6 col-12">
             <div class="stats-tile">
-                <div class="sale-icon shade-red">
+                <div class="sale-icon shade-yellow">
                     <i class="bi bi-graph-up"></i>
                 </div>
                 <div class="sale-details">
-                    <h3 class="text-red">{{ $companyState->currency->symbol }} {{ $total_purchase }}</h3>
+                    <h3 class="text-yellow">{{ $companyState->currency->symbol }} {{ $total_purchase }}</h3>
                     <p>Total Purchase</p>
                 </div>
             </div>
@@ -94,21 +72,45 @@
         <div class="col-xxl-3 col-sm-6 col-12">
             <div class="stats-tile">
                 <div class="sale-icon shade-green">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <div class="sale-details">
+                    <h3 class="text-green">{{ $available_stock }}</h3>
+                    <p>Avalabel Stack</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-3 col-sm-6 col-12">
+            <div class="stats-tile">
+                <div class="sale-icon shade-red">
+                    <i class="bi bi-wallet"></i>
+                </div>
+                <div class="sale-details">
+                    <h3 class="text-red">NaN</h3>
+                    <p>Today Payment collection</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-3 col-sm-6 col-12">
+            <div class="stats-tile">
+                <div class="sale-icon shade-yellow">
                     <i class="bi bi-people-fill"></i>
                 </div>
                 <div class="sale-details">
-                    <h3 class="text-green">{{ $total_customer }}</h3>
+                    <h3 class="text-yellow">{{ $total_customer }}</h3>
                     <p>Customer</p>
                 </div>
             </div>
         </div>
         <div class="col-xxl-3 col-sm-6 col-12">
             <div class="stats-tile">
-                <div class="sale-icon shade-yellow">
+                <div class="sale-icon shade-blue">
                     <i class="bi bi-person"></i>
                 </div>
                 <div class="sale-details">
-                    <h3 class="text-yellow">{{ $total_rider }}</h3>
+                    <h3 class="text-blue">{{ $total_rider }}</h3>
                     <p>Rider</p>
                 </div>
             </div>

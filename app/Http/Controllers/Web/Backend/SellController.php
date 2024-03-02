@@ -11,6 +11,7 @@ use App\Models\SellItems;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class SellController extends Controller
 {
@@ -22,9 +23,9 @@ class SellController extends Controller
 
         $sellQuery = Sell::query();
         if (auth()->user()->hasRole('admin')) {
-            $sells = $sellQuery->latest()->with('customer')->get();
+            $sells = $sellQuery->latest()->with('customer')->paginate();
         } else {
-            $sells = $sellQuery->latest()->with('customer')->where('user_id', auth()->user()->id)->get();
+            $sells = $sellQuery->latest()->with('customer')->where('user_id', auth()->user()->id)->paginate();
         }
 
         return view('backend.sell.index', ['sells' => $sells]);
@@ -60,44 +61,49 @@ class SellController extends Controller
             "grandTotalResult" => ['required'],
         ]);
 
-        $sell = Sell::create([
-            'customer_id' => $request->customer,
-            'date' => $request->sell_date,
-            'other_amt' => $request->other_charges ?: 0,
-            'discount' => $request->discount ?: 0,
-            'discount_type' => $request->discount_type,
-            'order_status' => 'complete',
-            'payment_status' => 'pending',
-            'grand_total' => $request->grandTotalResult,
-            'paid_amt' => 0,
-            'note' => $request->note ?: "sell notes",
-            'user_id' => $request->user()->id
-        ]);
+      
 
         try {
 
-            $product = $request->product;
-            $stockID = $product['id'];
-            $quentity = $product['quentity'];
-            $mrp = $product['mrp'];
-            $totalAmt = $product['total_amt'];
+            DB::transaction(function() use($request){
 
-            $sellItms = [];
-
-            foreach ($stockID as $index => $value) {
-                $sellItm['sell_id'] = $sell->id;
-                $sellItm['stock_id'] = $stockID[$index];
-                $sellItm['quentity'] = $quentity[$index];
-                $sellItm['mrp'] = $mrp[$index];
-                $sellItm['total_amt'] = $totalAmt[$index];
-
-                $sellItms[] = $sellItm;
-
-                $stock = Stock::findOrFail($stockID[$index]);
-                $stock->update(['available' => $stock->available - $quentity[$index]]);
-            }
-
-            SellItems::insert($sellItms);
+                $sell = Sell::create([
+                    'customer_id' => $request->customer,
+                    'date' => $request->sell_date,
+                    'other_amt' => $request->other_charges ?: 0,
+                    'discount' => $request->discount ?: 0,
+                    'discount_type' => $request->discount_type,
+                    'order_status' => 'complete',
+                    'payment_status' => 'pending',
+                    'grand_total' => $request->grandTotalResult,
+                    'paid_amt' => 0,
+                    'note' => $request->note ?: "sell notes",
+                    'user_id' => $request->user()->id
+                ]);
+    
+                $product = $request->product;
+                $stockID = $product['id'];
+                $quentity = $product['quentity'];
+                $mrp = $product['mrp'];
+                $totalAmt = $product['total_amt'];
+    
+                $sellItms = [];
+    
+                foreach ($stockID as $index => $value) {
+                    $sellItm['sell_id'] = $sell->id;
+                    $sellItm['stock_id'] = $stockID[$index];
+                    $sellItm['quentity'] = $quentity[$index];
+                    $sellItm['mrp'] = $mrp[$index];
+                    $sellItm['total_amt'] = $totalAmt[$index];
+    
+                    $sellItms[] = $sellItm;
+    
+                    $stock = Stock::findOrFail($stockID[$index]);
+                    $stock->update(['available' => $stock->available - $quentity[$index]]);
+                }
+    
+                SellItems::insert($sellItms);
+            });  
 
             toastr()->success(trans('crud.create', ['model' => 'sells']));
 
