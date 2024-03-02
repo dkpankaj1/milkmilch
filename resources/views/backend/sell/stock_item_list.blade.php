@@ -7,7 +7,7 @@
 
     <td> <input type="number" class="form-control available" name="product[available][]" value="{{$stock->available}}" readonly /> </td>
 
-    <td> <input type="number" class="form-control quentity" name="product[quentity][]" value="1" /> </td>
+    <td> <input type="number" class="form-control quentity" name="product[quentity][]" max="{{$stock->available}}" value="1" /> </td>
 
     <td> <input type="number" class="form-control mrp" name="product[mrp][]" value="{{ number_format($stock->mrp) }}" /> </td>
 

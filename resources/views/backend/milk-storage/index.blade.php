@@ -23,7 +23,7 @@
                                     <th>Volume(ml)</th>
                                     <th>Avalable</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    {{-- <th>Actions</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,18 +37,18 @@
                                         <td>{{ $milkStorage->ttl_volume }} ml</td>
                                         <td>{{ $milkStorage->avl_volume }}</td>
                                         <td>
-                                            <span class="badge shade-{{ $milkStorage->status != 'storage' ? 'blue' : 'green'}} min-70">{{$milkStorage->status }}</span>
+                                            <span class="badge shade-{{ $milkStorage->status != 'storage' ? 'red' : 'green'}} min-70">{{ $milkStorage->status != 'storage' ? 'Expire' : 'Fresh'}}</span>
                                         </td>
-                                        <td>
-                                            <div class="actions">
+                                        {{-- <td>
+                                            <div class="actions"> --}}
                                                 {{-- <a href="{{ route('admin.milk-storage.edit', $milkStorage)}}" >
                                                     <i class="bi bi-pencil-square text-info"></i>
                                                 </a>
                                                 <a href="#" class="delete-btn" data-attr="{{ route('admin.milk-storage.delete', $milkStorage) }}">
                                                     <i class="bi bi-trash text-red"></i>
                                                 </a> --}}
-                                            </div>
-                                        </td>
+                                            {{-- </div>
+                                        </td> --}}
                                     </tr>
                                 @endforeach()
 

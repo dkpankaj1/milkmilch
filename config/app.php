@@ -173,6 +173,7 @@ return [
         Jackiedo\Cart\CartServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         \Barryvdh\DomPDF\ServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
 
         
     ])->toArray(),

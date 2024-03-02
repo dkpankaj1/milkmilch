@@ -23,7 +23,7 @@
                                     <th>Order Status</th>
                                     <th>Payment Status</th>
                                     <th>Grand Total</th>
-                                    <th>Paid AMT</th>
+                                    {{-- <th>Paid AMT</th> --}}
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -37,7 +37,7 @@
                                         <td>{{ $sell->order_status }}</td>
                                         <td>{{ $sell->payment_status }}</td>
                                         <td>{{$companyState->currency->symbol}} {{ $sell->grand_total }}</td>
-                                        <td>{{$companyState->currency->symbol}} {{ $sell->paid_amt }}</td>
+                                        {{-- <td>{{$companyState->currency->symbol}} {{ $sell->paid_amt }}</td> --}}
                                         
                                         <td>
                                             <div class="actions">

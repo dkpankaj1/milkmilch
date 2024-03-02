@@ -9,7 +9,7 @@
     <!-- Header actions ccontainer start -->
     <div class="header-actions-container">
 
-        <!-- Search container start -->
+        {{-- <!-- Search container start -->
         <div class="search-container">
 
             <!-- Search input group start -->
@@ -22,7 +22,7 @@
             <!-- Search input group end -->
 
         </div>
-        <!-- Search container end -->
+        <!-- Search container end --> --}}
 
         <!-- Header actions start -->
         <ul class="header-actions">

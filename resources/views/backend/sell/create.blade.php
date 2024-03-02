@@ -133,6 +133,7 @@
 
                                                         <td> <input type="number" class="form-control quentity"
                                                                 name="product[quentity][]"
+                                                                max="{{ old('product')['available'][$key] }}"
                                                                 value="{{ old('product')['quentity'][$key] }}" /> </td>
 
                                                         <td> <input type="number" class="form-control mrp"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\Auth\PasswordUpdateConreoller;
+use App\Http\Controllers\Web\Backend\BarcodeGeneratorController;
 use App\Http\Controllers\Web\Backend\BatchController;
 use App\Http\Controllers\Web\Backend\CompanyController;
 use App\Http\Controllers\Web\Backend\CurrencySettingController;
@@ -30,6 +31,8 @@ Route::group(
         // 'middleware' => ['auth', 'roles:admin,staff']
     ],
     function () {
+
+        Route::get('barcode',[BarcodeGeneratorController::class,"generate"])->name('barcode');
 
         Route::resource('batches', BatchController::class);
         Route::get('batches-search-product',[BatchController::class,'search_product'])->name('batches.search_product');

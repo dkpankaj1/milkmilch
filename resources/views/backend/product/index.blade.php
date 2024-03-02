@@ -24,7 +24,7 @@
                                     <th>Unit</th>
                                     <th>Shelf Life (Days)</th>
                                     <th>Volume(ml)</th>
-                                    <th>MRP ({{$companyState->currency->symbol}})</th>
+                                    <th>MRP ({{ $companyState->currency->symbol }})</th>
                                     <th>Description</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -56,16 +56,21 @@
                                                     data-attr="{{ route('admin.products.delete', $product) }}">
                                                     <i class="bi bi-trash text-red"></i>
                                                 </a>
+
+                                                <a href="{{ route('admin.barcode', ['text' => $product->code]) }}">
+                                                    <i class="bi bi-upc-scan text-info"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach()
 
-                                @if(count($products) == 0)
+                                @if (count($products) == 0)
                                     <tr>
-                                        <td colspan="9" class="text-center">No Products !!<td>
+                                        <td colspan="9" class="text-center">No Products !!
+                                        <td>
                                     </tr>
-                                @endif   
+                                @endif
 
                             </tbody>
                         </table>

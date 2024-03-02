@@ -40,7 +40,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'code' => "MILKMILCHCM0500",
-                'name' => "Buffalo Milk (500 ml)",
+                'name' => "Cow Milk (500 ml)",
                 'description' => "Cow Milk (500 ml)",
                 'mrp' => 45.00,
                 'volume' => 500,
@@ -52,7 +52,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'code' => "MILKMILCHCM1000",
-                'name' => "Buffalo Milk (1 ltr)",
+                'name' => "Cow Milk (1 ltr)",
                 'description' => "Cow Milk (1 ltr)",
                 'mrp' => 65.00,
                 'volume' => 1000,
