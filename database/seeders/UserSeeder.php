@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
+use App\Models\Rider;
+use App\Models\Supplier;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -35,7 +38,7 @@ class UserSeeder extends Seeder
             'role_id' => 2,
             'status' => 1
         ]);
-        User::create([
+        $supplier = User::create([
             'name' => "supplier",
             'email' => "supplier@email.com",
             'phone' => "+91-9794xxx940",
@@ -45,7 +48,7 @@ class UserSeeder extends Seeder
             'role_id' => 3,
             'status' => 1
         ]);
-        User::create([
+        $rider = User::create([
             'name' => "rider",
             'email' => "rider@email.com",
             'phone' => "+91-9794xxx940",
@@ -56,7 +59,7 @@ class UserSeeder extends Seeder
             'status' => 1
         ]);
 
-        User::create([
+        $arman = User::create([
             'name' => "arman khan",
             'email' => "armankhan@gmail.com",
             'phone' => "+91-9794xxx940",
@@ -67,7 +70,7 @@ class UserSeeder extends Seeder
             'status' => 1
         ]);
 
-        User::create([
+        $ajay = User::create([
             'name' => "ajay yadav",
             'email' => "ajayyadav@gmail.com",
             'phone' => "+91-9794xxx940",
@@ -77,7 +80,7 @@ class UserSeeder extends Seeder
             'role_id' => 4,
             'status' => 1
         ]);
-        User::create([
+        $customer = User::create([
             'name' => "customer",
             'email' => "customer@email.com",
             'phone' => "+91-9794xxx940",
@@ -87,5 +90,12 @@ class UserSeeder extends Seeder
             'role_id' => 5,
             'status' => 1
         ]);
+
+        Supplier::create(['user_id' => $supplier->id]);
+        Rider::create(['user_id' => $rider->id]);
+        Rider::create(['user_id' => $arman->id]);
+        Rider::create(['user_id' => $ajay->id]);
+        Customer::create(['user_id' => $customer->id]);
+        
     }
 }
