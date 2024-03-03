@@ -149,8 +149,7 @@ class SellController extends Controller
 
         $stockQuery = Stock::query();
         $stocks = $stockQuery->whereDate('best_befour', '>=', Carbon::today())->whereHas('product', function ($query) use ($request) {
-            $query->where('name', 'like', '%' . $request->search . '%')
-            ->orwhere('code', 'like', '%' . $request->search . '%');
+            $query->where('name', 'like', '%' . $request->search . '%');
         })->get();
 
         return $this->sendSuccess('stock', new StockCollection($stocks));
