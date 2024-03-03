@@ -27,7 +27,7 @@ class BatchController extends Controller
      */
     public function create()
     {
-        $storages = MilkStorage::where('status', 'storage')->latest()->get();
+        $storages = MilkStorage::where('status', 'storage')->where('avl_volume', '>',0)->latest()->get();
         return view('backend.batches.create', ['storages' => $storages]);
     }
 

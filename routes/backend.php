@@ -11,6 +11,7 @@ use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\MilkController;
 use App\Http\Controllers\Web\Backend\MilkPurchaseController;
 use App\Http\Controllers\Web\Backend\MilkStorageController;
+use App\Http\Controllers\Web\Backend\PaymentController;
 use App\Http\Controllers\Web\Backend\ProductController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SellController;
@@ -64,6 +65,9 @@ Route::group(
 
         Route::resource('products', ProductController::class);
         Route::get('products/delete/{product}', [ProductController::class, 'delete'])->name('products.delete');
+
+        Route::resource('payment',PaymentController::class);
+        Route::get('payment/invoice/{payment}',[PaymentController::class,'downloadPaymentInvoice'])->name('payment.invoice');
 
         Route::resource('riders', RiderController::class);
         Route::get('riders/delete/{rider}', [RiderController::class, 'delete'])->name('riders.delete');

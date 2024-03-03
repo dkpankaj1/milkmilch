@@ -19,6 +19,7 @@ class Sell extends Model
         'grand_total',
         'paid_amt',
         'note',
+        'payment_id',
         'user_id'
     ];
 
@@ -33,5 +34,9 @@ class Sell extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
     }
 }

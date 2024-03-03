@@ -12,7 +12,7 @@ use App\Models\Supplier;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Jackiedo\Cart\Cart;
+// use Jackiedo\Cart\Cart;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class MilkPurchaseController extends Controller
@@ -21,8 +21,8 @@ class MilkPurchaseController extends Controller
     protected $cart;
     public function __construct()
     {
-        $this->cart = new Cart();
-        $this->cart->name('milk-purchase');
+        // $this->cart = new Cart();
+        // $this->cart->name('milk-purchase');
     }
 
     /**

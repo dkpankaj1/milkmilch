@@ -41,10 +41,10 @@
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="">List</a>
+                            <a href="{{route('admin.payment.index')}}">List</a>
                         </li>
                         <li>
-                            <a href="">Generate</a>
+                            <a href="{{route('admin.payment.create')}}">Generate</a>
                         </li>
                     </ul>
                 </div>

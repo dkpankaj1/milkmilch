@@ -26,7 +26,7 @@ Breadcrumbs::for('dashboard', function ($trail) {
 });
 
 
-// >>Dashboard > companys
+// >>Dashboard > company
 Breadcrumbs::for('admin.companys.index', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Companys', route('admin.companys.index'));
@@ -66,17 +66,17 @@ Breadcrumbs::for('admin.customers.edit', function ($trail,$customer) {
 });
 
 
-// >>Dashboard > categorie
+// >>Dashboard > categories
 Breadcrumbs::for('admin.categories.index', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('Categorie', route('admin.categories.index'));
+    $trail->push('Categories', route('admin.categories.index'));
 });
-// >>Dashboard > categorie > create
+// >>Dashboard > categories > create
 Breadcrumbs::for('admin.categories.create', function ($trail) {
     $trail->parent('admin.categories.index');
     $trail->push('Add', route('admin.categories.create'));
 });
-// >>Dashboard > categorie > edit
+// >>Dashboard > categories > edit
 Breadcrumbs::for('admin.categories.edit', function ($trail,$category) {
     $trail->parent('admin.categories.index');
     $trail->push('Edit', route('admin.categories.edit',$category));
@@ -120,6 +120,22 @@ Breadcrumbs::for('admin.milk-purchases.edit', function ($trail,$milk_purchases) 
 Breadcrumbs::for('admin.milk-storage.index', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Milk Storage', route('admin.milk-storage.index'));
+});
+
+// >>Dashboard > payment
+Breadcrumbs::for('admin.payment.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Payments', route('admin.payment.index'));
+});
+// >>Dashboard > payment > create
+Breadcrumbs::for('admin.payment.create', function ($trail) {
+    $trail->parent('admin.payment.index');
+    $trail->push('Generate', route('admin.payment.create'));
+});
+// >>Dashboard > payment > edit
+Breadcrumbs::for('admin.payment.edit', function ($trail,$payment) {
+    $trail->parent('admin.payment.index');
+    $trail->push('Edit', route('admin.payment.edit',$payment));
 });
 
 
@@ -235,15 +251,13 @@ Breadcrumbs::for('admin.units.edit', function ($trail,$unit) {
 
 
 
-// >>Dashboard > pofile
+// >>Dashboard > profile
 Breadcrumbs::for('admin.profile', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Profile', route('admin.profile'));
 });
-// >>Dashboard > pofile > Edit
+// >>Dashboard > profile > Edit
 Breadcrumbs::for('admin.profile.edit', function ($trail) {
     $trail->parent('admin.profile');
     $trail->push('Edit', route('admin.profile.edit'));
 });
-
-?>

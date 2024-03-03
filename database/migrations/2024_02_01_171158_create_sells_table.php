@@ -23,10 +23,12 @@ return new class extends Migration
             $table->decimal('grand_total',8,2);
             $table->decimal('paid_amt',8,2)->default(0);
             $table->text('note');
+            $table->unsignedBigInteger('payment_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('payment_id')->references('id')->on('payments');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
