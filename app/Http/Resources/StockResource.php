@@ -19,6 +19,7 @@ class StockResource extends JsonResource
             "batch_id" => $this->batch_id,
             "product_id" => $this->product_id,
             "product" => $this->product->name,
+            "product_code" => $this->product->code,
             "shelf_life" => $this->shelf_life,
             "volume" => $this->volume,
             "mrp" => $this->mrp,
