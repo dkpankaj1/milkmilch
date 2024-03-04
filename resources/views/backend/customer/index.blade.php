@@ -11,6 +11,20 @@
                     <div class="card-title">Customers</div>
                 </div>
                 <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-12 col-md-8"></div>
+                            <div class="col-12 col-md-4">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control" placeholder="Search.." value="{{request()->search}}">
+                                        <button type="submit" class="btn btn-light">
+                                            <i class="bi bi-funnel"></i>Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
                     <div class="table-responsive mb-3">
                         <table class="table v-middle m-0">
@@ -59,10 +73,11 @@
                                                 {{-- <a href="#" class="viewRow">
                                                     <i class="bi bi-list text-green"></i>
                                                 </a> --}}
-                                                <a href="{{ route('admin.customers.edit', $customer)}}" >
+                                                <a href="{{ route('admin.customers.edit', $customer) }}">
                                                     <i class="bi bi-pencil-square text-info"></i>
                                                 </a>
-                                                <a href="#" class="delete-btn" data-attr="{{ route('admin.customers.delete', $customer) }}">
+                                                <a href="#" class="delete-btn"
+                                                    data-attr="{{ route('admin.customers.delete', $customer) }}">
                                                     <i class="bi bi-trash text-red"></i>
                                                 </a>
                                             </div>
@@ -85,7 +100,7 @@
 
 
     @push('scripts')
-        <script src="{{ asset('assets/js/confirm.js') }}" ></script>
+        <script src="{{ asset('assets/js/confirm.js') }}"></script>
     @endpush
 
 </x-app-layout>

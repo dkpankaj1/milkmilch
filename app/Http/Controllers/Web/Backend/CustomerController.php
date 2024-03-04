@@ -18,9 +18,20 @@ class CustomerController extends Controller
     public function index(Request $request): View
     {
 
-        $customer = Customer::query();
-        $customer = $customer->with('user')->latest();
-        return view('backend.customer.index', ['customers' => $customer->paginate()]);
+
+        $customers = Customer::query();
+
+        if ($request->filled("search")) {
+            $customers = Customer::whereHas('user', function ($query) {
+                $query->where('name', 'Like', '%' . request('search') . '%')
+                ->orwhere('email', 'Like', '%' . request('search') . '%')
+                ->orwhere('phone', 'Like', '%' . request('search') . '%');
+            });
+        } else {
+            $customers = $customers->with('user')->latest();
+        }
+
+        return view('backend.customer.index', ['customers' => $customers->paginate()]);
     }
     public function show(Request $request): RedirectResponse
     {
