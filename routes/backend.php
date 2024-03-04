@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\Backend\MilkController;
 use App\Http\Controllers\Web\Backend\MilkPurchaseController;
 use App\Http\Controllers\Web\Backend\MilkStorageController;
 use App\Http\Controllers\Web\Backend\PaymentController;
+use App\Http\Controllers\Web\Backend\PaymentTransactionController;
 use App\Http\Controllers\Web\Backend\ProductController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SellController;
@@ -81,6 +82,9 @@ Route::group(
         Route::get('suppliers/delete/{supplier}', [SupplierController::class, 'delete'])->name('suppliers.delete');
 
         Route::get('stocks',[StockController::class,'index'])->name('stocks.index');
+
+        Route::get('transaction/{payment}/create',[PaymentTransactionController::class,'create'])->name('transaction.create');
+        Route::post('transaction/{payment}/store',[PaymentTransactionController::class,'store'])->name('transaction.store');
 
         Route::resource('units', UnitSettingController::class);
         Route::get('units/delete/{unit}', [UnitSettingController::class, 'delete'])->name('units.delete');

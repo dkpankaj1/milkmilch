@@ -1,6 +1,5 @@
 <x-app-layout>
     @push('head')
-
     @endpush
 
     @push('breadcrumb')
@@ -37,7 +36,8 @@
                                 @foreach ($payments as $payment)
                                     <tr>
                                         <td>#PM-{{ $payment->id }}</td>
-                                        <td>{{ \Illuminate\Support\Carbon::parse($payment->date)->format('Y-m-d') }}</td>
+                                        <td>{{ \Illuminate\Support\Carbon::parse($payment->date)->format('Y-m-d') }}
+                                        </td>
                                         <td>{{ $payment->customer->user->name }}</td>
                                         <td>{{ $payment->customer->user->phone }}</td>
                                         <td>{{ $payment->grand_total }}</td>
@@ -46,12 +46,14 @@
 
                                         <td>
                                             <div class="actions">
-                                                <a href="{{ route('admin.payment.invoice', $payment) }}" target="_blank">
+                                                <a href="{{ route('admin.payment.invoice', $payment) }}"
+                                                    target="_blank" title="Download Invoice">
                                                     <i class="bi bi-file-pdf text-success"></i>
                                                 </a>
-                                                {{-- <a href="{{ route('admin.payment.edit', $payment) }}">
-                                                    <i class="bi bi-pencil-square text-info"></i>
-                                                </a> --}}
+                                                <a href="{{ route('admin.transaction.create', $payment) }}"
+                                                    title="Make Transaction">
+                                                    <i class="bi bi-credit-card text-info"></i>
+                                                </a>
                                                 {{-- <a href="#" class="delete-btn"
                                                     data-attr="{{ route('admin.payment.delete', $payment) }}">
                                                     <i class="bi bi-trash text-red"></i>

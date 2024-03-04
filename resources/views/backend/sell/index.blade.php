@@ -38,7 +38,7 @@
 
                                 @foreach ($sells as $sell)
                                     <tr>
-                                        <td>S-{{ $sell->id }}</td>
+                                        <td>#S-{{ $sell->id }}</td>
                                         <td>{{ \Illuminate\Support\Carbon::parse($sell->date)->format('Y-m-d') }}</td>
                                         <td>{{ $sell->customer->user->name }}</td>
                                         <td>{{ $sell->order_status }}</td>

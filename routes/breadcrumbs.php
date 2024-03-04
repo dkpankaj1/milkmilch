@@ -213,6 +213,12 @@ Breadcrumbs::for('admin.stocks.index', function ($trail) {
     $trail->push('Stocks', route('admin.stocks.index'));
 });
 
+// >>Dashboard > user > add
+Breadcrumbs::for('admin.transaction.create', function ($trail,$payment) {
+    $trail->parent('dashboard');
+    $trail->push('Create', route('admin.transaction.create',$payment));
+});
+
 
 // >>Dashboard > user
 Breadcrumbs::for('admin.users.index', function ($trail) {

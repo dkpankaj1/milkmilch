@@ -14,7 +14,12 @@ class Batch extends Model
         'milk_storage_id',
         'volume'
     ];
-    public function milk_storage(){
+    public function milk_storage()
+    {
         return $this->belongsTo(MilkStorage::class);
+    }
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
 }

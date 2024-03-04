@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Backend;
 
+use App\Enums\PaymentStatusEnums;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Payment;
@@ -34,7 +35,7 @@ class PaymentController extends Controller
 
         // Filter sales based on customer ID and payment status if customer is not null
         if ($request->filled('customer')) {
-            $salesQuery->where('payment_status', '!=', 'paid')
+            $salesQuery->where('payment_status', '=', PaymentStatusEnums::PENDING)
                 ->where('customer_id', $request->customer);
         }
         // Filter sales based on date range if start_date and end_date are not null
@@ -69,10 +70,9 @@ class PaymentController extends Controller
             'discount' => ['nullable'],
             'discount_type' => ['nullable'],
             'other_charges' => ['nullable']
-        ],[
+        ], [
             'id.required' => "* please select minimum:1 sell"
         ]);
-
 
         try {
 
@@ -81,29 +81,27 @@ class PaymentController extends Controller
                 $paymentData = [
                     "customer_id" => $request->customer_id,
                     "date" => Carbon::today()->format('Y-m-d'),
-                    "amount" => Sell::where('payment_status', "!=", "paid")->whereIn('id', $request->id)->sum('grand_total'),
+                    "amount" => Sell::where('payment_status',PaymentStatusEnums::PENDING)->whereIn('id', $request->id)->sum('grand_total'),
                     "discount" => $request->discount ?? 0,
                     "discount_type" => $request->discount_type ?? "none",
                     "other_amt" => $request->other_charges ?? 0,
                     "grand_total" => $request->grandTotalResult ?? 0,
                     "paid_amount" => 0,
+                    "payment_status" => PaymentStatusEnums::PENDING,
                     "user_id" => auth()->user()->id
                 ];
 
                 $payment = Payment::create($paymentData);
-                $sales = Sell::where('payment_status', "!=", "paid")->whereIn('id', $request->id)->get();
-                foreach ($sales as $sale) {
-                    $sale->update([
-                        'payment_status' => 'paid',
-                        'paid_amt' => $sale->grand_total,
+                Sell::where('payment_status', PaymentStatusEnums::PENDING)->whereIn('id', $request->id)->update(
+                    [
+                        'payment_status' => PaymentStatusEnums::GENERATED,
                         'payment_id' => $payment->id,
                     ]);
-                }
 
             });
 
             toastr()->success(trans('crud.create', ['model' => 'payment']));
-            return redirect()->back();
+            return redirect()->route('admin.payment.index');
         } catch (\Exception $e) {
             toastr()->error($e->getMessage());
             return redirect()->back();
@@ -141,7 +139,8 @@ class PaymentController extends Controller
     {
         //
     }
-    public function downloadPaymentInvoice(Payment $payment){
+    public function downloadPaymentInvoice(Payment $payment)
+    {
         // return view('backend.payments.invoice', ['payment' => $payment]);
         return pdf::loadView('backend.payments.invoice', ['payment' => $payment])->download('payment_invoice_' . $payment->id . '.pdf');
     }
