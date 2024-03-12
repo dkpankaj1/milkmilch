@@ -20,6 +20,7 @@
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
+                            
                             <a href="{{ route('admin.sells.create') }}">New Sells</a>
                         </li>
                         <li>
@@ -198,6 +199,20 @@
                 </div>
             </li>
             {{-- @endrole --}}
+
+            <li class="sidebar-dropdown">
+                <a href="#">
+                    <i class="bi bi-card-checklist"></i>
+                    <span class="menu-text">Report</span>
+                </a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="{{ route('admin.sell-report.index') }}">Sell Report</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
             <li class="sidebar-dropdown">
                 <a href="#">

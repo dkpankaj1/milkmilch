@@ -190,6 +190,12 @@ Breadcrumbs::for('admin.sells.edit', function ($trail,$sells) {
     $trail->push('Edit', route('admin.sells.edit',$sells));
 });
 
+// >>Dashboard > sells > edit
+Breadcrumbs::for('admin.sell-report.index', function ($trail) {
+    $trail->parent('admin.sells.index');
+    $trail->push('Report', route('admin.sell-report.index'));
+});
+
 
 // >>Dashboard > suppliers
 Breadcrumbs::for('admin.suppliers.index', function ($trail) {

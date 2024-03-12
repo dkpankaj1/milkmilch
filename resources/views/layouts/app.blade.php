@@ -44,6 +44,12 @@
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
+    <style>
+        .sidebarMenuScroll ul>li>a{
+            /* color: #fff !important; */
+            font-weight: bold !important;
+        }
+    </style>
 
     @stack('head')
 

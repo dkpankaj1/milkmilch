@@ -16,6 +16,7 @@ use App\Http\Controllers\Web\Backend\PaymentTransactionController;
 use App\Http\Controllers\Web\Backend\ProductController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SellController;
+use App\Http\Controllers\Web\Backend\SellReportController;
 use App\Http\Controllers\Web\Backend\StockController;
 use App\Http\Controllers\Web\Backend\SupplierController;
 use App\Http\Controllers\Web\Backend\UnitSettingController;
@@ -77,6 +78,9 @@ Route::group(
         Route::get('sells/delete/{sell}', [SellController::class, 'delete'])->name('sells.delete');
         Route::get('sells-stocks-search',[SellController::class,'search_stock'])->name('sells.stocks_search');
         Route::get('sells-stocks-get',[SellController::class,'get_stock'])->name('sells.stocks_get');
+
+        Route::get('sale-report',[SellReportController::class,'index'])->name('sell-report.index');
+        Route::get('sale-report/download',[SellReportController::class,'downloadSellReport'])->name('sell-report.export');
 
         Route::resource('suppliers', SupplierController::class);
         Route::get('suppliers/delete/{supplier}', [SupplierController::class, 'delete'])->name('suppliers.delete');

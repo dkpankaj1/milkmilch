@@ -14,7 +14,7 @@
         <div class="col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Milks</div>
+                    <div class="card-title">Sells</div>
                     <a href="{{ route('admin.sells.create') }}" class="btn btn-outline-info"><i
                             class="bi bi-plus-square"></i> Add</a>
                 </div>
