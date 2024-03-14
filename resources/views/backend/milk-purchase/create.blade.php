@@ -119,10 +119,10 @@
                                                 <th class="bg-primary text-white">Product Name</th>
                                                 <th class="bg-primary text-white">Fat Content (%)</th>
                                                 <th class="bg-primary text-white">Shelf Life (Day)</th>
-                                                <th class="bg-primary text-white">Volume (ml)</th>
-                                                <th class="bg-primary text-white">MRP
+                                                <th class="bg-primary text-white">Volume (Liter)</th>
+                                                <th class="bg-primary text-white">Sale Price
                                                     ({{ $companyState->currency->symbol }})</th>
-                                                <th class="bg-primary text-white">MOP
+                                                <th class="bg-primary text-white">Purchase Price
                                                     ({{ $companyState->currency->symbol }})</th>
                                                 <th class="bg-primary text-white">Total Amount
                                                     ({{ $companyState->currency->symbol }})</th>
@@ -269,7 +269,7 @@
                 tableBody.querySelectorAll('tr').forEach((row) => {
                     const volume = parseFloat(row.querySelector('.volume').value) || 0;
                     const mop = parseFloat(row.querySelector('.mop').value) || 0;
-                    const rowTotal = (volume / 1000) * mop;
+                    const rowTotal = volume  * mop;
                     row.querySelector('.total-amt').value = rowTotal.toFixed(2);
                     subtotal += rowTotal;
                 });

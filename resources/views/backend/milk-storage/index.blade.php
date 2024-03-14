@@ -20,7 +20,7 @@
                                     <th>Date</th>
                                     <th>Milk Categorie</th>
                                     <th>Shelf Life (Days)</th>
-                                    <th>Volume(ml)</th>
+                                    <th>Volume(Liter)</th>
                                     <th>Avalable</th>
                                     <th>Status</th>
                                     {{-- <th>Actions</th> --}}
@@ -34,7 +34,7 @@
                                         <td>{{ Illuminate\Support\Carbon::parse($milkStorage->date)->format('Y-m-d') }}</td>
                                         <td>{{ $milkStorage->milk->name }}</td>
                                         <td>{{ $milkStorage->avg_shelf_life  }} Day</td>
-                                        <td>{{ $milkStorage->ttl_volume }} ml</td>
+                                        <td>{{ $milkStorage->ttl_volume }}</td>
                                         <td>{{ $milkStorage->avl_volume }}</td>
                                         <td>
                                             <span class="badge shade-{{ $milkStorage->status != 'storage' ? 'red' : 'green'}} min-70">{{ $milkStorage->status != 'storage' ? 'Expire' : 'Fresh'}}</span>

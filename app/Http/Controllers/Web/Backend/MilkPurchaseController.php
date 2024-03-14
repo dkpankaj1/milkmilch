@@ -196,9 +196,27 @@ class MilkPurchaseController extends Controller
         $productList = [];
 
         try {
-            $previousState = $milkPurchase->order_status;
-            $milk_purchase = $milkPurchase;
-            $milk_purchase->update($data);
+
+            // revert
+            if ($milkPurchase->order_status == "received") {
+                foreach ($milkPurchase->items as $items) {
+                                       
+                    $milkstorage = MilkStorage::where(
+                        ['date' => $milkPurchase->purchase_date, 'milk_id' => $items->milk->id],
+                    )->first();
+
+                    if ($milkstorage) {
+                        $milkstorage->ttl_volume -= $items->volume;
+                        $milkstorage->avl_volume -= $items->volume;
+                        $milkstorage->save();
+                    }
+                }
+            }
+
+            $milkPurchase->items()->delete();
+
+            $milkPurchase->update($data);
+
 
             $product = $request->product;
             $productID = $product['id'];
@@ -208,9 +226,10 @@ class MilkPurchaseController extends Controller
             $mrp = $product['mrp'];
             $mop = $product['mop'];
             $total_amt = $product['total_amt'];
+            
 
             foreach ($productID as $index => $name) {
-                $productData['milk_purchase_id'] = $milk_purchase->id;
+                $productData['milk_purchase_id'] = $milkPurchase->id;
                 $productData['milk_id'] = $productID[$index];
                 $productData['fat_content'] = $fatContent[$index];
                 $productData['shelf_life'] = $shelfLife[$index];
@@ -222,16 +241,16 @@ class MilkPurchaseController extends Controller
                 $productList[] = $productData;
 
 
-                $shelfLifeUpTo = Carbon::parse($milk_purchase->purchase_date)->addDays($shelfLife[$index]);
+                $shelfLifeUpTo = Carbon::parse($milkPurchase->purchase_date)->addDays($shelfLife[$index]);
 
                 if (Carbon::today()->lessThan($shelfLifeUpTo)) {
 
-                    if ($previousState != "received" && $milk_purchase->order_status == "received") {
+                    if ($milkPurchase->order_status == "received") {
 
                         $milkstorage = MilkStorage::firstOrCreate(
-                            ['date' => $milk_purchase->purchase_date, 'milk_id' => $productData['milk_id']],
+                            ['date' => $milkPurchase->purchase_date, 'milk_id' => $productData['milk_id']],
                             [
-                                'date' => $milk_purchase->purchase_date,
+                                'date' => $milkPurchase->purchase_date,
                                 'milk_id' => $productData['milk_id'],
                                 'ttl_volume' => 0,
                                 'avl_volume' => 0,
@@ -245,30 +264,9 @@ class MilkPurchaseController extends Controller
                         $milkstorage->avl_volume += $productData['volume'];
                         $milkstorage->save();
                     }
-
-                    if ($previousState == "received" && $milk_purchase->order_status != "received") {
-
-                        $milkstorage = MilkStorage::firstOrCreate(
-                            ['date' => $milk_purchase->purchase_date, 'milk_id' => $productData['milk_id']],
-                            [
-                                'date' => $milk_purchase->purchase_date,
-                                'milk_id' => $productData['milk_id'],
-                                'ttl_volume' => 0,
-                                'avl_volume' => 0,
-                                'avg_shelf_life' => 0,
-                                'status' => 'storage'
-                            ],
-                        );
-
-                        $milkstorage->ttl_volume -= $productData['volume'];
-                        $milkstorage->avl_volume -= $productData['volume'];
-                        $milkstorage->save();
-                    }
-
                 }
             }
 
-            $milk_purchase->items()->delete(); // Delete existing items
             MilkPurchaseItem::insert($productList);
 
             toastr()->success(trans('crud.update', ['model' => 'milk purchase']));

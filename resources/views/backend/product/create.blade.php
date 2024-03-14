@@ -107,11 +107,11 @@
 
                                             <div class="col-sm-4 col-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Volume (mililiter) <span
+                                                    <label class="form-label">Volume (Liter) <span
                                                             class="text-red">*</span></label>
                                                     <input type="number" name="volume" value="{{ old('volume') }}"
                                                         min="0" value="0" step="any"
-                                                        class="form-control"placeholder="Enter Volume In MiliLiter">
+                                                        class="form-control"placeholder="Enter Volume In Liter">
                                                     @error('volume')
                                                         <div class="invalid-feedback d-block">{{ $message }}
                                                         </div>

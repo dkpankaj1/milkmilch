@@ -64,7 +64,7 @@
 
                             <div class=" col-sm-4 col-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Volume Used (ml) <span class="text-red">*</span></label>
+                                    <label class="form-label">Volume Used (Liter) <span class="text-red">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">
                                             <i class="bi bi-rulers"></i>
@@ -115,7 +115,7 @@
                                             <tr>
                                                 <th class="bg-primary text-white">Product Name</th>
                                                 <th class="bg-primary text-white">Shelf Life (Day)</th>
-                                                <th class="bg-primary text-white">Volume (ml)</th>
+                                                <th class="bg-primary text-white">Volume (Liter)</th>
                                                 <th class="bg-primary text-white">Quentity</th>
                                                 <th class="bg-primary text-white">MRP
                                                     ({{ $companyState->currency->symbol }})</th>

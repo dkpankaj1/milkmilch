@@ -21,7 +21,7 @@
                                     <th>Name</th>
                                     <th>Fat Content</th>
                                     <th>Shelf Life (Days)</th>
-                                    <th>Volume(ml)</th>
+                                    <th>Volume(Liter)</th>
                                     <th>MOP</th>
                                     <th>MRP</th>
                                     <th>Description</th>
@@ -37,7 +37,7 @@
                                         <td>{{ $milk->name }}</td>
                                         <td>{{ $milk->fat_content }} %</td>
                                         <td>{{ $milk->shelf_life }} Day</td>
-                                        <td>{{ $milk->volume }} ml</td>
+                                        <td>{{ $milk->volume }} L</td>
                                         <td>{{$companyState->currency->symbol}} {{ $milk->mop }}</td>
                                         <td>{{$companyState->currency->symbol}} {{ $milk->mrp }}</td>
                                         <td>{{ $milk->description }}</td>

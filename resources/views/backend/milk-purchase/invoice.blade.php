@@ -118,7 +118,7 @@
                                 Items</th>
                             <th bgcolor="#f8f9fa"
                                 style="white-space: nowrap; padding: 12px; font-family: 'Poppins', sans-serif; border-bottom: 1px solid #dee2e6; background-color: #f8f9fa;-webkit-print-color-adjust: exact !important;color-adjust: exact !important;print-color-adjust: exact !important;">
-                                Volume (ml)</th>
+                                Volume (Liter)</th>
 
                             <th bgcolor="#f8f9fa"
                                 style="white-space: nowrap; padding: 12px; font-family: 'Poppins', sans-serif; border-bottom: 1px solid #dee2e6; background-color: #f8f9fa;-webkit-print-color-adjust: exact !important;color-adjust: exact !important;print-color-adjust: exact !important;">
