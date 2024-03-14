@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title','sale report')
+    @section('title','Purchase report')
     @push('head')
         <!-- Data Tables -->
         <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs5.css') }}" />
@@ -10,7 +10,7 @@
     @endpush
 
     @push('breadcrumb')
-        {{ Breadcrumbs::render('admin.sell-report.index') }}
+        {{ Breadcrumbs::render('admin.purchase-report.index') }}
     @endpush
 
     <!-- Row start -->
@@ -23,17 +23,16 @@
                             <div class="col-12 col-lg-3">
                                 <div class="my-3">
                                     <select class="select-single js-states form-control" data-live-search="true"
-                                        name="customer" id="customer_select">
-                                        <option value="">-- Select Customer --</option>
+                                        name="supplier_id" >
+                                        <option value="">-- Select Supplier --</option>
                                         <option value="">-- All --</option>
-                                        @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}"
-                                                @if ($customer->id == $selected_customer) selected @endif>
-                                                {{ $customer->user->name }} / {{ $customer->user->phone }}
+                                        @foreach ($suppliers as $supplier)
+                                            <option value="{{ $supplier->id }}">
+                                                {{ $supplier->user->name }} / {{ $supplier->user->phone }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('customer_id')
+                                    @error('supplier')
                                         <div class="invalid-feedback d-block">{{ $message }}
                                         </div>
                                     @enderror
@@ -82,7 +81,7 @@
                                         <input type="date" class="form-control" name="to_date"
                                             value="{{ request()->get('to_date') }}">
                                     </div>
-                                    @error('sell_date')
+                                    @error('purchase_date')
                                         <div class="invalid-feedback d-block">{{ $message }}
                                         </div>
                                     @enderror
@@ -106,7 +105,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Date</th>
-                                    <th>Customer</th>
+                                    <th>Supplier</th>
                                     <th>Order Status</th>
                                     <th>Payment Status</th>
                                     <th>Grand Total</th>
@@ -116,23 +115,23 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($sells as $sell)
+                                @foreach ($purchases as $purchase)
                                     <tr>
-                                        <td>#S-{{ $sell->id }}</td>
-                                        <td>{{ \Illuminate\Support\Carbon::parse($sell->date)->format('Y-m-d') }}</td>
-                                        <td>{{ $sell->customer->user->name }}</td>
-                                        <td>{{ $sell->order_status }}</td>
-                                        <td>{{ $sell->payment_status }}</td>
-                                        <td>{{ $companyState->currency->symbol }} {{ $sell->grand_total }}</td>
-                                        <td>{{ $companyState->currency->symbol }} {{ $sell->paid_amt }}</td>
-                                        <td>{{ $sell->created_at }}</td>
+                                        <td>#S-{{ $purchase->id }}</td>
+                                        <td>{{ \Illuminate\Support\Carbon::parse($purchase->purchase_date)->format('Y-m-d') }}</td>
+                                        <td>{{ $purchase->supplier->user->name }}</td>
+                                        <td>{{ $purchase->order_status }}</td>
+                                        <td>{{ $purchase->payment_status }}</td>
+                                        <td>{{ $companyState->currency->symbol }} {{ $purchase->grand_total }}</td>
+                                        <td>{{ $companyState->currency->symbol }} {{ $purchase->paid_amt }}</td>
+                                        <td>{{ $purchase->created_at }}</td>
                                     </tr>
                                 @endforeach()
                             </tbody>
                         </table>
                     </div>
                     {{-- <div class="col-12">
-                        {{ $sells->links() }}
+                        {{ $purchases->links() }}
                     </div> --}}
                 </div>
             </div>
@@ -143,10 +142,7 @@
 
 
     @push('scripts')
-        <!-- Data Tables -->
-        {{-- <script src="{{ asset('assets/vendor/datatables/dataTables.min.js') }}"></script> --}}        
-        {{-- <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap.min.js') }}"></script> --}}
-        
+        <!-- Data Tables -->        
         <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>

@@ -11,16 +11,18 @@
             <li class="sidebar-dropdown">
                 <a href="#">
                     <i>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                          </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-cart" viewBox="0 0 16 16">
+                            <path
+                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                        </svg>
                     </i>
                     <span class="menu-text">Sell</span>
                 </a>
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            
+
                             <a href="{{ route('admin.sells.create') }}">New Sells</a>
                         </li>
                         <li>
@@ -33,19 +35,21 @@
             <li class="sidebar-dropdown">
                 <a href="#">
                     <i>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet" viewBox="0 0 16 16">
-                            <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a2 2 0 0 1-1-.268M1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1"/>
-                          </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-wallet" viewBox="0 0 16 16">
+                            <path
+                                d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a2 2 0 0 1-1-.268M1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1" />
+                        </svg>
                     </i>
                     <span class="menu-text">Payment</span>
                 </a>
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="{{route('admin.payment.index')}}">List</a>
+                            <a href="{{ route('admin.payment.index') }}">List</a>
                         </li>
                         <li>
-                            <a href="{{route('admin.payment.create')}}">Generate</a>
+                            <a href="{{ route('admin.payment.create') }}">Generate</a>
                         </li>
                     </ul>
                 </div>
@@ -209,6 +213,12 @@
                     <ul>
                         <li>
                             <a href="{{ route('admin.sell-report.index') }}">Sell Report</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.purchase-report.index') }}">Purchase Report</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.stocks.report') }}">Stock Report</a>
                         </li>
                     </ul>
                 </div>

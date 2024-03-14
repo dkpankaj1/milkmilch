@@ -14,10 +14,12 @@ use App\Http\Controllers\Web\Backend\MilkStorageController;
 use App\Http\Controllers\Web\Backend\PaymentController;
 use App\Http\Controllers\Web\Backend\PaymentTransactionController;
 use App\Http\Controllers\Web\Backend\ProductController;
+use App\Http\Controllers\Web\Backend\PurchaseReportController;
 use App\Http\Controllers\Web\Backend\RiderController;
 use App\Http\Controllers\Web\Backend\SellController;
 use App\Http\Controllers\Web\Backend\SellReportController;
 use App\Http\Controllers\Web\Backend\StockController;
+use App\Http\Controllers\Web\Backend\StockReportController;
 use App\Http\Controllers\Web\Backend\SupplierController;
 use App\Http\Controllers\Web\Backend\UnitSettingController;
 use App\Http\Controllers\Web\Backend\UserController;
@@ -63,6 +65,8 @@ Route::group(
         Route::get('milk-purchase/get_milk_product', [MilkPurchaseController::class, 'get_milk_product'])->name('milk-purchase.get_milk_product');
         Route::get('milk-purchase/search_milk_product', [MilkPurchaseController::class, 'search_milk_product'])->name('milk-purchase.search_milk_product');
 
+        Route::get('milk-purchase/report', [PurchaseReportController::class, 'index'])->name('purchase-report.index');
+
         Route::get('milk-storage', [MilkStorageController::class,'index'])->name('milk-storage.index');
 
         Route::resource('products', ProductController::class);
@@ -86,6 +90,7 @@ Route::group(
         Route::get('suppliers/delete/{supplier}', [SupplierController::class, 'delete'])->name('suppliers.delete');
 
         Route::get('stocks',[StockController::class,'index'])->name('stocks.index');
+        Route::get('stocks/report',[StockReportController::class,'index'])->name('stocks.report');
 
         Route::get('transaction/{payment}/create',[PaymentTransactionController::class,'create'])->name('transaction.create');
         Route::post('transaction/{payment}/store',[PaymentTransactionController::class,'store'])->name('transaction.store');

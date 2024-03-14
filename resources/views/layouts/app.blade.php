@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="{{$companyState->fevicon}}">
 
     <!-- Title -->
-    <title>MilkMilch - Admin</title>
+    <title>MilkMilch -  @yield('title',"admin")</title>
 
 
     <!-- *************

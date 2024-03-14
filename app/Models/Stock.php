@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,7 +28,20 @@ class Stock extends Model
     {
         return $this->belongsTo(Batch::class);
     }
-    public function sellItems(){
+    public function sellItems()
+    {
         return $this->belongsTo(SellItems::class);
+    }
+    public function stockStatusColor()
+    {
+        if ($this->available > 0) {
+            if (Carbon::today()->lte(Carbon::parse($this->best_befour))) {
+                return 'success';
+            } else {
+                return 'danger';
+            }
+        } else {
+            return 'info';
+        }
     }
 }

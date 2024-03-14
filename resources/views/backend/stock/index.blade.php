@@ -19,8 +19,7 @@
                                     <th>Product</th>
                                     <th>Batch</th>
                                     <th>Batch Date</th>
-                                    <th>Shelf Life (Days)</th>
-                                    <th>Volume(ml)</th>
+                                    <th>Volume(Liter)</th>
                                     <th>MRP</th>
                                     <th>Quentity</th>
                                     <th>Available</th>
@@ -30,19 +29,18 @@
                             <tbody>
 
                                 @foreach ($stocks as $key =>$stock)
-                                    <tr>
-                                        <td>{{ $key+1 }}</td>
-                                        <td>{{ $stock->product->name }}</td>
-                                        <td>{{ $stock->batch->batch_code }}</td>
-                                        <td>{{ Illuminate\Support\Carbon::parse( $stock->batch->date)->format('Y-m-d H:i:s')  }}</td>
-                                        <td>{{ $stock->shelf_life }} Day</td>
-                                        <td>{{ $stock->volume }} ml</td>
-                                        <td>{{$companyState->currency->symbol}} {{ $stock->mrp }}</td>
-                                        <td>{{ $stock->quentity }}</td>
-                                        <td>{{ $stock->available }}</td>
-                                        <td>{{ $stock->best_befour }}</td>
-                                       
-                                    </tr>
+                                <tr>
+                                    <td>{{ $key+1 }}</td>
+                                    <td class="text-{{$stock->stockStatusColor()}}"> <b>{{ $stock->product->name }}</b></td>
+                                    <td>{{ $stock->batch->batch_code }}</td>
+                                    <td>{{ Illuminate\Support\Carbon::parse( $stock->batch->date)->format('Y-m-d')  }}</td>
+                                    <td>{{ ($stock->volume)/1000 }} L</td>
+                                    <td>{{$companyState->currency->symbol}} {{ $stock->mrp }}</td>
+                                    <td><b>{{ $stock->quentity }}</b></td>
+                                    <td><b>{{ $stock->available }}</b></td>
+                                    <td class="text-{{$stock->stockStatusColor()}}"><b>{{ Illuminate\Support\Carbon::parse( $stock->best_befour)->format('Y-m-d') }}</b></td>
+                                   
+                                </tr>
                                 @endforeach()
 
                             </tbody>

@@ -31,13 +31,13 @@
                                 @foreach ($milkStorages as $milkStorage)
                                     <tr>
                                         <td>MS-{{ $milkStorage->id }}</td>
-                                        <td>{{ Illuminate\Support\Carbon::parse($milkStorage->date)->format('Y-m-d') }}</td>
+                                        <td><b>{{ Illuminate\Support\Carbon::parse($milkStorage->date)->format('Y-m-d') }}</b></td>
                                         <td>{{ $milkStorage->milk->name }}</td>
                                         <td>{{ $milkStorage->avg_shelf_life  }} Day</td>
-                                        <td>{{ $milkStorage->ttl_volume }}</td>
-                                        <td>{{ $milkStorage->avl_volume }}</td>
+                                        <td>{{ $milkStorage->ttl_volume }} L</td>
+                                        <td>{{ $milkStorage->avl_volume }} L</td>
                                         <td>
-                                            <span class="badge shade-{{ $milkStorage->status != 'storage' ? 'red' : 'green'}} min-70">{{ $milkStorage->status != 'storage' ? 'Expire' : 'Fresh'}}</span>
+                                            {!!$milkStorage->milkStatus()!!}
                                         </td>
                                         {{-- <td>
                                             <div class="actions"> --}}

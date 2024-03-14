@@ -116,6 +116,13 @@ Breadcrumbs::for('admin.milk-purchases.edit', function ($trail,$milk_purchases) 
     $trail->push('Edit', route('admin.milk-purchases.edit',$milk_purchases));
 });
 
+// >>Dashboard > Milk purchase > report
+Breadcrumbs::for('admin.purchase-report.index', function ($trail) {
+    $trail->parent('admin.milk-purchases.index');
+    $trail->push('Report', route('admin.purchase-report.index'));
+});
+
+
 // >>Dashboard > milk-storage
 Breadcrumbs::for('admin.milk-storage.index', function ($trail) {
     $trail->parent('dashboard');
@@ -194,6 +201,12 @@ Breadcrumbs::for('admin.sells.edit', function ($trail,$sells) {
 Breadcrumbs::for('admin.sell-report.index', function ($trail) {
     $trail->parent('admin.sells.index');
     $trail->push('Report', route('admin.sell-report.index'));
+});
+
+// >>Dashboard > stocks >report
+Breadcrumbs::for('admin.stocks.report', function ($trail) {
+    $trail->parent('admin.stocks.index');
+    $trail->push('Report', route('admin.stocks.report'));
 });
 
 
