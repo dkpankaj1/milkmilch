@@ -50,11 +50,18 @@
                                         name="storage">
                                         <option value="">-- select --</option>
                                         @foreach ($storages as $storage)
-                                            <option value="{{ $storage->id }}" @if($storage->id == old('storage')) selected @endif>
-                                                MS-{{ $storage->id }}/{{ Illuminate\Support\Carbon::parse($storage->date)->format('Y-m-d') }}/{{ $storage->milk->name }}/AVL Volume : {{ $storage->avl_volume }}
-                                            </option>
+                                            @if (!$storage->isExpire())
+                                                <option value="{{ $storage->id }}"
+                                                    @if ($storage->id == old('storage')) selected @endif>
+                                                    MS-{{ $storage->id }} ::
+                                                    {{ Illuminate\Support\Carbon::parse($storage->date)->format('Y-m-d') }}
+                                                    :: {{ $storage->milk->name }} :: AVL Volume
+                                                    -{{ $storage->avl_volume}} Liter
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
+
                                     @error('storage')
                                         <div class="invalid-feedback d-block">{{ $message }}
                                         </div>
@@ -64,12 +71,14 @@
 
                             <div class=" col-sm-4 col-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Volume Used (Liter) <span class="text-red">*</span></label>
+                                    <label class="form-label">Volume Used (Liter) <span
+                                            class="text-red">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">
                                             <i class="bi bi-rulers"></i>
                                         </span>
-                                        <input type="number" class="form-control" name="volume" value="{{old('volume')}}">
+                                        <input type="number" class="form-control" name="volume"
+                                            value="{{ old('volume') }}">
                                     </div>
 
                                     @error('volume')
@@ -86,7 +95,8 @@
                                         <span class="input-group-text">
                                             <i class="bi bi-calendar4"></i>
                                         </span>
-                                        <input type="date" class="form-control" name="date" value="{{old('date')}}">
+                                        <input type="date" class="form-control" name="date"
+                                            value="{{ old('date') }}">
                                     </div>
                                     @error('date')
                                         <div class="invalid-feedback d-block">{{ $message }}
@@ -134,7 +144,9 @@
                                                             <input type="hidden" name="product[id][]"
                                                                 value="{{ old('product')['id'][$key] }}">
                                                         </td>
-                                                        <td> <input type="number" class="form-control shelf-life" name="product[shelf_life][]" value="{{ old('product')['shelf_life'][$key] }}" />
+                                                        <td> <input type="number" class="form-control shelf-life"
+                                                                name="product[shelf_life][]"
+                                                                value="{{ old('product')['shelf_life'][$key] }}" />
                                                         </td>
                                                         <td> <input type="number" class="form-control volume"
                                                                 name="product[volume][]"
@@ -143,10 +155,13 @@
                                                         <td> <input type="number" class="form-control mop"
                                                                 name="product[quentity][]"
                                                                 value="{{ old('product')['quentity'][$key] }}" /> </td>
-                                                        <td> <input type="number" class="form-control mrp" name="product[mrp][]"
+                                                        <td> <input type="number" class="form-control mrp"
+                                                                name="product[mrp][]"
                                                                 value="{{ old('product')['mrp'][$key] }}" />
                                                         </td>
-                                                        <td> <button type="button" class="btn btn-outline btn-danger" onclick="removeItem(this)"><i class="bi bi-trash"></i></button></td>
+                                                        <td> <button type="button" class="btn btn-outline btn-danger"
+                                                                onclick="removeItem(this)"><i
+                                                                    class="bi bi-trash"></i></button></td>
                                                     </tr>
                                                 @endforeach
                                             @endif
