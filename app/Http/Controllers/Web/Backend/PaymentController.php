@@ -141,7 +141,7 @@ class PaymentController extends Controller
     }
     public function downloadPaymentInvoice(Payment $payment)
     {
-        return view('backend.payments.invoice', ['payment' => $payment]);
-        // return pdf::loadView('backend.payments.invoice', ['payment' => $payment])->download('payment_invoice_' . $payment->id . '.pdf');
+        // return view('backend.payments.invoice', ['payment' => $payment]);
+        return pdf::loadView('backend.payments.invoice', ['payment' => $payment])->download('payment_invoice_' . $payment->id . '.pdf');
     }
 }
