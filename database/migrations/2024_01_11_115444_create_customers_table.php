@@ -13,11 +13,13 @@ return new class extends Migration {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
+            $table->unsignedBigInteger('assign_to');
             $table->double('wallet')->default(0);
             $table->double('old_due')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('assign_to')->references('id')->on('users');
         });
     }
 

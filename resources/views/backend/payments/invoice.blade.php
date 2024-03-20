@@ -82,18 +82,27 @@
                     <tr>
                         <td style="padding-top: 20px; padding-bottom: 20px;">
                             <p style="font-family: 'Poppins', sans-serif; line-height: 1.2;">
-                                <strong style="display: block; margin-bottom: 5px;">Invoiced To:</strong>
-                                {{ $companyState->name }} <br />
+                                <strong style="display: block; margin-bottom: 5px;">{{ $companyState->name }}</strong>
                                 {{ $companyState->email }}, {{ $companyState->phone }} <br />
                                 {{ $companyState->address }}, {{ $companyState->city }} <br />
                                 {{ $companyState->state }}, {{ $companyState->postal_code }}<br />
                                 {{ $companyState->country }}<br />
                             </p>
+                            <br>
+                            <p><b>UPI ID :  {{$companyState->upi}} </b></p>
+                            <br>
+                            <p><b>Customer care :  {{$companyState->phone}} </b></p>
+                            <p><b>Whatsapp :  {{$companyState->phone}} </b></p>
+                        </td>
+
+                        <td style="padding-top: 20px; padding-bottom: 20px;">
+                            <p><b>Scan QR To Pay</b></p>
+                            <img style="margin: .5rem 0rem;border:solid 0.5px" src="{{$companyState->upi_barcode}}" alt="">
                         </td>
                         <td style="padding-top: 20px; padding-bottom: 20px;">
                             <p align="right"
                                 style="text-align: right; font-family: 'Poppins', sans-serif; line-height: 1.2;">
-                                <strong style="display: block; margin-bottom: 5px;">Pay To:</strong>
+                                <strong style="display: block; margin-bottom: 5px;">Bill To:</strong>
                                 {{ $payment->customer->user->name }} <br />
                                 {{ $payment->customer->user->email }}, {{ $payment->customer->user->phone }} <br />
                                 {{ $payment->customer->user->address }}, {{ $payment->customer->user->city }} <br />

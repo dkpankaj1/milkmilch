@@ -4,14 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Categorie;
-use App\Models\Customer;
-use App\Models\Rider;
-use App\Models\Supplier;
-use App\Models\User;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,7 +26,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
 
         // $this->call(CustomerSeeder::class);
+
+        $this->call(GrijishCustomerSeeder::class);
+
+        $this->call(AjayCustomerSeeder::class);
         
+
+
         // User::factory(25)->create();
         // $users = User::all();
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','wallet','old_due'];
+    protected $fillable = ['user_id','assign_to','wallet','old_due'];
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -22,5 +22,9 @@ class Customer extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+    public function assign_to()
+    {
+        return $this->belongsTo(User::class,'assign_to','id');
     }
 }

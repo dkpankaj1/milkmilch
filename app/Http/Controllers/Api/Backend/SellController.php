@@ -161,9 +161,9 @@ class SellController extends Controller
         $stock = Stock::findOrFail($request->stock);
         return $this->sendSuccess('stock', new StockResource($stock));
     }
-    public function getCustomer()
+    public function getCustomer(Request $request)
     {
-        $customer = Customer::latest()->whereHas('user', function ($query) {
+        $customer = Customer::where('assign_to',auth()->user()->id)->latest()->whereHas('user', function ($query) {
             $query->where('status', 1);
         })->get();
 

@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'role_id' => 2,
             'status' => 1
         ]);
-        $supplier = User::create([
+        $supplierUser = User::create([
             'name' => "supplier",
             'email' => "supplier@email.com",
             'phone' => "+91-9794xxx940",
@@ -48,6 +48,9 @@ class UserSeeder extends Seeder
             'role_id' => 3,
             'status' => 1
         ]);
+        Supplier::create(['user_id' => $supplierUser->id]);
+
+
         $rider = User::create([
             'name' => "rider",
             'email' => "rider@email.com",
@@ -58,44 +61,8 @@ class UserSeeder extends Seeder
             'role_id' => 4,
             'status' => 1
         ]);
-
-        $arman = User::create([
-            'name' => "arman khan",
-            'email' => "armankhan@gmail.com",
-            'phone' => "+91-9794xxx940",
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'role_id' => 4,
-            'status' => 1
-        ]);
-
-        $ajay = User::create([
-            'name' => "ajay yadav",
-            'email' => "ajayyadav@gmail.com",
-            'phone' => "+91-9794xxx940",
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'role_id' => 4,
-            'status' => 1
-        ]);
-        $customer = User::create([
-            'name' => "customer",
-            'email' => "customer@email.com",
-            'phone' => "+91-9794xxx940",
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'role_id' => 5,
-            'status' => 1
-        ]);
-
-        Supplier::create(['user_id' => $supplier->id]);
-        Rider::create(['user_id' => $rider->id]);
-        Rider::create(['user_id' => $arman->id]);
-        Rider::create(['user_id' => $ajay->id]);
-        Customer::create(['user_id' => $customer->id]);
+       Rider::create(['user_id' => $rider->id]);
+       
         
     }
 }

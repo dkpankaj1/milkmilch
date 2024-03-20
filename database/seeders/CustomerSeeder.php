@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
+use App\Models\Rider;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CustomerSeeder extends Seeder
 {
@@ -1950,9 +1954,24 @@ Vasundhara enclave taramandal gorakhpur&quot;",
             ],
         ];
 
+
+
+        $rider = User::create([
+            'name' => "rider",
+            'email' => "rider@email.com",
+            'phone' => "+91-9794xxx940",
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role_id' => 4,
+            'status' => 1
+        ]);
+
+       Rider::create(['user_id' => $rider->id]);
+
         foreach ($jayParsedAry as $item) {
 
-            $user = \App\Models\User::create([
+            $user = User::create([
                 'name' => $item['customer_name'],
                 'email'=> $item['phone']."@milkmilch.com",
                 'password'=> Hash::make('milkmilch123'),
@@ -1964,7 +1983,7 @@ Vasundhara enclave taramandal gorakhpur&quot;",
                 'role_id' => 5,
                 'status' =>1
             ]);
-            \App\Models\Customer::create(['user_id' => $user->id]);
+            Customer::create(['user_id' => $user->id, 'assign_to'=>$rider->id ]);
         }
 
     }

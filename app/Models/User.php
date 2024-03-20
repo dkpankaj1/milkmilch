@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
+    public function assign_customer()
+    {
+        return $this->hasMany(Customer::class,'assign_to','id');
+    }
+
     public function riders()
     {
         return $this->hasMany(Rider::class);
