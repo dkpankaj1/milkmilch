@@ -57,7 +57,7 @@ class SupplierController extends Controller
             ]);
 
             // Notify the user with a welcome notification
-            $user->notify(new SendWelcomeNotification($user, $password));
+            // $user->notify(new SendWelcomeNotification($user, $password));
 
             // Display success message and redirect back
             toastr()->success(trans('crud.create', ['model' => 'suppplier']));
