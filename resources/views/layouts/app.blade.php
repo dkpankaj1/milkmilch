@@ -15,10 +15,10 @@
     <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
     <meta property="og:type" content="Website">
     <meta property="og:site_name" content="Bootstrap Gallery">
-    <link rel="shortcut icon" href="{{$companyState->fevicon}}">
+    <link rel="shortcut icon" href="{{ $companyState->fevicon }}">
 
     <!-- Title -->
-    <title>MilkMilch -  @yield('title',"admin")</title>
+    <title>MilkMilch - @yield('title', 'admin')</title>
 
 
     <!-- *************
@@ -45,9 +45,24 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
     <style>
-        .sidebarMenuScroll ul>li>a{
+        .sidebarMenuScroll ul>li>a {
             /* color: #fff !important; */
             font-weight: bold !important;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            border: 1px solid rgb(0, 0, 0);
+            -webkit-text-fill-color: rgb(7, 7, 7);
+            -webkit-box-shadow: 0 0 0px 1000px #f7eeee inset;
+            transition: background-color 5000s ease-in-out 0s;
         }
     </style>
 
@@ -80,7 +95,7 @@
             <div class="sidebar-brand">
                 <a href="{{ route('admin.dashboard') }}" class="logo">
                     {{-- <img src="{{ asset('assets/images/logo.svg') }}" alt="Admin Dashboards" /> --}}
-                    <img src="{{$companyState->logo}}" alt="Admin Dashboards" />
+                    <img src="{{ $companyState->logo }}" alt="Admin Dashboards" />
                 </a>
             </div>
             <!-- Sidebar brand starts -->
