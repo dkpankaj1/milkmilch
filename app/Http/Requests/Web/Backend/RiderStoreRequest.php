@@ -21,12 +21,12 @@ class RiderStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
-            'phone' => ['required'],
-            'address' => ['required','string'],
-            'city' => ['required','string'],
-            'state' => ['required','string'],
-            'postal_code' => ['required','string'],
-            'status' => ['required','numeric'],
+            // 'phone' => ['required'],
+            // 'address' => ['required','string'],
+            // 'city' => ['required','string'],
+            // 'state' => ['required','string'],
+            // 'postal_code' => ['required','string'],
+            // 'status' => ['required','numeric'],
         ];
     }
 

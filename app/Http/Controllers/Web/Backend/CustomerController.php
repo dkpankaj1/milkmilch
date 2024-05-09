@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Backend\CustomerStoreRequest;
 use App\Http\Requests\Web\Backend\CustomerUpdateRequest;
 use App\Models\Customer;
+use App\Models\Rider;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\SendWelcomeNotification;
@@ -40,35 +41,37 @@ class CustomerController extends Controller
 
     public function create(): View
     {
-        return view('backend.customer.create');
+        return view('backend.customer.create',['riders' => Rider::with('user')->latest()->get()]);
     }
 
     public function store(CustomerStoreRequest $request): RedirectResponse
     {
         try {
             // Generate a random password
-            $password = $request->generatePassword();
+            // $password = $request->generatePassword();
+            $password = "password";
 
             // Create a new user with the provided attributes
             $user = User::create([
                 'name' => $request->name,
-                'email' => $request->email,
+                'email' => $request->email ?? fake()->safeEmail(),
                 'phone' => $request->phone,
-                'address' => $request->address,
-                'city' => $request->city,
-                'state' => $request->state,
-                'postal_code' => $request->postal_code,
+                'address' => $request->address ?? "no address",
+                'city' => $request->city ?? "no city",
+                'state' => $request->state ?? " no state",
+                'postal_code' => $request->postal_code?? "no postal code",
                 'password' => bcrypt($password),
                 'role_id' => Role::where('name', 'customer')->first()->id,
                 'status' => $request->status
             ]);
 
             Customer::create([
+                'assign_to' => $request->assign_to,
                 'user_id' => $user->id
             ]);
 
             // Notify the user with a welcome notification
-            $user->notify(new SendWelcomeNotification($user, $password));
+            // $user->notify(new SendWelcomeNotification($user, $password));
 
             // Display success message and redirect back
             toastr()->success(trans('crud.create', ['model' => 'customer']));
@@ -83,7 +86,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer): View
     {
         // $customerUser = User::where('id', $customer->user_id)->first();
-        return view('backend.customer.edit', ['customer' => $customer]);
+        return view('backend.customer.edit', ['customer' => $customer,'riders' => Rider::with('user')->latest()->get()]);
     }
     public function update(CustomerUpdateRequest $request, Customer $customer): RedirectResponse
     {
@@ -98,6 +101,10 @@ class CustomerController extends Controller
                 'state' => $request->state ?: $customer->user->state,
                 'postal_code' => $request->postal_code ?: $customer->user->postal_code,
                 'status' => $request->status
+            ]);
+
+            $customer->update([
+                'assign_to' => $request->assign_to ?? $customer->assign_to,
             ]);
 
             // Display success message and redirect back

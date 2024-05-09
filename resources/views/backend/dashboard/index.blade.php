@@ -76,7 +76,7 @@
                 </div>
                 <div class="sale-details">
                     <h3 class="text-green">{{ $available_stock }}</h3>
-                    <p>Avalabel Stack</p>
+                    <p>Available Stack</p>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
     <!-- Row end -->
 
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-header">
@@ -130,7 +130,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <!-- Row start -->

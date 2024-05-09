@@ -26,12 +26,12 @@ class RiderUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->rider->user)],
-            'phone' => ['required'],
-            'address' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'state' => ['required', 'string'],
-            'postal_code' => ['required', 'string'],
-            'status' => ['required', 'numeric'],
+            // 'phone' => ['required'],
+            // 'address' => ['required', 'string'],
+            // 'city' => ['required', 'string'],
+            // 'state' => ['required', 'string'],
+            // 'postal_code' => ['required', 'string'],
+            // 'status' => ['required', 'numeric'],
         ];
     }
 }

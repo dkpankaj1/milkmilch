@@ -122,7 +122,7 @@
                                     <div class="card-border-title">Additional Information</div>
                                     <div class="card-border-body">
                                         <div class="row">
-                                            
+
                                             <div class="col-sm-6 col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Status <span
@@ -138,6 +138,24 @@
                                                     @enderror
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Rider <span
+                                                            class="text-red">*</span></label>
+                                                    <select class="form-select" name="assign_to"
+                                                        aria-label="Default select example">
+                                                        <option value="">-- select --</option>
+                                                        @foreach ($riders as $rider)
+                                                            <option value="{{$rider->user_id}}">{{$rider->user->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('assign_to')
+                                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
 
                                             <div class="col-sm-12 col-12">
                                                 <hr>

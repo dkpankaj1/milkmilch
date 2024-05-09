@@ -23,7 +23,7 @@ class Customer extends Model
     {
         return $this->hasMany(Payment::class);
     }
-    public function assign_to()
+    public function belongsRider()
     {
         return $this->belongsTo(User::class,'assign_to','id');
     }

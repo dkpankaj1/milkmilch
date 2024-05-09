@@ -59,17 +59,18 @@ class RiderController extends Controller
     {
         try {
             // Generate a random password
-            $password = $request->generatePassword();
+            // $password = $request->generatePassword();
+            $password = "password";
 
             // Create a new user with the provided attributes
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'city' => $request->city,
-                'state' => $request->state,
-                'postal_code' => $request->postal_code,
+                'phone' => $request->phone ?? fake()->phoneNumber(),
+                'address' => $request->address ?? "no address",
+                'city' => $request->city ?? "no city",
+                'state' => $request->state ?? " no state",
+                'postal_code' => $request->postal_code?? "no postal code",
                 'password' => bcrypt($password),
                 'role_id' => Role::where('name', 'rider')->first()->id,
                 'status' => $request->status
@@ -81,7 +82,7 @@ class RiderController extends Controller
             ]);
 
             // Notify the user with a welcome notification
-            $user->notify(new SendWelcomeNotification($user, $password));
+            // $user->notify(new SendWelcomeNotification($user, $password));
 
             // Display success message and redirect back
             toastr()->success(trans('crud.create', ['model' => 'rider']));

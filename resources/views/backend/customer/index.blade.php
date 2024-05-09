@@ -38,6 +38,7 @@
                                     <th>Country</th>
                                     <th>Postal Code</th>
                                     <th>Wallet Amt ({{ $companyState->currency->symbol }})</th>
+                                    <th>Rider</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -68,6 +69,7 @@
                                         <td>{{ $customer->user->country }}</td>
                                         <td>{{ $customer->user->postal_code }}</td>
                                         <td>{{ $customer->wallet }} </td>
+                                        <td>{{ $customer->belongsRider->name }} </td>
                                         <td>
                                             <div class="actions">
                                                 {{-- <a href="#" class="viewRow">
