@@ -34,7 +34,7 @@
                                     <td class="text-{{$stock->stockStatusColor()}}"> <b>{{ $stock->product->name }}</b></td>
                                     <td>{{ $stock->batch->batch_code }}</td>
                                     <td>{{ Illuminate\Support\Carbon::parse( $stock->batch->date)->format('Y-m-d')  }}</td>
-                                    <td>{{ ($stock->volume)/1000 }} L</td>
+                                    <td>{{ ($stock->volume) }} L</td>
                                     <td>{{$companyState->currency->symbol}} {{ $stock->mrp }}</td>
                                     <td><b>{{ $stock->quentity }}</b></td>
                                     <td><b>{{ $stock->available }}</b></td>
