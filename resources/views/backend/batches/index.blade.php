@@ -42,7 +42,10 @@
                                                 <a href="{{ route('admin.batches.edit', $batch)}}" >
                                                     <i class="bi bi-eye text-primary"></i>
                                                 </a>
-                                               
+                                                <a href="#" class="delete-btn"
+                                                    data-attr="{{ route('admin.batches.delete', $batch) }}">
+                                                    <i class="bi bi-trash text-red"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

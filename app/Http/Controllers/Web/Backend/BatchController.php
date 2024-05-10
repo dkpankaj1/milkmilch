@@ -183,6 +183,13 @@ class BatchController extends Controller
         }
     }
 
+    public function delete(Batch $batch)
+    {
+        // Return the view with user data
+        return view('backend.batches.delete', ['batch' => $batch]);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

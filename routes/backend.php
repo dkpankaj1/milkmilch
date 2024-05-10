@@ -40,6 +40,8 @@ Route::group(
         Route::get('barcode',[BarcodeGeneratorController::class,"generate"])->name('barcode');
 
         Route::resource('batches', BatchController::class);
+        Route::get('batches/delete/{batch}', [BatchController::class, 'delete'])->name('batches.delete');
+
         Route::get('batches-search-product',[BatchController::class,'search_product'])->name('batches.search_product');
         Route::get('batches-add-product',[BatchController::class,'add_product'])->name('batches.add_product');
 
