@@ -187,9 +187,25 @@ class BatchController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Batch $batch)
     {
-        //
+
+        // try {
+           
+        //     // restore milk storage
+        //     $batch->milk_storage->update(['avl_volume' => (intval($batch->milk_storage->avl_volume) + intval($batch->volume ))]);
+
+        //     // Delete existing stocks associated with the batch
+        //     $batch->stocks()->delete();
+        //     $batch->delete();
+                       
+        //     toastr()->success(trans('crud.delete', ['model' => 'batch']));
+
+        //     return redirect()->back();
+        // } catch (\Exception $e) {
+        //     toastr()->error($e->getMessage());
+        //     return redirect()->back();
+        // }
     }
     public function search_product(Request $request)
     {

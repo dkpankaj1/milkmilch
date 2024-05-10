@@ -133,7 +133,9 @@ class CustomerController extends Controller
     {
         try {
             // Delete the specified user
-            User::destroy($customer->user_id);
+            $user_id = $customer->user_id;
+            $customer->delete();
+            User::destroy($user_id);
 
             // Display success message and redirect back
             toastr()->success(trans('crud.delete', ['model' => 'customer']));
