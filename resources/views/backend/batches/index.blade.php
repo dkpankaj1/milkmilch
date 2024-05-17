@@ -20,7 +20,7 @@
                                     <th>Code</th>
                                     <th>Date</th>
                                     <th>Storage </th>
-                                    <th>Volume Used (ml) </th>
+                                    <th>Volume Used (L) </th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
