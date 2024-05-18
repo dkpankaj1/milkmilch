@@ -9,6 +9,7 @@ use App\Models\Rider;
 use App\Models\Sell;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
@@ -22,7 +23,7 @@ class DashboardController extends Controller
         $total_sale = Sell::sum('grand_total') ;
         $today_purchase = MilkPurchase::whereDay('created_at', now()->day)->sum('grand_total') ;
         $total_purchase = MilkPurchase::sum('grand_total');
-        $available_stock = Stock::sum('available');
+        $available_stock = Stock::whereDate('best_befour', '>=', Carbon::today())->sum('available');
         $in_storage = 0;
         $total_customer = Customer::count();
         $total_rider = Rider::count();
