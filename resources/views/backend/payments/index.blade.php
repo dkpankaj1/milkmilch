@@ -26,6 +26,7 @@
                                     <th>Customer</th>
                                     <th>Mobile</th>
                                     <th>Grand Total ({{ $companyState->currency->symbol }})</th>
+                                    <th>Paid Amy ({{ $companyState->currency->symbol }})</th>
                                     <th>Payment Status</th>
                                     <th>User</th>
                                     <th>Actions</th>
@@ -41,7 +42,13 @@
                                         <td>{{ $payment->customer->user->name }}</td>
                                         <td>{{ $payment->customer->user->phone }}</td>
                                         <td>{{ $payment->grand_total }}</td>
-                                        <td>{{ $payment->payment_status }}</td>
+                                        <td>{{ $payment->paid_amount }}</td>
+                                        <td>
+                                            <span
+                                                class="badge rounded-pill {{ $payment->payment_status === 'paid' ? 'shade-primary' : ($payment->payment_status === 'partial' ? 'shade-yellow' : 'shade-red') }}">
+                                                {{ $payment->payment_status }}
+                                            </span>
+                                        </td>
                                         <td>{{ $payment->user->name }}</td>
 
                                         <td>

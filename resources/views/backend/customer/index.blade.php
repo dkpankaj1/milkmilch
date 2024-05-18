@@ -32,7 +32,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Contact</th>
-                                    <th>Email</th>
                                     <th>Status</th>
                                     <th>City</th>
                                     <th>Country</th>
@@ -59,7 +58,6 @@
                                             </div>
                                         </td>
                                         <td>{{ $customer->user->phone }}</td>
-                                        <td>{{ $customer->user->email }}</td>
                                         <td>
                                             {!! $customer->user->status != 1
                                                 ? '<span class="badge shade-red min-70">Blocked</span>'

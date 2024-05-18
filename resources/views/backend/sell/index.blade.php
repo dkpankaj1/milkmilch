@@ -27,10 +27,10 @@
                                     <th>ID</th>
                                     <th>Date</th>
                                     <th>Customer</th>
-                                    <th>Order Status</th>
-                                    <th>Payment Status</th>
                                     <th>Grand Total</th>
-                                    {{-- <th>Paid AMT</th> --}}
+                                    <th>Paid AMT</th>
+                                    <th>Payment Status</th>
+                                    <th>Order Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -41,10 +41,15 @@
                                         <td>#S-{{ $sell->id }}</td>
                                         <td>{{ \Illuminate\Support\Carbon::parse($sell->date)->format('Y-m-d') }}</td>
                                         <td>{{ $sell->customer->user->name }}</td>
-                                        <td>{{ $sell->order_status }}</td>
-                                        <td>{{ $sell->payment_status }}</td>
                                         <td>{{ $companyState->currency->symbol }} {{ $sell->grand_total }}</td>
-                                        {{-- <td>{{$companyState->currency->symbol}} {{ $sell->paid_amt }}</td> --}}
+                                        <td>{{ $companyState->currency->symbol }} {{ $sell->paid_amt }}</td>
+                                        <td>
+                                            <span
+                                                class="badge rounded-pill {{ $sell->payment_status === 'paid' ? 'shade-primary' : ($sell->payment_status === 'partial' ? 'shade-yellow' : 'shade-red') }}">
+                                                {{ $sell->payment_status }}
+                                            </span>
+                                        </td>
+                                        <td>{{ $sell->order_status }}</td>
 
                                         <td>
                                             <div class="actions">
@@ -91,7 +96,6 @@
             //             }
             //         });
             // });
-
         </script>
     @endpush
 

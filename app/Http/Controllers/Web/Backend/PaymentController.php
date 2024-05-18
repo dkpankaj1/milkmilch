@@ -35,7 +35,7 @@ class PaymentController extends Controller
 
         // Filter sales based on customer ID and payment status if customer is not null
         if ($request->filled('customer')) {
-            $salesQuery->where('payment_status', '=', PaymentStatusEnums::PENDING)
+            $salesQuery->where('payment_status', '!=', PaymentStatusEnums::PAID)
                 ->where('customer_id', $request->customer);
         }
         // Filter sales based on date range if start_date and end_date are not null

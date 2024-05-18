@@ -115,7 +115,7 @@
                                                     <td>{{ $sale->order_status }}</td>
                                                     <td>{{ $sale->payment_status }}</td>
                                                     <td style="width:150px"><input type="text"
-                                                            value="{{ $sale->grand_total }}" name="grand_total_input[]"
+                                                            value="{{ $sale->grand_total - $sale->paid_amt }}" name="grand_total_input[]"
                                                             style="border: none" readonly></td>
                                                 </tr>
                                             @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Backend;
 
+use App\Enums\PaymentStatusEnums;
 use App\Http\Controllers\Controller;
 
 use App\Models\Customer;
@@ -61,11 +62,11 @@ class SellController extends Controller
             "grandTotalResult" => ['required'],
         ]);
 
-      
+
 
         try {
 
-            DB::transaction(function() use($request){
+            DB::transaction(function () use ($request) {
 
                 $sell = Sell::create([
                     'customer_id' => $request->customer,
@@ -80,30 +81,30 @@ class SellController extends Controller
                     'note' => $request->note ?: "sell notes",
                     'user_id' => $request->user()->id
                 ]);
-    
+
                 $product = $request->product;
                 $stockID = $product['id'];
                 $quentity = $product['quentity'];
                 $mrp = $product['mrp'];
                 $totalAmt = $product['total_amt'];
-    
+
                 $sellItms = [];
-    
+
                 foreach ($stockID as $index => $value) {
                     $sellItm['sell_id'] = $sell->id;
                     $sellItm['stock_id'] = $stockID[$index];
                     $sellItm['quentity'] = $quentity[$index];
                     $sellItm['mrp'] = $mrp[$index];
                     $sellItm['total_amt'] = $totalAmt[$index];
-    
+
                     $sellItms[] = $sellItm;
-    
+
                     $stock = Stock::findOrFail($stockID[$index]);
                     $stock->update(['available' => $stock->available - $quentity[$index]]);
                 }
-    
+
                 SellItems::insert($sellItms);
-            });  
+            });
 
             toastr()->success(trans('crud.create', ['model' => 'sells']));
 
@@ -131,12 +132,23 @@ class SellController extends Controller
      */
     public function edit(Sell $sell)
     {
-        $customers = Customer::whereHas('user', function ($query) {
-            $query->where('status', 1);
-        })->get();
 
+        try {
 
-        return view('backend.sell.edit', ['customers' => $customers, 'sell' => $sell]);
+            if ($sell->payment_status === PaymentStatusEnums::PAID || PaymentStatusEnums::PARTIAL) {
+                throw new \Exception('Already Paid.');
+            }
+
+            $customers = Customer::whereHas('user', function ($query) {
+                $query->where('status', 1);
+            })->get();
+
+            return view('backend.sell.edit', ['customers' => $customers, 'sell' => $sell]);
+
+        } catch (\Exception $e) {
+            toastr()->error($e->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
@@ -163,7 +175,7 @@ class SellController extends Controller
             'order_status' => 'complete',
             'payment_status' => 'pending',
             'grand_total' => $request->grandTotalResult,
-            'paid_amt' => 0,
+            'paid_amt' => $sell->paid_amt,
             'note' => $request->note ?: "sell notes",
             'user_id' => $request->user()->id
         ]);
@@ -171,7 +183,7 @@ class SellController extends Controller
         try {
 
             // restore old sell
-            foreach($sell->items as $item){
+            foreach ($sell->items as $item) {
                 $stock = Stock::findOrFail($item->stock_id);
                 $stock->update(['available' => $stock->available + $item->quentity]);
             }
@@ -199,7 +211,7 @@ class SellController extends Controller
             $sell->items()->delete();// Delete existing items
             SellItems::insert($sellItms);
 
-            toastr()->success(trans('crud.update', ['model' => 'sells - '. $sell->id]));
+            toastr()->success(trans('crud.update', ['model' => 'sells - ' . $sell->id]));
 
             return redirect()->back();
 
@@ -223,7 +235,7 @@ class SellController extends Controller
 
             // restore old sell
 
-            foreach($sell->items as $item){
+            foreach ($sell->items as $item) {
                 $stock = Stock::findOrFail($item->stock_id);
                 $stock->update(['available' => $stock->available + $item->quentity]);
             }
@@ -232,16 +244,16 @@ class SellController extends Controller
 
             $sell->items()->delete();
             $sell->delete();
-           
+
             toastr()->success(trans('crud.delete', ['model' => 'sells - ' . $sell->id]));
             return redirect()->back();
         } catch (\Exception $e) {
             toastr()->error($e->getMessage());
             return redirect()->back();
         }
-        
+
     }
-    
+
     public function delete(Sell $sell)
     {
         return view('backend.sell.delete', ['sell' => $sell]);
