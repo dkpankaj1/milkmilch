@@ -19,7 +19,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        $batches = Batch::all();
+        $batches = Batch::latest()->paginate();
         return view('backend.batches.index', ['batches' => $batches]);
     }
 

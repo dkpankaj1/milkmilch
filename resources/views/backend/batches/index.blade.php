@@ -13,8 +13,8 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="table-responsive mb-3">
-                        <table class="table v-middle m-0">
+                    <div class="table-responsive  mb-3">
+                        <table class="table table-bordered v-middle m-0">
                             <thead>
                                 <tr>
                                     <th>Code</th>
@@ -34,7 +34,7 @@
                                         <td>{{ $batch->volume }}</td>
                 
                                         <td>
-                                            <div class="actions">
+                                            <div class="">
                                                 <a href="{{ route('admin.batches.edit', $batch)}}" >
                                                     <i class="bi bi-pencil-square text-info"></i>
                                                 </a>
@@ -53,6 +53,9 @@
 
                             </tbody>
                         </table>
+                    </div>
+                    <div>
+                        {{ $batches->links() }}
                     </div>
                 </div>
             </div>

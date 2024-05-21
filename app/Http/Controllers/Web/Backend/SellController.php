@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Rider;
 use App\Models\Sell;
 use App\Models\SellItems;
 use App\Models\Stock;
@@ -19,17 +20,54 @@ class SellController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
+        $customers = Customer::with(['user:id,name'])->select('id', 'user_id')->get();
+        $riders = Rider::with(['user:id,name'])->select('id', 'user_id')->get();
+        $limitInput = $request->query('limit', 20);
+        $dateInput = $request->query('date', '');
+        $customerInput = $request->query('customer', '');
+        $paymentInput = $request->query('payment', '');
+        $saleByInput = $request->query('sale_by', '');
+
+
         $sellQuery = Sell::query();
-        if (auth()->user()->hasRole('admin')) {
-            $sells = $sellQuery->latest()->with('customer')->paginate();
-        } else {
-            $sells = $sellQuery->latest()->with('customer')->where('user_id', auth()->user()->id)->paginate();
+
+
+        if ($request->filled('payment')) {
+            $sellQuery = $sellQuery->where('payment_status', $request->payment);
         }
 
-        return view('backend.sell.index', ['sells' => $sells]);
+        if ($request->filled('date')) {
+            $sellQuery = $sellQuery->where('date', $request->date);
+        }
+
+        if ($request->filled('customer')) {
+            $sellQuery = $sellQuery->where('customer_id', $request->customer);
+        }
+
+        if ($request->filled('sale_by')) {
+            $sellQuery = $sellQuery->where('user_id', $request->sale_by);
+        }
+
+
+        if (auth()->user()->hasRole('admin')) {
+            $sells = $sellQuery->latest()->with('customer')->paginate($limitInput)->withQueryString();
+        } else {
+            $sells = $sellQuery->latest()->with('customer')->where('user_id', auth()->user()->id)->paginate($limitInput)->withQueryString();
+        }
+
+        return view('backend.sell.index', [
+            'sells' => $sells, 
+            'customers' => $customers, 
+            'riders' => $riders,
+            'date' => $dateInput,
+            'limitInput' =>$limitInput,
+            'paymentInput' => $paymentInput,
+            'saleByInput' => $saleByInput,
+            'customerInput' => $customerInput
+        ]);
     }
 
     /**
@@ -135,7 +173,7 @@ class SellController extends Controller
 
         try {
 
-            if ($sell->payment_status === PaymentStatusEnums::PAID || PaymentStatusEnums::PARTIAL) {
+            if ($sell->payment_status === PaymentStatusEnums::PAID) {
                 throw new \Exception('Already Paid.');
             }
 
@@ -230,7 +268,9 @@ class SellController extends Controller
     public function destroy(Sell $sell)
     {
         try {
-
+            if ($sell->payment_status === PaymentStatusEnums::PAID) {
+                throw new \Exception('Already Paid.');
+            }
             // sell check if payment is complete or not
 
             // restore old sell

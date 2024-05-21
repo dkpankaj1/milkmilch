@@ -129,6 +129,8 @@ Breadcrumbs::for('admin.milk-storage.index', function ($trail) {
     $trail->push('Milk Storage', route('admin.milk-storage.index'));
 });
 
+
+
 // >>Dashboard > payment
 Breadcrumbs::for('admin.payment.index', function ($trail) {
     $trail->parent('dashboard');
@@ -232,11 +234,26 @@ Breadcrumbs::for('admin.stocks.index', function ($trail) {
     $trail->push('Stocks', route('admin.stocks.index'));
 });
 
-// >>Dashboard > user > add
-Breadcrumbs::for('admin.transaction.create', function ($trail,$payment) {
+
+// ==================== transaction :: begin ===============
+
+// >>Dashboard > payment
+Breadcrumbs::for('admin.transaction.index', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('Create', route('admin.transaction.create',$payment));
+    $trail->push('Transaction', route('admin.transaction.index'));
 });
+// >>Dashboard > payment > create
+Breadcrumbs::for('admin.transaction.create', function ($trail) {
+    $trail->parent('admin.transaction.index');
+    $trail->push('Create', route('admin.transaction.create'));
+});
+// >>Dashboard > payment > edit
+Breadcrumbs::for('admin.transaction.edit', function ($trail,$transaction) {
+    $trail->parent('admin.transaction.index');
+    $trail->push('Edit', route('admin.transaction.edit',$transaction));
+});
+
+// ==================== transaction :: end =================
 
 
 // >>Dashboard > user

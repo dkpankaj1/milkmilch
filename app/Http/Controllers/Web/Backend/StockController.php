@@ -13,7 +13,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::where('available','>',0)->latest()->with(['product','batch'])->paginate();
+        $stocks = Stock::where('available','>',0)->with(['product','batch'])->latest()->paginate();
         return view('backend.stock.index',['stocks'=>$stocks]); 
     }
 

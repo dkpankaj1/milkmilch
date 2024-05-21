@@ -19,9 +19,9 @@ class Customer extends Model
         return $this->hasMany(Sell::class);
     }
 
-    public function payments()
+    public function transactions()
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Transaction::class);
     }
     public function belongsRider()
     {

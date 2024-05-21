@@ -20,11 +20,12 @@ return new class extends Migration
             $table->unsignedInteger('shelf_life'); // days
             $table->decimal('volume',8,2); // mililiter
             $table->decimal('mrp',8,2);
-            $table->unsignedInteger('quentity');
-            $table->unsignedInteger('available');
+            $table->integer('quentity')->change();
+            $table->integer('available')->change();
+
             $table->timestamp('best_befour');
             $table->timestamps();
-
+            
             $table->foreign('batch_id')->references('id')->on('batches');
             $table->foreign('product_id')->references('id')->on('products');
         });

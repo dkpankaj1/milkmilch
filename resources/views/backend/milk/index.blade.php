@@ -47,7 +47,7 @@
                                                 : '<span class="badge shade-green min-70">Active</span>' !!}
                                         </td>
                                         <td>
-                                            <div class="actions">
+                                            <div class="">
                                                 <a href="{{ route('admin.milks.edit', $milk)}}" >
                                                     <i class="bi bi-pencil-square text-info"></i>
                                                 </a>

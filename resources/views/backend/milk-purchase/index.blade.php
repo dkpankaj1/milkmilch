@@ -15,7 +15,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive mb-3">
-                        <table class="table v-middle m-0">
+                        <table class="table table-bordered v-middle m-0">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -23,7 +23,6 @@
                                     <th>Supplier</th>
                                     <th>Amount</th>
                                     <th>Order Status</th>
-                                    <th>Payment</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -32,17 +31,22 @@
                                 @foreach ($milk_purchases as $milk_purchase)
                                     <tr>
                                         <td>MP-{{ $milk_purchase->id }}</td>
-                                        <td>{{ Illuminate\Support\Carbon::parse($milk_purchase->purchase_date)->format('Y-m-d') }} </td>
+                                        <td>{{ Illuminate\Support\Carbon::parse($milk_purchase->purchase_date)->format('Y-m-d') }}
+                                        </td>
                                         <td>{{ $milk_purchase->supplier->user->name }}</td>
                                         <td>{{ $milk_purchase->grand_total }}</td>
                                         <td>
-                                            <span class="badge shade-{{$milk_purchase->order_status == 'orderd' ? 'red' : 'green' }} min-70">{{$milk_purchase->order_status}}</span>
+                                            <span
+                                                class="badge rounded-pill {{ $milk_purchase->order_status === 'received' ? 'shade-green' : ($milk_purchase->payment_status === 'orderd' ? 'shade-yellow' : 'shade-red') }}">
+                                                {{ $milk_purchase->order_status }}
+                                            </span>
 
                                         </td>
-                                        <td>{{ $milk_purchase->payment_status }}</td>
+
                                         <td>
-                                            <div class="actions">
-                                                <a href="{{ route('admin.milk-purchases.invoice', $milk_purchase) }}" target="_blank">
+                                            <div class="">
+                                                <a href="{{ route('admin.milk-purchases.invoice', $milk_purchase) }}"
+                                                    target="_blank">
                                                     <i class="bi bi-file-pdf text-success"></i>
                                                 </a>
                                                 <a href="{{ route('admin.milk-purchases.edit', $milk_purchase) }}">

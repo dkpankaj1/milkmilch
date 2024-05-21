@@ -21,6 +21,7 @@ use App\Http\Controllers\Web\Backend\SellReportController;
 use App\Http\Controllers\Web\Backend\StockController;
 use App\Http\Controllers\Web\Backend\StockReportController;
 use App\Http\Controllers\Web\Backend\SupplierController;
+use App\Http\Controllers\Web\Backend\TransactionController;
 use App\Http\Controllers\Web\Backend\UnitSettingController;
 use App\Http\Controllers\Web\Backend\UserController;
 use App\Http\Controllers\Web\Profile\ProfileController;
@@ -94,8 +95,10 @@ Route::group(
         Route::get('stocks',[StockController::class,'index'])->name('stocks.index');
         Route::get('stocks/report',[StockReportController::class,'index'])->name('stocks.report');
 
-        Route::get('transaction/{payment}/create',[PaymentTransactionController::class,'create'])->name('transaction.create');
-        Route::post('transaction/{payment}/store',[PaymentTransactionController::class,'store'])->name('transaction.store');
+        // Route::get('transaction/{payment}/create',[PaymentTransactionController::class,'create'])->name('transaction.create');
+        // Route::post('transaction/{payment}/store',[PaymentTransactionController::class,'store'])->name('transaction.store');
+
+        Route::resource('transaction',TransactionController::class);
 
         Route::resource('units', UnitSettingController::class);
         Route::get('units/delete/{unit}', [UnitSettingController::class, 'delete'])->name('units.delete');

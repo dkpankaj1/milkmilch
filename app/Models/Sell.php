@@ -35,8 +35,9 @@ class Sell extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function payment()
+
+    public function transactions()
     {
-        return $this->belongsTo(Payment::class);
+        return $this->belongsToMany(Transaction::class);
     }
 }

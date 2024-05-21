@@ -26,7 +26,7 @@ class SellController extends Controller
     {
 
         $sellQuery = Sell::query();
-        
+
         if (auth()->user()->hasRole('admin')) {
             $sells = $sellQuery->latest()->with('customer')->get();
         } else {
@@ -148,11 +148,12 @@ class SellController extends Controller
     {
 
         $stockQuery = Stock::query();
-        $stocks = $stockQuery->whereDate('best_befour', '>=', Carbon::today())->whereHas('product', function ($query) use ($request) {
+        $stocks = $stockQuery->where('available', '>', 0)->whereDate('best_befour', '>=', Carbon::today())->whereHas('product', function ($query) use ($request) {
             $query->where('name', 'like', '%' . $request->search . '%')
-            ->orwhere('code',  $request->search);
+                ->orwhere('code', $request->search);
         })->get();
 
+        
         return $this->sendSuccess('stock', new StockCollection($stocks));
 
     }
@@ -163,10 +164,21 @@ class SellController extends Controller
     }
     public function getCustomer(Request $request)
     {
-        $customer = Customer::where('assign_to',auth()->user()->id)->latest()->whereHas('user', function ($query) {
-            $query->where('status', 1);
-        })->get();
+        $today = Carbon::today()->toDateString();
+        // $customer = Customer::where('assign_to', auth()->user()->id)->latest()->whereHas('user', function ($query) {
+        //     $query->where('status', 1);
+        // })->get();
 
-        return $this->sendSuccess('customers', new CustomerCollection($customer));
+        $customers = Customer::where('assign_to', auth()->user()->id)
+            ->whereHas('user', function ($query) {
+                $query->where('status', 1);
+            })
+            ->whereDoesntHave('sales', function ($query) use ($today) {
+                $query->whereDate('date', $today);
+            })
+            ->latest()
+            ->get();
+
+        return $this->sendSuccess('customers', new CustomerCollection($customers));
     }
 }
