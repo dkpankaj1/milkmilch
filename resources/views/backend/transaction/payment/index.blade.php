@@ -26,8 +26,9 @@
                                 </option>
                             </select>
 
-                            <input type="date" name="date" class="form-control" value="{{ old('date') }}">
+                            <input type="date" name="date" class="form-control" value="{{ old('date',request()->get('date')) }}">
 
+                            <input type="text" name="transaction_unique_id" class="form-control" placeholder="transaction Id" value="{{ old('transaction_unique_id',request()->get('transaction_unique_id')) }}">
 
                             <select class="select-single js-states form-control" data-live-search="true" name="customer"
                                 id="customer_select">
@@ -38,19 +39,6 @@
                                         {{ $customer->user->name }} -  {{ $customer->user->phone }}
                                     </option>
                                 @endforeach
-                            </select>
-
-
-                            <select class="select-single form-select" name="payment">
-                                <option value=""> -- paytment --</option>
-                                <option value="pending" @if (old('payment',request()->get('payment')) == 'pending') selected @endif> pending
-                                </option>
-                                <option value="paid" @if (old('payment',request()->get('payment')) == 'paid') selected @endif> paid
-                                </option>
-                                <option value="partial" @if (old('payment',request()->get('payment')) == 'partial') selected @endif>partial
-                                </option>
-                                <option value="generated" @if (old('payment',request()->get('payment')) == 'generated') selected @endif>
-                                    generated</option>
                             </select>
 
                             <button type="submit" class="btn btn-light w-100">

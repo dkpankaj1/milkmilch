@@ -15,10 +15,45 @@ class TransactionPaymentController extends Controller
 {
     public function index(Request $request)
     {
-        $transactionPayments = TransactionPayment::with('transaction')->paginate();
+        // Initialize the base query
+        $transactionPaymentsQuery = TransactionPayment::query();
+
+        // Eager load the customers and associated users
         $customers = Customer::with('user')->get();
+
+        // Set default limit for pagination
+        $limitInput = $request->query('limit', 20);
+
+        // Apply filters based on the request parameters
+        if ($request->filled('transaction_unique_id')) {
+            $transactionPaymentsQuery->whereHas('transaction', function ($query) use ($request) {
+                $query->where('unique_id', $request->transaction_unique_id);
+            });
+        }
+
+        if ($request->filled('date')) {
+            $transactionPaymentsQuery->where('date', $request->date);
+        }
+
+        if ($request->filled('customer')) {
+            $transactionPaymentsQuery->whereHas('transaction', function ($query) use ($request) {
+                $query->whereHas('customer', function ($query) use ($request) {
+                    $query->where('id', $request->customer);
+                });
+            });
+        }
+
+        // Eager load the transactions and paginate the results
+        $transactionPayments = $transactionPaymentsQuery
+            ->with('transaction')
+            ->latest()
+            ->paginate($limitInput)
+            ->withQueryString();
+
+        // Return the view with the data
         return view('backend.transaction.payment.index', compact('transactionPayments', 'customers'));
     }
+
 
     public function create(Transaction $transaction)
     {

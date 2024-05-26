@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Backend\SellController;
 use App\Http\Controllers\Api\Backend\SupplierController;
 use App\Http\Controllers\Api\Backend\UserController;
 use App\Http\Controllers\Api\Profile\ProfileController;
+use App\Http\Controllers\Api\Backend\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,9 @@ Route::group(['middleware' => ['auth:sanctum', 'api_roles:customer,rider,supplie
     Route::apiResource('riders', RiderController::class);
     Route::apiResource('suppliers', SupplierController::class);
     Route::apiResource('users', UserController::class);
+
+    Route::get('transaction/by-customer',[TransactionController::class,'getByCustomer']);
+    Route::post('transaction/by-customer',[TransactionController::class,'addPaymentCollection']);
 
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile-update', [ProfileController::class, 'update']);

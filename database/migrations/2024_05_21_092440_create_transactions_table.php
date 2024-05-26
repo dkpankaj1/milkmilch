@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('other_amt',8,2)->default(0);
             $table->decimal('grand_total',8,2)->default(0);
             $table->decimal('paid_amount',8,2)->default(0);
+            $table->decimal('collect_amount',8,2)->default(0);
             $table->string('status'); //[ generated,processing,completed]
             $table->timestamps();
             $table->softDeletes();

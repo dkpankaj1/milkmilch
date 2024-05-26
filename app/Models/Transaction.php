@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         "unique_id",
         "date",
@@ -19,6 +19,7 @@ class Transaction extends Model
         "other_amt",
         "grand_total",
         "paid_amount",
+        "collect_amount",
         "status",
     ];
     public function customer()

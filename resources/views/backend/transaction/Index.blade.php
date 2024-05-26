@@ -47,13 +47,11 @@
 
                             <select class="select-single form-select" name="payment">
                                 <option value=""> -- paytment --</option>
-                                <option value="pending" @if (old('payment', request()->get('payment')) == 'pending') selected @endif> pending
+                                <option value="generated" @if (old('payment', request()->get('payment')) == 'generated') selected @endif> generated
                                 </option>
-                                <option value="paid" @if (old('payment', request()->get('payment')) == 'paid') selected @endif> paid
+                                <option value="processing" @if (old('payment', request()->get('payment')) == 'processing') selected @endif>processing
                                 </option>
-                                <option value="partial" @if (old('payment', request()->get('payment')) == 'partial') selected @endif>partial
-                                </option>
-                                <option value="generated" @if (old('payment', request()->get('payment')) == 'generated') selected @endif>
+                                <option value="completed" @if (old('payment', request()->get('payment')) == 'completed') selected @endif>
                                     generated</option>
                             </select>
 
@@ -74,7 +72,8 @@
                                     <th>Customer</th>
                                     <th>Mobile</th>
                                     <th>Grand Total ({{ $companyState->currency->symbol }})</th>
-                                    <th>Paid Amount ({{ $companyState->currency->symbol }})</th>
+                                    <th>Paid Amt ({{ $companyState->currency->symbol }})</th>
+                                    <th>Clt Amt ({{ $companyState->currency->symbol }})</th>
                                     <th>Rider</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -91,10 +90,11 @@
                                         <td>{{ $transaction->customer->user->phone }}</td>
                                         <td>{{ $transaction->grand_total }}</td>
                                         <td>{{ $transaction->paid_amount }}</td>
+                                        <td>{{ $transaction->collect_amount ? $transaction->collect_amount : 0 }}</td>
                                         <td>{{ $transaction->customer->belongsRider->name }}</td>
                                         <td>
                                             <span
-                                                class="badge rounded-pill {{ $transaction->status === 'paid' ? 'shade-primary' : ($transaction->status === 'partial' ? 'shade-yellow' : 'shade-red') }}">
+                                                class="badge rounded-pill {{ $transaction->status === 'completed' ? 'shade-green' : ($transaction->status === 'processing' ? 'shade-yellow' : 'shade-red') }}">
                                                 {{ $transaction->status }}
                                             </span>
                                         </td>
