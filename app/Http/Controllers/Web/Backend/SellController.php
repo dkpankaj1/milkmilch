@@ -23,7 +23,7 @@ class SellController extends Controller
     public function index(Request $request)
     {
 
-        $customers = Customer::with(['user:id,name'])->select('id', 'user_id')->get();
+        $customers = Customer::with(['user:id,name,phone'])->select('id', 'user_id')->get();
         $riders = Rider::with(['user:id,name'])->select('id', 'user_id')->get();
         $limitInput = $request->query('limit', 20);
         $dateInput = $request->query('date', '');

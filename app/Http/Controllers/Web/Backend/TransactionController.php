@@ -12,16 +12,33 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::latest()->paginate();
-        return view('backend.transaction.index', compact('transactions'));
+        $transactionQuery = Transaction::query();
+        $customers = Customer::with(['user:id,name,phone'])->select('id', 'user_id')->get();
+        $limitInput = $request->query('limit', 20);
+
+        if ($request->filled('payment')) {
+            $transactionQuery = $transactionQuery->where('status', $request->payment);
+        }
+
+        if ($request->filled('date')) {
+            $transactionQuery = $transactionQuery->where('date', $request->date);
+        }
+
+        if ($request->filled('customer')) {
+            $transactionQuery = $transactionQuery->where('customer_id', $request->customer);
+        }
+
+        $transactions = $transactionQuery->latest()->paginate($limitInput);
+        return view('backend.transaction.index', compact('transactions','customers'));
     }
 
     /**
@@ -86,6 +103,7 @@ class TransactionController extends Controller
             DB::transaction(function () use ($request) {
 
                 $transactionData = [
+                    "unique_id" => time(),
                     "date" => Carbon::today()->format('Y-m-d'),
                     "customer_id" => $request->customer_id,
                     "amount" => Sell::whereIn('id', $request->id)
@@ -136,7 +154,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return view('backend.transaction.show', compact('transaction'));
     }
 
     /**
@@ -144,7 +162,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        
     }
 
     /**
@@ -155,11 +173,52 @@ class TransactionController extends Controller
         //
     }
 
+    public function delete(Transaction $transaction)
+    {
+        return view('backend.transaction.delete', ['transaction' => $transaction]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Transaction $transaction)
     {
-        //
+
+        try {
+            // Begin a transaction
+            DB::transaction(function () use ($transaction) {
+
+                // Check if the transaction is in a deletable state
+                if ($transaction->status != TransactionStatus::GENERATED) {
+                    throw new \Exception("Only transactions with status 'Completed' or 'Processing' cannot be deleted.");
+                }
+
+                // Detach associated sells
+                $transaction->sells()->sync([]);
+
+                // Update the payment status of the sells
+                Sell::whereIn('id', $transaction->sells->pluck('id'))->update([
+                    'payment_status' => PaymentStatusEnums::PENDING,
+                ]);
+
+                // Delete the transaction
+                $transaction->delete();
+            });
+
+            // Provide success feedback
+            toastr()->success(trans('crud.delete', ['model' => 'transaction']));
+            return redirect()->route('admin.transaction.index');
+        } catch (\Exception $e) {
+            // Provide error feedback
+            toastr()->error($e->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function print(Transaction $transaction)
+    {
+        // return view('backend.transaction.pdf', compact('transaction'));
+
+        return pdf::loadView('backend.transaction.pdf', ['transaction' => $transaction])->download('transaction_invoice_' . $transaction->id . '.pdf');
     }
 }

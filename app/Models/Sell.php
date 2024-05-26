@@ -19,7 +19,6 @@ class Sell extends Model
         'grand_total',
         'paid_amt',
         'note',
-        'payment_id',
         'user_id'
     ];
 

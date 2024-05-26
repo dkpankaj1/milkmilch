@@ -5,7 +5,7 @@
             <h2 class="text-center display-5 text-bold">Search</h2>
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <form action="{{ route('admin.payment.create') }}">
+                    <form action="">
                         <div class="input-group">
                             <input type="search" name="search" class="form-control"
                                 placeholder="Search customer. . .">

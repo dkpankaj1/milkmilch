@@ -71,6 +71,9 @@
                         <li>
                             <a href="{{ route('admin.transaction.index') }}">List</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.transaction-payment.index') }}">Payment</a>
+                        </li>
                     </ul>
                 </div>
             </li>

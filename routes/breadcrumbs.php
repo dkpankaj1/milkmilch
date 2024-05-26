@@ -14,9 +14,9 @@ Breadcrumbs::for('admin.batches.create', function ($trail) {
     $trail->push('Add', route('admin.batches.create'));
 });
 // >>Dashboard > batches > edit
-Breadcrumbs::for('admin.batches.edit', function ($trail,$batches) {
+Breadcrumbs::for('admin.batches.edit', function ($trail, $batches) {
     $trail->parent('admin.batches.index');
-    $trail->push('Edit', route('admin.batches.edit',$batches));
+    $trail->push('Edit', route('admin.batches.edit', $batches));
 });
 
 
@@ -43,9 +43,9 @@ Breadcrumbs::for('admin.currencies.create', function ($trail) {
     $trail->push('Add', route('admin.currencies.create'));
 });
 // >>Dashboard > currency > edit
-Breadcrumbs::for('admin.currencies.edit', function ($trail,$currency) {
+Breadcrumbs::for('admin.currencies.edit', function ($trail, $currency) {
     $trail->parent('admin.currencies.index');
-    $trail->push('Edit', route('admin.currencies.edit',$currency));
+    $trail->push('Edit', route('admin.currencies.edit', $currency));
 });
 
 
@@ -60,9 +60,9 @@ Breadcrumbs::for('admin.customers.create', function ($trail) {
     $trail->push('Add', route('admin.customers.create'));
 });
 // >>Dashboard > customers > edit
-Breadcrumbs::for('admin.customers.edit', function ($trail,$customer) {
+Breadcrumbs::for('admin.customers.edit', function ($trail, $customer) {
     $trail->parent('admin.customers.index');
-    $trail->push('Edit', route('admin.customers.edit',$customer));
+    $trail->push('Edit', route('admin.customers.edit', $customer));
 });
 
 
@@ -77,9 +77,9 @@ Breadcrumbs::for('admin.categories.create', function ($trail) {
     $trail->push('Add', route('admin.categories.create'));
 });
 // >>Dashboard > categories > edit
-Breadcrumbs::for('admin.categories.edit', function ($trail,$category) {
+Breadcrumbs::for('admin.categories.edit', function ($trail, $category) {
     $trail->parent('admin.categories.index');
-    $trail->push('Edit', route('admin.categories.edit',$category));
+    $trail->push('Edit', route('admin.categories.edit', $category));
 });
 
 
@@ -94,9 +94,9 @@ Breadcrumbs::for('admin.milks.create', function ($trail) {
     $trail->push('Add', route('admin.milks.create'));
 });
 // >>Dashboard > milk > edit
-Breadcrumbs::for('admin.milks.edit', function ($trail,$milk) {
+Breadcrumbs::for('admin.milks.edit', function ($trail, $milk) {
     $trail->parent('admin.milks.index');
-    $trail->push('Edit', route('admin.milks.edit',$milk));
+    $trail->push('Edit', route('admin.milks.edit', $milk));
 });
 
 
@@ -111,9 +111,9 @@ Breadcrumbs::for('admin.milk-purchases.create', function ($trail) {
     $trail->push('Add', route('admin.milk-purchases.create'));
 });
 // >>Dashboard > milk-purchases > edit
-Breadcrumbs::for('admin.milk-purchases.edit', function ($trail,$milk_purchases) {
+Breadcrumbs::for('admin.milk-purchases.edit', function ($trail, $milk_purchases) {
     $trail->parent('admin.milk-purchases.index');
-    $trail->push('Edit', route('admin.milk-purchases.edit',$milk_purchases));
+    $trail->push('Edit', route('admin.milk-purchases.edit', $milk_purchases));
 });
 
 // >>Dashboard > Milk purchase > report
@@ -142,9 +142,9 @@ Breadcrumbs::for('admin.payment.create', function ($trail) {
     $trail->push('Generate', route('admin.payment.create'));
 });
 // >>Dashboard > payment > edit
-Breadcrumbs::for('admin.payment.edit', function ($trail,$payment) {
+Breadcrumbs::for('admin.payment.edit', function ($trail, $payment) {
     $trail->parent('admin.payment.index');
-    $trail->push('Edit', route('admin.payment.edit',$payment));
+    $trail->push('Edit', route('admin.payment.edit', $payment));
 });
 
 
@@ -159,9 +159,9 @@ Breadcrumbs::for('admin.products.create', function ($trail) {
     $trail->push('Add', route('admin.products.create'));
 });
 // >>Dashboard > products > edit
-Breadcrumbs::for('admin.products.edit', function ($trail,$product) {
+Breadcrumbs::for('admin.products.edit', function ($trail, $product) {
     $trail->parent('admin.products.index');
-    $trail->push('Edit', route('admin.products.edit',$product));
+    $trail->push('Edit', route('admin.products.edit', $product));
 });
 
 
@@ -178,9 +178,9 @@ Breadcrumbs::for('admin.riders.create', function ($trail) {
     $trail->push('Add', route('admin.riders.create'));
 });
 // >>Dashboard > riders > edit
-Breadcrumbs::for('admin.riders.edit', function ($trail,$user) {
+Breadcrumbs::for('admin.riders.edit', function ($trail, $user) {
     $trail->parent('admin.riders.index');
-    $trail->push('Edit', route('admin.riders.edit',$user));
+    $trail->push('Edit', route('admin.riders.edit', $user));
 });
 
 // >>Dashboard > sells
@@ -194,9 +194,9 @@ Breadcrumbs::for('admin.sells.create', function ($trail) {
     $trail->push('Add', route('admin.sells.create'));
 });
 // >>Dashboard > sells > edit
-Breadcrumbs::for('admin.sells.edit', function ($trail,$sells) {
+Breadcrumbs::for('admin.sells.edit', function ($trail, $sells) {
     $trail->parent('admin.sells.index');
-    $trail->push('Edit', route('admin.sells.edit',$sells));
+    $trail->push('Edit', route('admin.sells.edit', $sells));
 });
 
 // >>Dashboard > sells > edit
@@ -223,9 +223,9 @@ Breadcrumbs::for('admin.suppliers.create', function ($trail) {
     $trail->push('Add', route('admin.suppliers.create'));
 });
 // >>Dashboard > suppliers > edit
-Breadcrumbs::for('admin.suppliers.edit', function ($trail,$user) {
+Breadcrumbs::for('admin.suppliers.edit', function ($trail, $user) {
     $trail->parent('admin.suppliers.index');
-    $trail->push('Edit', route('admin.suppliers.edit',$user));
+    $trail->push('Edit', route('admin.suppliers.edit', $user));
 });
 
 // >>Dashboard > stocks
@@ -248,10 +248,39 @@ Breadcrumbs::for('admin.transaction.create', function ($trail) {
     $trail->push('Create', route('admin.transaction.create'));
 });
 // >>Dashboard > payment > edit
-Breadcrumbs::for('admin.transaction.edit', function ($trail,$transaction) {
+Breadcrumbs::for('admin.transaction.edit', function ($trail, $transaction) {
     $trail->parent('admin.transaction.index');
-    $trail->push('Edit', route('admin.transaction.edit',$transaction));
+    $trail->push('Edit', route('admin.transaction.edit', $transaction));
 });
+
+// >>Dashboard > payment > edit
+Breadcrumbs::for('transaction-payment.edit', function ($trail, $transaction) {
+    $trail->parent('admin.transaction.index');
+    $trail->push('Edit', route('admin.transaction-payment.update', $transaction));
+});
+
+// >>Dashboard > payment > show
+Breadcrumbs::for('admin.transaction.show', function ($trail, $transaction) {
+    $trail->parent('admin.transaction.index');
+    $trail->push('Show', route('admin.transaction.show', $transaction));
+});
+
+// ==================== transaction :: end =================
+
+// ==================== transaction :: begin ===============
+
+// >>Dashboard > payment
+Breadcrumbs::for('admin.transaction-payment.index', function ($trail) {
+    $trail->parent('admin.transaction.index');
+    $trail->push('Transaction Payment', route('admin.transaction-payment.index'));
+});
+// >>Dashboard > payment > create
+Breadcrumbs::for('admin.transaction-payment.create', function ($trail,$transaction) {
+    $trail->parent('admin.transaction.index');
+    $trail->push('Create Payment', route('admin.transaction-payment.create',$transaction));
+});
+
+
 
 // ==================== transaction :: end =================
 
@@ -267,9 +296,9 @@ Breadcrumbs::for('admin.users.create', function ($trail) {
     $trail->push('Add', route('admin.users.create'));
 });
 // >>Dashboard > user > edit
-Breadcrumbs::for('admin.users.edit', function ($trail,$user) {
+Breadcrumbs::for('admin.users.edit', function ($trail, $user) {
     $trail->parent('admin.users.index');
-    $trail->push('Edit', route('admin.users.edit',$user));
+    $trail->push('Edit', route('admin.users.edit', $user));
 });
 
 
@@ -284,9 +313,9 @@ Breadcrumbs::for('admin.units.create', function ($trail) {
     $trail->push('Add', route('admin.units.create'));
 });
 // >>Dashboard > units > edit
-Breadcrumbs::for('admin.units.edit', function ($trail,$unit) {
+Breadcrumbs::for('admin.units.edit', function ($trail, $unit) {
     $trail->parent('admin.units.index');
-    $trail->push('Edit', route('admin.units.edit',$unit));
+    $trail->push('Edit', route('admin.units.edit', $unit));
 });
 
 

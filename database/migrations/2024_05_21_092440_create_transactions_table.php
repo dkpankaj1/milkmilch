@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('unique_id');
             $table->timestamp('date');
             $table->foreignId('customer_id')->nullable()->index();
             $table->decimal('amount',8,2)->default(0);

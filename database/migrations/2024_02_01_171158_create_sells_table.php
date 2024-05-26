@@ -23,7 +23,6 @@ return new class extends Migration
             $table->decimal('grand_total',8,2);
             $table->decimal('paid_amt',8,2)->default(0);
             $table->text('note');
-            $table->unsignedBigInteger('payment_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

@@ -10,6 +10,7 @@ class Transaction extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
+        "unique_id",
         "date",
         "customer_id",
         "amount",
@@ -32,5 +33,9 @@ class Transaction extends Model
     public function sells()
     {
         return $this->belongsToMany(Sell::class);
+    }
+    public function payment()
+    {
+        return $this->hasMany(TransactionPayment::class);
     }
 }
