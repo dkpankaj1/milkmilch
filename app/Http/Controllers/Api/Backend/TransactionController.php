@@ -20,37 +20,75 @@ class TransactionController extends Controller
         ]);
 
         try {
-            $transactions = Transaction::where('customer_id', $request->customer)->where('status', TransactionStatus::GENERATED)->get();
+            $transactions = Transaction::where('customer_id', $request->customer)
+            ->where('status', TransactionStatus::GENERATED)
+            ->orWhere('status', TransactionStatus::PROCESSING)
+            ->first();
+
             $customer = Customer::with('user')->find($request->customer)->first();
 
-            return $this->sendSuccess('stock', [
-                'customer' => [
-                    "id" => $customer->id,
-                    "name" => $customer->user->name,
-                    "email" => $customer->user->email,
-                    "phone" => $customer->user->phone,
-                    "address" => $customer->user->address,
-                    "city" => $customer->user->city,
-                    "state" => $customer->user->state,
-                    "postal_code" => $customer->user->postal_code,
-                    "country" => $customer->user->country,
-                    "wallet" => $customer->wallet,
-                ],
-                "transaction" => $transactions
-            ]);
+            if ($transactions) {
+                return $this->sendSuccess('transaction', [
+                    'customer' => [
+
+                        "id" => $customer->id,
+                        "name" => $customer->user->name,
+                        "email" => $customer->user->email,
+                        "phone" => $customer->user->phone,
+                        "address" => $customer->user->address,
+                        "city" => $customer->user->city,
+                        "state" => $customer->user->state,
+                        "postal_code" => $customer->user->postal_code,
+                        "country" => $customer->user->country,
+                        "wallet" => $customer->wallet,
+
+                    ],
+                    "transaction" => [
+                        'id' => $transactions->id,
+                        'unique_id' => $transactions->unique_id,
+                        'date' => $transactions->date,
+                        'customer_id' => $transactions->customer_id,
+                        'grand_total' => $transactions->grand_total,
+                        'collect_amount' => $transactions->collect_amount,
+                        'collect_method' => $transactions->collect_method,
+                        'status' => $transactions->status,
+                    ]
+
+                ]);
+            } else {
+                return $this->sendSuccess('transaction', [
+                    'customer' => [
+
+                        "id" => $customer->id,
+                        "name" => $customer->user->name,
+                        "email" => $customer->user->email,
+                        "phone" => $customer->user->phone,
+                        "address" => $customer->user->address,
+                        "city" => $customer->user->city,
+                        "state" => $customer->user->state,
+                        "postal_code" => $customer->user->postal_code,
+                        "country" => $customer->user->country,
+                        "wallet" => $customer->wallet,
+
+                    ],
+                    "transaction" => null
+
+                ]);
+            }
+
+
         } catch (\Exception $e) {
             return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);
         }
-
 
     }
     public function addPaymentCollection(Request $request)
     {
         $request->validate([
             'transaction' => ['required', Rule::exists(Transaction::class, 'id')],
-            'amount' => ['required', 'numeric', 'min:0.01'],
+            'collect_amount' => ['required', 'numeric', 'min:0.01'],
+            'collect_method' => ['required']
         ]);
-
 
         try {
 
@@ -61,14 +99,13 @@ class TransactionController extends Controller
             }
 
             $transaction->update([
-                'collect_amount' => $request->amount,
+                'collect_amount' => $request->collect_amount ?? 0,
+                'collect_method' => $request->collect_method ?? 'cash',
                 'status' => TransactionStatus::PROCESSING
             ]);
 
-            return $this->sendSuccess('transaction', [
-                'transaction' => [
-                    $transaction
-                ]
+            return $this->sendSuccess('success', [
+                'transaction' => $transaction
             ]);
         } catch (\Exception $e) {
             return $this->sendError(trans('api.422'), ["error" => $e->getMessage()], 422);

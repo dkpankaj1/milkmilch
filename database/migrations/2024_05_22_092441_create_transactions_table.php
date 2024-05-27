@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('grand_total',8,2)->default(0);
             $table->decimal('paid_amount',8,2)->default(0);
             $table->decimal('collect_amount',8,2)->default(0);
+            $table->string('collect_method')->nullable(); // [cash,online]
             $table->string('status'); //[ generated,processing,completed]
             $table->timestamps();
             $table->softDeletes();

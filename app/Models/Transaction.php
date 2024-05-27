@@ -20,6 +20,7 @@ class Transaction extends Model
         "grand_total",
         "paid_amount",
         "collect_amount",
+        "collect_method",
         "status",
     ];
     public function customer()
