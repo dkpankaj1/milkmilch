@@ -144,5 +144,8 @@
     </div>
     <!-- Row end -->
 
+    @push('scripts')
+        <script src="{{ asset('assets/js/confirm.js') }}"></script>
+    @endpush
 
 </x-app-layout>

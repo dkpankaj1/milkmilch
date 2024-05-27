@@ -122,6 +122,25 @@
                 <!-- Content wrapper start -->
                 <div class="content-wrapper">
 
+                    @if (Session::has('toaster_danger'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ Session::get('toaster_danger') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if (Session::has('toaster_success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ Session::get('toaster_success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    </div>
+                @endif
+
+
+
+
                     {{ $slot }}
 
                 </div>

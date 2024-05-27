@@ -310,8 +310,9 @@ class MilkPurchaseController extends Controller
             }
             $milkPurchase->items()->delete();
             $milkPurchase->delete();
-            toastr()->success(trans('crud.delete', ['model' => 'MP-' . $milkPurchase->id]));
-            return redirect()->back();
+            // toastr()->success(trans('crud.delete', ['model' => 'MP-' . $milkPurchase->id]));
+            // return redirect()->back();
+            return redirect()->back()->with('toaster_danger',trans('crud.delete', ['model' => 'MP-' . $milkPurchase->id]));
         } catch (\Exception $e) {
             toastr()->error($e->getMessage());
             return redirect()->back();

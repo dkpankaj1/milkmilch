@@ -155,8 +155,9 @@ class ProductController extends Controller
     {
         try {
             $product->delete();
-            toastr()->success(trans('crud.delete', ['model' => 'product']));
-            return redirect()->back();
+            // toastr()->success(trans('crud.delete', ['model' => 'product']));
+            // return redirect()->back();
+            return redirect()->back()->with('toaster_danger',trans('crud.delete', ['model' => 'product']));
         } catch (\Exception $e) {
             toastr()->error($e->getMessage());
             return redirect()->back();

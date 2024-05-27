@@ -144,9 +144,11 @@ class SellController extends Controller
                 SellItems::insert($sellItms);
             });
 
-            toastr()->success(trans('crud.create', ['model' => 'sells']));
+            // toastr()->success(trans('crud.create', ['model' => 'sells']));
 
-            return redirect()->back();
+            // return redirect()->back();
+
+            return redirect()->back()->with('toaster_success',trans('crud.create', ['model' => 'sells']));
 
         } catch (\Exception $e) {
 
@@ -285,8 +287,8 @@ class SellController extends Controller
             $sell->items()->delete();
             $sell->delete();
 
-            toastr()->success(trans('crud.delete', ['model' => 'sells - ' . $sell->id]));
-            return redirect()->back();
+            // toastr()->success(trans('crud.delete', ['model' => 'sells - ' . $sell->id]));
+            return redirect()->back()->with('toaster_danger',trans('crud.delete', ['model' => 'sells - ' . $sell->id]));
         } catch (\Exception $e) {
             toastr()->error($e->getMessage());
             return redirect()->back();

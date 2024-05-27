@@ -38,7 +38,7 @@ class TransactionController extends Controller
         }
 
         $transactions = $transactionQuery->latest()->paginate($limitInput);
-        return view('backend.transaction.index', compact('transactions','customers'));
+        return view('backend.transaction.index', compact('transactions', 'customers'));
     }
 
     /**
@@ -141,8 +141,10 @@ class TransactionController extends Controller
 
             });
 
-            toastr()->success(trans('crud.create', ['model' => 'payment']));
-            return redirect()->route('admin.transaction.index');
+            // toastr()->success(trans('crud.create', ['model' => 'payment']));
+            // return redirect()->route('admin.transaction.index');
+
+            return redirect()->route('admin.transaction.index')->with('toaster_success',trans('crud.create', ['model' => 'transaction']));
         } catch (\Exception $e) {
             toastr()->error($e->getMessage());
             return redirect()->back();
@@ -162,7 +164,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        
+
     }
 
     /**
@@ -206,8 +208,10 @@ class TransactionController extends Controller
             });
 
             // Provide success feedback
-            toastr()->success(trans('crud.delete', ['model' => 'transaction']));
-            return redirect()->route('admin.transaction.index');
+            // toastr()->success(trans('crud.delete', ['model' => 'transaction']));
+            // return redirect()->route('admin.transaction.index');
+
+            return redirect()->route('admin.transaction.index')->with('toaster_danger', trans('crud.delete', ['model' => 'transaction']));
         } catch (\Exception $e) {
             // Provide error feedback
             toastr()->error($e->getMessage());
