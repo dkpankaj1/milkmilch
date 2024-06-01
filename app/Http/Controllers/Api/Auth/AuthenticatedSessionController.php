@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\LogoutRequest;
 use App\Http\Resources\UserResource;
-use App\Models\Company;
 use App\Traits\HttpResponses;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -28,18 +27,6 @@ class AuthenticatedSessionController extends Controller
         $data = [
             'user' => new UserResource(Auth::user()),
             'token' => Auth::user()->createToken($request->throttleKey())->plainTextToken,
-            'settings' => Company::select([
-                'name',
-                'email',
-                'phone',
-                'address',
-                'city',
-                'state',
-                'postal_code',
-                'country',
-                'upi',
-                'upi_barcode',
-            ])->get(),
         ];
 
         return $this->sendSuccess("login success", $data, 200);

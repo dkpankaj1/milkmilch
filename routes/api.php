@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Auth\PasswordUpdateController;
 use App\Http\Controllers\Api\Backend\CustomerController;
 use App\Http\Controllers\Api\Backend\RiderController;
 use App\Http\Controllers\Api\Backend\SellController;
+use App\Http\Controllers\Api\Backend\SettingController;
 use App\Http\Controllers\Api\Backend\SupplierController;
 use App\Http\Controllers\Api\Backend\UserController;
 use App\Http\Controllers\Api\Profile\ProfileController;
@@ -46,15 +47,16 @@ Route::group(['middleware' => ['auth:sanctum', 'api_roles:customer,rider,supplie
     Route::get('get-stock', [SellController::class, 'getStock']);
     Route::apiResource('sells', SellController::class);
     // sell api::end
-    
-    
+
+
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('riders', RiderController::class);
     Route::apiResource('suppliers', SupplierController::class);
     Route::apiResource('users', UserController::class);
+    Route::apiResource('settings', SettingController::class)->only(['index']);
 
-    Route::get('transaction/by-customer',[TransactionController::class,'getByCustomer']);
-    Route::post('transaction/by-customer',[TransactionController::class,'addPaymentCollection']);
+    Route::get('transaction/by-customer', [TransactionController::class, 'getByCustomer']);
+    Route::post('transaction/by-customer', [TransactionController::class, 'addPaymentCollection']);
 
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile-update', [ProfileController::class, 'update']);
