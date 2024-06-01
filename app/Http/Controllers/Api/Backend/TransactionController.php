@@ -25,7 +25,7 @@ class TransactionController extends Controller
             ->orWhere('status', TransactionStatus::PROCESSING)
             ->first();
 
-            $customer = Customer::with('user')->find($request->customer)->first();
+            $customer = Customer::with('user')->where('id',$request->customer)->first();
 
             if ($transactions) {
                 return $this->sendSuccess('transaction', [

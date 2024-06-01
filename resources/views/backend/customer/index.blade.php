@@ -13,7 +13,9 @@
                 <div class="card-body">
                     <form>
                         <div class="row">
-                            <div class="col-12 col-md-8"></div>
+                            <div class="col-12 col-md-8">
+                                <a class="btn btn-success" target="_blank" href="{{route('admin.customer.export')}}">Export</a>
+                            </div>
                             <div class="col-12 col-md-4">
                                 <div class="mb-3">
                                     <div class="input-group">

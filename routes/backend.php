@@ -57,6 +57,7 @@ Route::group(
 
         Route::resource('customers', CustomerController::class);
         Route::get('customers/delete/{customer}', [CustomerController::class, 'delete'])->name('customers.delete');
+        Route::get('customers-export', [CustomerController::class,'exportExcel'])->name('customer.export');
 
         Route::resource('milks', MilkController::class);
         Route::get('milks/delete/{milk}', [MilkController::class, 'delete'])->name('milks.delete');

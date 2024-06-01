@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Backend;
 
+use App\Exports\CustomerExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Backend\CustomerStoreRequest;
 use App\Http\Requests\Web\Backend\CustomerUpdateRequest;
@@ -13,6 +14,7 @@ use App\Notifications\SendWelcomeNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -25,8 +27,8 @@ class CustomerController extends Controller
         if ($request->filled("search")) {
             $customers = Customer::whereHas('user', function ($query) {
                 $query->where('name', 'Like', '%' . request('search') . '%')
-                ->orwhere('email', 'Like', '%' . request('search') . '%')
-                ->orwhere('phone', 'Like', '%' . request('search') . '%');
+                    ->orwhere('email', 'Like', '%' . request('search') . '%')
+                    ->orwhere('phone', 'Like', '%' . request('search') . '%');
             });
         } else {
             $customers = $customers->with('user')->latest();
@@ -41,7 +43,7 @@ class CustomerController extends Controller
 
     public function create(): View
     {
-        return view('backend.customer.create',['riders' => Rider::with('user')->latest()->get()]);
+        return view('backend.customer.create', ['riders' => Rider::with('user')->latest()->get()]);
     }
 
     public function store(CustomerStoreRequest $request): RedirectResponse
@@ -59,7 +61,7 @@ class CustomerController extends Controller
                 'address' => $request->address ?? "no address",
                 'city' => $request->city ?? "no city",
                 'state' => $request->state ?? " no state",
-                'postal_code' => $request->postal_code?? "no postal code",
+                'postal_code' => $request->postal_code ?? "no postal code",
                 'password' => bcrypt($password),
                 'role_id' => Role::where('name', 'customer')->first()->id,
                 'status' => $request->status
@@ -86,7 +88,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer): View
     {
         // $customerUser = User::where('id', $customer->user_id)->first();
-        return view('backend.customer.edit', ['customer' => $customer,'riders' => Rider::with('user')->latest()->get()]);
+        return view('backend.customer.edit', ['customer' => $customer, 'riders' => Rider::with('user')->latest()->get()]);
     }
     public function update(CustomerUpdateRequest $request, Customer $customer): RedirectResponse
     {
@@ -145,5 +147,10 @@ class CustomerController extends Controller
             toastr()->error($e->getMessage());
             return redirect()->back();
         }
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new CustomerExport, 'customer.xlsx');
     }
 }
