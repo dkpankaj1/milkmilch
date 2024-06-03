@@ -294,7 +294,7 @@
 
                                             <div class="col-sm-12 col-12">
                                                 <hr>
-                                                <button class="btn btn-info">Save Customer</button>
+                                                <button class="btn btn-info">Update</button>
                                             </div>
 
                                         </div>

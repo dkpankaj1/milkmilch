@@ -33,7 +33,7 @@
                                 </option>
                             </select>
 
-                            <input type="date" name="date" class="form-control" value="{{ old('date') }}">
+                            <input type="date" name="date" class="form-control" value="{{ old('date', request()->get('date')) }}">
 
                             <select class="form-control" data-live-search="true" name="customer" id="customer_select">
                                 <option value=""> -- select customer --</option>

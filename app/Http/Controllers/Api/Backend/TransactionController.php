@@ -21,8 +21,7 @@ class TransactionController extends Controller
 
         try {
             $transactions = Transaction::where('customer_id', $request->customer)
-            ->where('status', TransactionStatus::GENERATED)
-            ->orWhere('status', TransactionStatus::PROCESSING)
+            ->where('status', '!=',TransactionStatus::COMPLETED)
             ->first();
 
             $customer = Customer::with('user')->where('id',$request->customer)->first();
@@ -30,7 +29,6 @@ class TransactionController extends Controller
             if ($transactions) {
                 return $this->sendSuccess('transaction', [
                     'customer' => [
-
                         "id" => $customer->id,
                         "name" => $customer->user->name,
                         "email" => $customer->user->email,
@@ -41,7 +39,6 @@ class TransactionController extends Controller
                         "postal_code" => $customer->user->postal_code,
                         "country" => $customer->user->country,
                         "wallet" => $customer->wallet,
-
                     ],
                     "transaction" => [
                         'id' => $transactions->id,

@@ -15,6 +15,7 @@ use App\Http\Controllers\Web\Backend\PaymentController;
 use App\Http\Controllers\Web\Backend\ProductController;
 use App\Http\Controllers\Web\Backend\PurchaseReportController;
 use App\Http\Controllers\Web\Backend\RiderController;
+use App\Http\Controllers\Web\Backend\RiderSaleReportController;
 use App\Http\Controllers\Web\Backend\SellController;
 use App\Http\Controllers\Web\Backend\SellReportController;
 use App\Http\Controllers\Web\Backend\StockController;
@@ -78,6 +79,7 @@ Route::group(
         // Route::resource('payment',PaymentController::class);
         // Route::get('payment/invoice/{payment}',[PaymentController::class,'downloadPaymentInvoice'])->name('payment.invoice');
     
+        Route::get('riders-sale/report', RiderSaleReportController::class)->name('riders-sale.index');
         Route::resource('riders', RiderController::class);
         Route::get('riders/delete/{rider}', [RiderController::class, 'delete'])->name('riders.delete');
 

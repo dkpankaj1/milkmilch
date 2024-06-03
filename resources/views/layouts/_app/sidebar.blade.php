@@ -235,7 +235,10 @@
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="{{ route('admin.sell-report.index') }}">Sell Report</a>
+                            <a href="{{ route('admin.riders-sale.index') }}">Rider Sale</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.sell-report.index') }}">Sale Report</a>
                         </li>
                         <li>
                             <a href="{{ route('admin.purchase-report.index') }}">Purchase Report</a>

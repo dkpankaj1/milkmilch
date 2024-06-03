@@ -199,10 +199,18 @@ Breadcrumbs::for('admin.sells.edit', function ($trail, $sells) {
     $trail->push('Edit', route('admin.sells.edit', $sells));
 });
 
-// >>Dashboard > sells > edit
+
+// >>Dashboard > rider sells > Report
+Breadcrumbs::for('admin.riders-sale.index', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Rider Sale Report', route('admin.sell-report.index'));
+});
+
+
+// >>Dashboard > sells > Report
 Breadcrumbs::for('admin.sell-report.index', function ($trail) {
     $trail->parent('admin.sells.index');
-    $trail->push('Report', route('admin.sell-report.index'));
+    $trail->push('Rider Sale', route('admin.riders-sale.index'));
 });
 
 // >>Dashboard > stocks >report
