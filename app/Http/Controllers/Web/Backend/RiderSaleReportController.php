@@ -32,20 +32,46 @@ class RiderSaleReportController extends Controller
             $sellQuery = $sellQuery->where('user_id', $request->sale_by);
         }
 
-        $sales = $sellQuery
-            ->with('items.stock')
-            ->with([
-                'items' => function ($query) {
-                    $query->join('stocks', 'stocks.id', '=', 'sell_items.stock_id')
-                        ->selectRaw('sell_items.*, stocks.volume as stock_volume');
-                }
-            ])
-            ->get()
-            ->map(function ($sale) {
-                $sale->total_volume = $sale->items->sum('stock_volume');
-                return $sale;
-            });
+        $sales = $sellQuery->get();
 
-        return view('reports.riders-sale.index', ['sells' => $sales, 'riders' => $riders]);
+        $saleData = [];
+
+        foreach ($sales as $sale) {
+            $data = [];
+
+            $data['id'] = $sale->id;
+            $data['date'] = $sale->date;
+            $data['customer'] = $sale->customer->user->name;
+            $data['order_status'] = $sale->order_status;
+            $data['payment_status'] = $sale->payment_status;
+            $data['grand_total'] = $sale->grand_total;
+            $data['paid_amt'] = $sale->paid_amt;
+            $data['user_id'] = $sale->user_id;
+            $data['total_volume'] = 0;
+
+            foreach ($sale->items as $item) {
+                $data['total_volume'] = $item->quentity * $item->stock->volume;
+            }
+
+            $saleData[] = $data;
+
+        }
+
+
+        // $sales = $sellQuery
+        //     ->with('items.stock')
+        //     ->with([
+        //         'items' => function ($query) {
+        //             $query->join('stocks', 'stocks.id', '=', 'sell_items.stock_id')
+        //                 ->selectRaw('sell_items.*, stocks.volume as stock_volume');
+        //         }
+        //     ])
+        //     ->get()
+        //     ->map(function ($sale) {
+        //         $sale->total_volume = $sale->items->sum('stock_volume');
+        //         return $sale;
+        //     });
+
+        return view('reports.riders-sale.index', ['sells' => $saleData, 'riders' => $riders]);
     }
 }

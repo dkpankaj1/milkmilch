@@ -175,9 +175,9 @@ class SellController extends Controller
 
         try {
 
-            if ($sell->payment_status === PaymentStatusEnums::PAID) {
-                throw new \Exception('Already Paid.');
-            }
+            // if ($sell->payment_status === PaymentStatusEnums::PAID) {
+            //     throw new \Exception('Already Paid.');
+            // }
 
             $customers = Customer::whereHas('user', function ($query) {
                 $query->where('status', 1);
